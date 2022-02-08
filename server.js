@@ -6,11 +6,23 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 const path = require('path');
-const router = require('./routes/home');
-const auth = require('./routes/auth');
 const mysql = require('mysql');
 const db = require('./database');
 const compression = require('compression');
+
+
+const multer = require('multer');
+const morgan = require('morgan');
+const { storage, cloudinary } = require('./cloudinary');
+const upload = multer({ storage });
+
+
+
+const router = require('./routes/home');
+const auth = require('./routes/auth');
+const maintemplate = require('./routes/maintemplate');
+
+
 
 const app = express();
 
@@ -43,6 +55,7 @@ app.use((req, res, next) => {
 
 app.use("/", router)
 app.use("/auth", auth)
+app.use("/maintemplate", maintemplate)
 
 
 
