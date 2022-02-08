@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
-const path = require('path/posix');
+const path = require('path');
 const router = require('./routes/home');
 const auth = require('./routes/auth');
 const mysql = require('mysql');
@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(compression());
 
-app.use(cookieParser("SecretCookieParser"));
+app.use(cookieParser());
 
 app.use(session({
     secret: "SecretSession",

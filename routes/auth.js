@@ -3,6 +3,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('../database');
+const isLoggedIn = require('../middleware');
 const router = express.Router();
 
 router.get("/register", (req, res) => {
@@ -11,7 +12,6 @@ router.get("/register", (req, res) => {
 
 router.post("/register", async (req, res) => {
     const { name, email, password, confirm_password } = req.body;
-    console.log(req.body);
     db.query("SELECT email FROM users WHERE email=?", [email], async (err, results) => {
         if (err) {
             console.log(err);
@@ -25,9 +25,7 @@ router.post("/register", async (req, res) => {
             res.redirect("/auth/register");
         }
 
-
         let hashedPassword = await bcrypt.hash(password, 10);
-        console.log(hashedPassword);
         const newUser = {
             name: name,
             email: email,
@@ -39,7 +37,6 @@ router.post("/register", async (req, res) => {
                 console.log(err);
             }
             else {
-                console.log(results);
                 req.flash("success_msg", "You are now registered and can log in");
                 res.redirect("/auth/register");
             }
@@ -59,35 +56,46 @@ router.get("/login", (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
+
         if (!email || !password) {
-            req.flash("error", "Missing email or password!");
-            res.redirect("/auth/login");
+            return res.status(400).render("auth/login", { error: "Please enter all fields" });
         }
-        db.query(
-            `SELECT * FROM users where email = ?`, [email],
-            async (err, rows, results) => {
-                if (!err) {
-                    const isMatch = await bcrypt.compare(password, rows[0].password);
-                    if (isMatch) {
-                        const loginuser = 'Yes';
-                        req.session.loginuser = loginuser;
-                        res.redirect("/");
-                    } else {
-                        req.flash("error", "Incorrect password!");
-                        res.redirect("/auth/login");
-                        // res.status(400).json("Incorrect password");
-                    }
-                } else {
-                    console.log(err);
-                }
+
+        db.query("SELECT * FROM users WHERE email=?", [email], async (err, results) => {
+            if (!results || await !(bcrypt.compare(password, results[0].password))) {
+                return res.status(400).render("auth/login", {
+                    error_msg: "Invalid credentials"
+                });
             }
-        );
-    } catch (e) {
-        req.flash("error", "Incorrect email or password!");
-        console.log(e);
-        res.status(400).json("Something broke!");
+            else {
+                const id = results[0].id;
+                const token = jwt.sign({ id }, process.env.JWT_SECRET, {
+                    expiresIn: process.env.JWT_EXPIRES_IN
+                });
+                const cookieOptions = {
+                    expires: new Date(
+                        Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+                    ),
+                    httpOnly: true
+                }
+
+                res.cookie("jwt", token, cookieOptions);
+                res.status(200).redirect("/mypage")
+            }
+        });
+    } catch (err) {
+        console.log(err);
     }
-});
+})
+
+
+router.get("/logout", (req, res) => {
+    res.cookie("jwt", "logout", {
+        expires: new Date(Date.now() + 2 * 1000),
+        httpOnly: true
+    });
+    res.status(200).redirect("/");
+})
 
 
 
