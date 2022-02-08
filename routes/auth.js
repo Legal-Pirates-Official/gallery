@@ -5,7 +5,11 @@ const bcrypt = require('bcryptjs');
 const db = require('../database');
 const isLoggedIn = require('../middleware');
 const router = express.Router();
+const nodemailer = require('nodemailer');
+const cookieParser = require('cookie-parser');
 
+
+// register
 router.get("/register", (req, res) => {
     res.render("auth/register");
 });
@@ -42,11 +46,11 @@ router.post("/register", async (req, res) => {
             }
         });
     });
-
-
-
-    // res.send("Form Submitted");
 });
+
+
+
+// login
 
 router.get("/login", (req, res) => {
     res.render("auth/login");
@@ -95,7 +99,125 @@ router.get("/logout", (req, res) => {
         httpOnly: true
     });
     res.status(200).redirect("/");
-})
+});
+
+
+
+
+// forgot password
+
+
+router.get("/forgotpassword", (req, res) => {
+    res.render("auth/forgotpassword");
+});
+
+router.post("/forgotpassword", async (req, res) => {
+    const { email } = req.body;
+    db.query("SELECT * FROM users WHERE email=?", [email], async (err, results) => {
+        if (err) {
+            console.log(err);
+        }
+        else if (results.length > 0) {
+            const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+                expiresIn: process.env.JWT_EXPIRES_IN
+            });
+            res.cookie('accessToken', token, {
+                maxAge: 1000 * 60 * 3,
+                httpOnly: true,
+                signed: false
+            });
+
+            const url = `http://localhost:8080/auth/resetpassword/${token}`;
+
+            let transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.EMAIL_ID,
+                    pass: 'Latha13087280$#'
+                }
+            });
+
+            const mailOptions = {
+                from: process.env.EMAIL_ID,
+                to: email,
+                subject: "Reset Password",
+                html: `<h1>Reset Password</h1>` + `<p>Click this <a href="${url}">link</a> to reset your password</p>`
+            };
+
+            transporter.sendMail(mailOptions, (err, info) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log(info);
+                }
+            });
+
+            res.render("auth/forgotpassword", {
+                success_msg: "Check your email for a link to reset your password"
+            });
+        }
+    });
+});
+
+
+// reset password
+
+router.get("/resetpassword/:token", async (req, res) => {
+    console.log("12345")
+    try {
+        const { token } = req.params;
+        // const { email } = jwt.verify(token, process.env.JWT_SECRET);
+        if (token === req.cookies.accessToken) {
+            res.render("auth/resetpassword", { token });
+        } else {
+            res.redirect("/auth/forgotpassword");
+        }
+
+    } catch (err) {
+        console.log(err);
+        res.redirect("/auth/forgotpassword");
+    }
+});
+
+
+router.post("/resetpassword/:token", async (req, res) => {
+    console.log("post")
+    try {
+        const { token } = req.params;
+        const { email, password, confirm_password } = req.body;
+        // const { email } = jwt.verify(token, process.env.JWT_SECRET);
+        // console.log(email);
+
+        if (!password || !confirm_password) {
+            return res.status(400).render("auth/resetpassword", {
+                error_msg: "Please enter all fields"
+            });
+        }
+
+        if (password != confirm_password) {
+            return res.status(400).render("auth/resetpassword", {
+                error_msg: "Passwords do not match"
+            });
+        }
+
+
+        let hashedPassword = await bcrypt.hash(password, 10);
+        db.query("UPDATE users SET password=? WHERE email=?", [hashedPassword, email], (err, results) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.render("auth/resetpassword", {
+                    success_msg: "Password reset successfully"
+                });
+            }
+        });
+    } catch (err) {
+        console.log(err);
+        res.redirect("/auth/forgotpassword");
+    }
+});
 
 
 
