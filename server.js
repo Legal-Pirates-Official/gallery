@@ -23,6 +23,7 @@ const upload = multer({ storage });
 const router = require('./routes/home');
 const auth = require('./routes/auth');
 const maintemplate = require('./routes/maintemplate');
+const templates = require('./routes/template');
 
 
 
@@ -59,6 +60,7 @@ app.use((req, res, next) => {
 app.use("/", router)
 app.use("/auth", auth)
 app.use("/maintemplate", maintemplate)
+app.use("/templates", templates)
 
 
 

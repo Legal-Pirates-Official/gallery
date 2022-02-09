@@ -11,32 +11,40 @@
 
 <body>
     <form action="/maintemplate" method="POST" enctype="multipart/form-data">
-        <div class="main-divs">
-            <h1>Are you committed?</h1>
-            <input type="text" name="answer1" id="answer1">
-            <input type="file" name="image1" id="image1">
-            <img src="#" id="imagesrc1" alt="">
-        </div>
-        <div class="main-divs">
-            <h1>Any selfies?</h1>
-            <input type="text" name="answer2" id="answer2">
-            <input type="file" name="image2" id="image2">
-        </div>
-        <div class="main-divs">
-            <h1>Where is your first meet?</h1>
-            <input type="text" name="answer3" id="answer3">
-            <input type="file" name="image3" id="image3">
-        </div>
-        <div class="main-divs">
-            <h1>Where is your first meet?</h1>
-            <input type="text" name="answer4" id="answer4">
-            <input type="file" name="image4" id="image4">
+        <div class="first-divs">
+            <div class="main-divs" id="heart">
+                <div class="main-divs_text">
+                    <h1>Are you committed?</h1>
+                    <input type="file" name="image1" id="image1">
+                    <img src="#" id="imagesrc1" alt="">
+                </div>
+            </div>
+            <div class="main-divs" id="heart">
+                <div class="main-divs_text">
+                    <h1>Any selfies?</h1>
+                    <input type="file" name="image2" id="image2">
+                    <img src="#" id="imagesrc2" alt="">
+                </div>
+            </div>
+            <div class="main-divs" id="heart">
+                <div class="main-divs_text">
+                    <h1>Where is your first meet?</h1>
+                    <input type="file" name="image3" id="image3">
+                    <img src="#" id="imagesrc3" alt="">
+                </div>
+            </div>
+            <div class="main-divs" id="heart">
+                <div class="main-divs_text">
+                    <h1>Where is your first meet?</h1>
+                    <input type="file" name="image4" id="image4">
+                    <img src="#" id="imagesrc4" alt="">
+                </div>
+            </div>
         </div>
         <div>
             <button type="submit">Submit</button>
         </div>
     </form>
-
 
 
     <script src="/javascript/maintemplate.js"></script>
