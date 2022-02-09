@@ -44,7 +44,7 @@ exports.addGallery = (req, res) => {
 						} else {
 						
 							console.log(res.cookie.user_name);
-							res.redirect('/' + res.cookies.user_name);
+							res.redirect('/' + req.cookies.user_name);
 						}
 					}
 				);
@@ -64,7 +64,7 @@ exports.addGallery = (req, res) => {
 							console.log(err);
 							res.redirect('/admintemplate');
 						} else {
-							res.redirect('/' + res.cookie.user_name);
+							res.redirect('/' + req.cookies.user_name);
 						}
 					}
 				);
