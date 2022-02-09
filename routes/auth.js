@@ -28,14 +28,16 @@ router.post("/register", async (req, res) => {
             req.flash("error_msg", "Passwords do not match");
             res.redirect("/auth/register");
         }
-
+        
         let hashedPassword = await bcrypt.hash(password, 10);
         const newUser = {
             name: name,
             email: email,
-            password: hashedPassword
+            password: hashedPassword,
+            gallery: null
         }
-
+        req.cookies.user = newUser;
+        console.log(req.cookies.user);
         db.query("INSERT INTO users SET ?", newUser, (err, results) => {
             if (err) {
                 console.log(err);
