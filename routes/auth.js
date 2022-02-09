@@ -9,6 +9,78 @@ const nodemailer = require('nodemailer');
 const cookieParser = require('cookie-parser');
 
 
+
+// router.get("/verify", (req, res) => {
+//     res.render("auth/verify");
+// });
+
+// verify new mail
+// router.post('/verify', (req, res) => {
+//     const { email } = req.body;
+//     db.query(`SELECT * FROM users WHERE email = '${email}'`, (err, results) => {
+//         if (err) {
+//             console.log(err);
+//             res.status(500).send('Internal Server Error');
+//         } else {
+//             if (results.length > 0) {
+//                 res.status(404).send('Email not found');
+//             } else {
+//                 const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+//                 const transporter = nodemailer.createTransport({
+//                     service: 'gmail',
+//                     auth: {
+//                         user: process.env.EMAIL_ID,
+//                         pass: process.env.EMAIL_PASSWORD
+//                     }
+//                 });
+//                 const mailOptions = {
+//                     from: '"Coding Blocks"',
+//                     to: email,
+
+//                     subject: 'Verify Email',
+//                     html: `<h1>Verify Email</h1>
+//                     <p>Click on the link below to verify your email</p>
+//                     <a href="http://localhost:3000/auth/register">Verify Email</a>`
+//                     // <a href="http://localhost:3000/auth/verify${token}">Verify Email</a>`
+//                 };
+//                 transporter.sendMail(mailOptions, (err, info) => {
+//                     if (err) {
+//                         console.log(err);
+//                         res.status(500).send('Internal Server Error');
+//                     } else {
+//                         console.log(info);
+//                         res.status(200).send('Email sent');
+//                     }
+//                 });
+//             }
+//         }
+//     });
+// });
+
+
+// verify new mail link with token
+// router.get('/verify/:token', (req, res) => {
+//     const { token } = req.params;
+//     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+//         if (err) {
+//             console.log(err);
+//             res.status(500).send('Internal Server Error');
+//         } else {
+//             const { email } = decoded;
+//             db.query(`UPDATE users SET verified = 1 WHERE email = '${email}'`, (err, results) => {
+//                 if (err) {
+//                     console.log(err);
+//                     res.status(500).send('Internal Server Error');
+//                 } else {
+//                     res.redirect('/auth/login');
+//                 }
+//             });
+//         }
+//     });
+// });
+
+
+
 // register
 router.get("/register", (req, res) => {
     res.render("auth/register");
@@ -16,13 +88,13 @@ router.get("/register", (req, res) => {
 
 router.post("/register", async (req, res) => {
     const { name, email, password, confirm_password } = req.body;
-    // const namenew = name.charAt(0).toUpperCase() + name.slice(1);
     const namenew = name.charAt(0).toUpperCase() + (name.toLowerCase()).slice(1);
- 
+
     console.log(namenew);
     db.query("SELECT email FROM users WHERE email=?", [email], async (err, results) => {
         if (err) {
             console.log(err);
+            res.redirect("/auth/register");
         }
         else if (results.length > 0) {
             req.flash("error_msg", "Email already exists");
@@ -90,16 +162,13 @@ router.post("/login", async (req, res) => {
                     httpOnly: true
                 }
                 res.cookie("user", results.insertId);
-                res.cookie("user_name", newUser.name);
+                // res.cookie("user_name", newUser.name);
                 res.cookie("jwt", token, cookieOptions);
-                res.status(200).redirect("/", {
-                    user: results[0],
-                });
+                res.status(200).redirect("/");
             }
         });
     } catch (err) {
         console.log(err);
-        
     }
 })
 
