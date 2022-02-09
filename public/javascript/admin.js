@@ -10,7 +10,6 @@ const imageSelecter = document.querySelectorAll('#imageSelect')
 imageSelecter.forEach((imageSelect,index) => {
   const imagee = document.querySelector(`#image${index}`)
   imageSelect.onchange = evt => {
-    console.log(index);
     const [file] = imageSelect.files
     if (file) {
       imagee.src = URL.createObjectURL(file)

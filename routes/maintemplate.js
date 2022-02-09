@@ -28,7 +28,6 @@ router.post("/", upload.fields([
     { name: "image3" },
     { name: "image4" },
 ]), (req, res) => {
-    // console.log(req.files)
 
     db.query("INSERT INTO maintemplate (answer1,answer2, answer3, answer4, image1, image2, image3, image4) values(?,?,?,?,?,?,?,?)", [req.body.answer1, req.body.answer2, req.body.answer3, req.body.answer4, req.files["image1"][0].path, req.files["image2"][0].path, req.files["image3"][0].path, req.files["image4"][0].path], (err, rows, response) => {
         if (!err) {

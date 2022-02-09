@@ -1,6 +1,5 @@
 const imageflow = (image, imagesrc) => {
     image.onchange = evt => {
-        console.log(index);
         const [file] = image.files
         if (file) {
             imagesrc.src = URL.createObjectURL(file)
