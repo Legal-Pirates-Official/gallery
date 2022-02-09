@@ -5,12 +5,14 @@ const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 exports.addGallery = (req, res) => {
-  db.query(`SELECT * FROM users where id = ${3}`, (err, results) => {
+  console.log(req.cookies.user);
+  const id = req.cookies.user;
+  db.query(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
     if (err) {
       console.log(err);
     } else {
       console.log(results, "results");
-      if (results[0].gallery.length > 0) {
+      if (results[0].gallery && results[0].gallery.length > 0) {
         console.log(req.files);
         const index = [];
         const name = [];
@@ -40,7 +42,7 @@ exports.addGallery = (req, res) => {
         const newimages = JSON.stringify(oldimages);
 
         db.query(
-          `UPDATE users SET ? where id = ${3}`,
+          `UPDATE users SET ? WHERE id = ${id}`,
           { gallery: newimages },
           (err, results) => {
             if (err) {
@@ -66,7 +68,7 @@ exports.addGallery = (req, res) => {
         console.log(images);
         const json = JSON.stringify(images);
         db.query(
-          `UPDATE users SET ? where id = ${3}`,
+          `UPDATE users SET ? WHERE id = ${id}`,
           { gallery: json },
           (err, results) => {
             if (err) {
@@ -81,4 +83,4 @@ exports.addGallery = (req, res) => {
   });
 };
 
-exports.getGallery = (req, res) => {};
+exports.getGallery = (req, res) => { };

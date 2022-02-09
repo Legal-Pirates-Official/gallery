@@ -35,14 +35,14 @@ router.post("/register", async (req, res) => {
             email: email,
             password: hashedPassword,
             gallery: null
-        }
-        req.cookies.user = newUser;
-        console.log(req.cookies.user);
+        };
         db.query("INSERT INTO users SET ?", newUser, (err, results) => {
             if (err) {
                 console.log(err);
             }
             else {
+                res.cookie("user" , results.insertId);
+                console.log(results.insertId);
                 req.flash("success_msg", "You are now registered and can log in");
                 res.redirect("/auth/register");
             }
