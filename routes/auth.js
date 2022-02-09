@@ -17,7 +17,6 @@ router.post('/register', async (req, res) => {
 	const { name, email, password, confirm_password } = req.body;
 	// const namenew = name.charAt(0).toUpperCase() + name.slice(1);
 	const namenew = name.charAt(0).toUpperCase() + name.toLowerCase().slice(1);
-
 	db.query(
 		'SELECT email FROM users WHERE email=?',
 		[email],
@@ -26,7 +25,7 @@ router.post('/register', async (req, res) => {
 				console.log(err);
 			} else if (results.length > 0) {
 				req.flash('error_msg', 'Email already exists');
-				return res.redirect('/auth/register');
+				return res.redirect('/auth/login');
 			} else if (password != confirm_password) {
 				req.flash('error_msg', 'Passwords do not match');
 				return res.redirect('/auth/register');
@@ -48,8 +47,8 @@ router.post('/register', async (req, res) => {
 				} else {
 					res.cookie('user', results.insertId);
 					res.cookie('user_name', newUser.name);
-					req.flash('success_msg', 'You are now registered and can log in');
-					return res.redirect('/auth/register');
+					req.flash('success_msg', 'You are now registered login to continue');
+					return res.redirect('/auth/login');
 				}
 			});
 		}
@@ -93,12 +92,14 @@ router.post('/login', async (req, res) => {
 						),
 						httpOnly: true
 					};
-					res.cookie('user', results.insertId);
-					res.cookie('user_name', newUser.name);
+					res.cookie('user', results[0].id);
+					res.cookie('user_name', results[0].name);
 					res.cookie('jwt', token, cookieOptions);
-					res.status(200).redirect('/', {
-						user: results[0]
-					});
+					if (!results[0].gallery) {
+						res.redirect('/admintemplate');
+					} else {
+						res.redirect('/' + results[0].gallery);
+					}
 				}
 			}
 		);
@@ -163,7 +164,6 @@ router.post('/forgotpassword', async (req, res) => {
 					if (err) {
 						console.log(err);
 					} else {
-						console.log(info);
 					}
 				});
 
@@ -178,7 +178,6 @@ router.post('/forgotpassword', async (req, res) => {
 // reset password
 
 router.get('/resetpassword/:token', async (req, res) => {
-	console.log('12345');
 	try {
 		const { token } = req.params;
 		// const { email } = jwt.verify(token, process.env.JWT_SECRET);
@@ -199,7 +198,6 @@ router.post('/resetpassword/:token', async (req, res) => {
 		const { token } = req.params;
 		const { email, password, confirm_password } = req.body;
 		// const { email } = jwt.verify(token, process.env.JWT_SECRET);
-		// console.log(email);
 
 		if (!password || !confirm_password) {
 			return res.status(400).render('auth/resetpassword', {
