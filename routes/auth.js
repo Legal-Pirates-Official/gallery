@@ -39,6 +39,7 @@ router.post("/register", async (req, res) => {
         db.query("INSERT INTO users SET ?", newUser, (err, results) => {
             if (err) {
                 console.log(err);
+                res.redirect("/auth/register", { error_msg: "Something went wrong" });
             }
             else {
                 res.cookie("user", results.insertId);
@@ -55,7 +56,7 @@ router.post("/register", async (req, res) => {
 // login
 
 router.get("/login", (req, res) => {
-    res.render("auth/login");
+    res.render("auth/login", { error_msg: req.flash("error_msg") });
     // res.json({"data": "data"});
 });
 
@@ -63,11 +64,9 @@ router.get("/login", (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
-
         if (!email || !password) {
             return res.status(400).render("auth/login", { error: "Please enter all fields" });
         }
-
         db.query("SELECT * FROM users WHERE email=?", [email], async (err, results) => {
             if (!results || await !(bcrypt.compare(password, results[0].password))) {
                 return res.status(400).render("auth/login", {
@@ -87,11 +86,14 @@ router.post("/login", async (req, res) => {
                 }
                 res.cookie("user", results.insertId);
                 res.cookie("jwt", token, cookieOptions);
-                res.status(200).redirect("/mypage")
+                res.status(200).redirect("/", {
+                    user: results[0],
+                });
             }
         });
     } catch (err) {
         console.log(err);
+        
     }
 })
 
@@ -106,10 +108,7 @@ router.get("/logout", (req, res) => {
 });
 
 
-
-
 // forgot password
-
 
 router.get("/forgotpassword", (req, res) => {
     res.render("auth/forgotpassword");

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Page</title>
+</head>
+
+<body>
+    <%- include('./partials/navbar.ejs') %>
+
+        <div>
+            <% if (success_msg && success_msg.length) { %>
+                <p>
+                    <%= success_msg %>
+                </p>
+                <% } else { %>
+                    <p>
+                        <%= error_msg %>
+                    </p>
+                    <% } %>
+        </div>
+</body>
+
+</html>
