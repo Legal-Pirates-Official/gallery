@@ -5,19 +5,20 @@ const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 exports.addGallery = (req, res) => {
-  db.query(`SELECT * FROM users where id = ${0}`, (err, results) => {
+  db.query(`SELECT * FROM users where id = ${3}`, (err, results) => {
     if (err) {
       console.log(err);
     } else {
       console.log(results, "results");
-      if (results.length > 0) {
+      if (results[0].gallery.length > 0) {
         console.log(req.files);
         const index = [];
         const name = [];
         const cloudinaryName = [];
         for (const key in req.files) {
+          console.log(req.files[key]);
           cloudinaryName.push(
-            req.files[key][0].path.split("/GALLERY/")[1].slice(0, -4)
+            req.files[key][0].path.split("/gallery/")[1].slice(0, -4)
           );
 
           name.push(key);
@@ -31,7 +32,7 @@ exports.addGallery = (req, res) => {
         });
 
         console.log(updateimg, "new");
-        const oldimages = JSON.parse(results[0].images);
+        const oldimages = JSON.parse(results[0].gallery);
         index.forEach((element, i) => {
           oldimages[element] = updateimg[i];
         });
@@ -39,7 +40,7 @@ exports.addGallery = (req, res) => {
         const newimages = JSON.stringify(oldimages);
 
         db.query(
-          `UPDATE users SET ? where id = ${0}`,
+          `UPDATE users SET ? where id = ${3}`,
           { gallery: newimages },
           (err, results) => {
             if (err) {
