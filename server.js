@@ -2,7 +2,7 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const express = require('express');
 const ejsMate = require('ejs-mate');
 
-const multer = require("multer");
+
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');

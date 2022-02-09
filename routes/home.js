@@ -1,24 +1,14 @@
-<<<<<<< HEAD
-if (process.env.NODE_ENV !== "production") require("dotenv").config();
-const express = require("express");
-const path = require("path");
-const db = require('../database');
-const mysqlconnection = require("../database");
-=======
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const express = require('express');
-const path = require('path/posix');
-const mysqlconnection = require('../database');
+const path = require('path');
+const db = require('../database');
 const { isLoggedIn } = require('../middleware');
->>>>>>> 7beb93d9668f120228ee51a0d08816721506925a
 const router = express.Router();
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 
-<<<<<<< HEAD
-=======
 router.get("/", isLoggedIn, (req, res) => {
     res.render("index", { user: req.user });
 })
@@ -29,7 +19,6 @@ router.get("/mypage", isLoggedIn, (req, res) => {
         res.redirect("/auth/login");
     }
 })
->>>>>>> 7beb93d9668f120228ee51a0d08816721506925a
 
 const {addGallery} = require('../functions/index');
 
