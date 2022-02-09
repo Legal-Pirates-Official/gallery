@@ -85,7 +85,7 @@ router.post("/login", async (req, res) => {
                     ),
                     httpOnly: true
                 }
-
+                res.cookie("user" , results.insertId);
                 res.cookie("jwt", token, cookieOptions);
                 res.status(200).redirect("/mypage")
             }
@@ -101,6 +101,7 @@ router.get("/logout", (req, res) => {
         expires: new Date(Date.now() + 2 * 1000),
         httpOnly: true
     });
+    // res.cookie("user" , results.insertId);
     res.status(200).redirect("/");
 });
 
