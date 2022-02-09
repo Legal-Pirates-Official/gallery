@@ -41,7 +41,7 @@ router.get('/admintemplate', (req, res) => {
 		res.redirect('/auth/login');
 	}
 });
-router.get('/:username', (req, res) => {
+router.get('/user/:username', (req, res) => {
 	const username = req.params.username;
 	
 	if (req.cookies.user_name.toLowerCase() == username.toLowerCase()) {

@@ -60,10 +60,10 @@ app.use((req, res, next) => {
 
 
 app.use("/", router)
-app.use("/auth", auth)
-app.use("/maintemplate", maintemplate)
 app.use("/templates", templates)
+app.use("/maintemplate", maintemplate)
 app.use("/", contact)
+app.use("/auth", auth)
 
 
 
