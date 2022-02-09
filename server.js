@@ -24,6 +24,7 @@ const router = require('./routes/home');
 const auth = require('./routes/auth');
 const maintemplate = require('./routes/maintemplate');
 const templates = require('./routes/template');
+const contact = require('./routes/contact');
 
 
 
@@ -61,6 +62,7 @@ app.use("/", router)
 app.use("/auth", auth)
 app.use("/maintemplate", maintemplate)
 app.use("/templates", templates)
+app.use("/", contact)
 
 
 

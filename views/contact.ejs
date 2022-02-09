@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Contact</title>
+    <link rel="stylesheet" href="/styles/navbar.css" />
+</head>
+
+<body>
+    <%- include('./partials/navbar.ejs') %>
+        <div>
+            <div class="contact">
+                <h1>Email Us</h1>
+                <form method="POST" action="/contact">
+                    <div>
+                        <label for="name">
+                            <h3>Name</h3>
+                        </label>
+                        <input class="input-contact" type="text" id="name" name="name" required autofocus />
+                    </div>
+                    <div>
+                        <label for="email">
+                            <h3>Email Address</h3>
+                        </label>
+                        <input class="input-contact" type="email" id="email" name="email" required />
+                    </div>
+                    <div>
+                        <label for="number">
+                            <h3>Phone Number</h3>
+                        </label>
+                        <input class="input-contact" type="text" id="number" name="phone" minlength="10" maxlength="10"
+                            required />
+                    </div>
+                    <div class="full">
+                        <label for="message">
+                            <h3>Message</h3>
+                        </label>
+                        <textarea class="input-contact-message" name="message" id="message" rows="5"
+                            required></textarea>
+                    </div>
+                    <button class="button-contact" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+
+
+        <script src="/javascript/contact.js"></script>
+        <script src="/javascript/nav.js"></script>
+</body>
+
+</html>
