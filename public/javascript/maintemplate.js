@@ -1,7 +1,15 @@
-image1.onchange = evt => {
-    console.log(index);
-    const [file] = image1.files
-    if (file) {
-        imagesrc1.src = URL.createObjectURL(file)
+const imageflow = (image, imagesrc) => {
+    image.onchange = evt => {
+        console.log(index);
+        const [file] = image.files
+        if (file) {
+            imagesrc.src = URL.createObjectURL(file)
+        }
     }
 }
+
+
+imageflow(image1, imagesrc1);
+imageflow(image2, imagesrc2);
+imageflow(image3, imagesrc3);
+imageflow(image4, imagesrc4);
