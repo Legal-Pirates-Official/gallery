@@ -39,7 +39,6 @@ const cookieParser = require('cookie-parser');
 //                     subject: 'Verify Email',
 //                     html: `<h1>Verify Email</h1>
 //                     <p>Click on the link below to verify your email</p>
-//                     <a href="http://localhost:3000/auth/register">Verify Email</a>`
 //                     // <a href="http://localhost:3000/auth/verify${token}">Verify Email</a>`
 //                 };
 //                 transporter.sendMail(mailOptions, (err, info) => {
@@ -178,15 +177,6 @@ router.get("/logout", (req, res) => {
     });
     res.clearCookie("user");
     res.status(200).redirect("/");
-});
-
-router.get('/logout', (req, res) => {
-	res.cookie('jwt', 'logout', {
-		expires: new Date(Date.now() + 2 * 1000),
-		httpOnly: true
-	});
-	res.clearCookie('user');
-	res.status(200).redirect('/');
 });
 
 // forgot password

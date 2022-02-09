@@ -41,6 +41,7 @@ router.get('/admintemplate', (req, res) => {
 		res.redirect('/auth/login');
 	}
 });
+
 router.get('/user/:username', (req, res) => {
 	const username = req.params.username;
 	
