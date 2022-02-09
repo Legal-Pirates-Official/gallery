@@ -1,11 +1,13 @@
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const express = require('express');
 const ejsMate = require('ejs-mate');
+
+const multer = require("multer");
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
-const path = require('path/posix');
+const path = require('path');
 const router = require('./routes/home');
 const auth = require('./routes/auth');
 const mysql = require('mysql');
@@ -20,7 +22,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(compression());
 
@@ -41,8 +43,10 @@ app.use((req, res, next) => {
 })
 
 
+
 app.use("/", router)
 app.use("/auth", auth)
+
 
 
 
