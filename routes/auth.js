@@ -16,6 +16,10 @@ router.get("/register", (req, res) => {
 
 router.post("/register", async (req, res) => {
     const { name, email, password, confirm_password } = req.body;
+    // const namenew = name.charAt(0).toUpperCase() + name.slice(1);
+    const namenew = name.charAt(0).toUpperCase() + (name.toLowerCase()).slice(1);
+ 
+    console.log(namenew);
     db.query("SELECT email FROM users WHERE email=?", [email], async (err, results) => {
         if (err) {
             console.log(err);
@@ -31,7 +35,7 @@ router.post("/register", async (req, res) => {
 
         let hashedPassword = await bcrypt.hash(password, 10);
         const newUser = {
-            name: name,
+            name: namenew,
             email: email,
             password: hashedPassword,
             gallery: null

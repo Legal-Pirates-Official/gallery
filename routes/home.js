@@ -46,7 +46,7 @@ router.get("/admintemplate", (req, res) => {
 });
 router.get("/:username", (req, res) => {
   const username = req.params.username;
-  if (req.cookies.user_name == username) {
+  if (req.cookies.user_name == username || req.cookies.user_name == username.toLowerCase()) {
     console.log(req.cookies.user);
     const id = req.cookies.user;
     db.query(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
