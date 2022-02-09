@@ -28,7 +28,7 @@ router.post("/register", async (req, res) => {
             req.flash("error_msg", "Passwords do not match");
             res.redirect("/auth/register");
         }
-        
+
         let hashedPassword = await bcrypt.hash(password, 10);
         const newUser = {
             name: name,
@@ -41,7 +41,7 @@ router.post("/register", async (req, res) => {
                 console.log(err);
             }
             else {
-                res.cookie("user" , results.insertId);
+                res.cookie("user", results.insertId);
                 console.log(results.insertId);
                 req.flash("success_msg", "You are now registered and can log in");
                 res.redirect("/auth/register");
@@ -85,7 +85,7 @@ router.post("/login", async (req, res) => {
                     ),
                     httpOnly: true
                 }
-                res.cookie("user" , results.insertId);
+                res.cookie("user", results.insertId);
                 res.cookie("jwt", token, cookieOptions);
                 res.status(200).redirect("/mypage")
             }
@@ -101,7 +101,7 @@ router.get("/logout", (req, res) => {
         expires: new Date(Date.now() + 2 * 1000),
         httpOnly: true
     });
-    // res.cookie("user" , results.insertId);
+    res.clearCookie("user");
     res.status(200).redirect("/");
 });
 
