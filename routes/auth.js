@@ -42,6 +42,7 @@ router.post("/register", async (req, res) => {
             }
             else {
                 res.cookie("user", results.insertId);
+                res.cookie("user_name", newUser.name);
                 console.log(results.insertId);
                 req.flash("success_msg", "You are now registered and can log in");
                 res.redirect("/auth/register");
@@ -86,6 +87,7 @@ router.post("/login", async (req, res) => {
                     httpOnly: true
                 }
                 res.cookie("user", results.insertId);
+                res.cookie("user_name", newUser.name);
                 res.cookie("jwt", token, cookieOptions);
                 res.status(200).redirect("/mypage")
             }
