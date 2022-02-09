@@ -11,6 +11,11 @@ const db = require('../database');
 const { isloggedin } = require('../middleware');
 
 
+router.get("/", (req, res) => {
+    res.render("templates", {
+        user: req.user
+    });
+});
 
 router.get("/template1", (req, res, next) => {
     res.render("./templates/template1", {
