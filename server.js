@@ -1,6 +1,8 @@
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const express = require('express');
 const ejsMate = require('ejs-mate');
+
+
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -32,7 +34,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(compression());
 
@@ -53,9 +55,11 @@ app.use((req, res, next) => {
 })
 
 
+
 app.use("/", router)
 app.use("/auth", auth)
 app.use("/maintemplate", maintemplate)
+
 
 
 

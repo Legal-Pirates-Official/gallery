@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.grid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+}
+.box {
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 2px solid black;
+    position: relative;
+}
+
+.add {
+    height: 100px;
+    width: 100px;
+    position: absolute;
+
+}
+.box img {
+    width: 100%;
+    height: 100%;
+}
+.box input {
+    
+}
