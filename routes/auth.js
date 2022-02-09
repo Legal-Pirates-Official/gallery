@@ -9,7 +9,6 @@ const nodemailer = require('nodemailer');
 const cookieParser = require('cookie-parser');
 
 
-
 // router.get("/verify", (req, res) => {
 //     res.render("auth/verify");
 // });
