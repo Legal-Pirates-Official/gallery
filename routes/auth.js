@@ -118,6 +118,7 @@ router.post("/register", async (req, res) => {
 						error_msg: 'Something went wrong'
 					});
 				} else {
+					console.log(results);
 					res.cookie('user', results.insertId);
 					res.cookie('user_name', newUser.name);
 					req.flash('success_msg', 'You are now registered login to continue');
@@ -159,8 +160,8 @@ router.post("/login", async (req, res) => {
                     ),
                     httpOnly: true
                 }
-                res.cookie("user", results.insertId);
-                // res.cookie("user_name", newUser.name);
+                res.cookie("user", results[0].id);
+                res.cookie("user_name", results[0].name);
                 res.cookie("jwt", token, cookieOptions);
                 res.status(200).redirect("/");
             }
