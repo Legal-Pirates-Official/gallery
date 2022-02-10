@@ -54,7 +54,6 @@ router.post("/", upload.fields([
             console.log(err);
             res.redirect('/auth/login');
         } else {
-            console.log(response);
         }
     })
 });
