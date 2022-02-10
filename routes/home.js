@@ -10,6 +10,7 @@ const multer = require('multer');
 router.get('/', isLoggedIn, (req, res) => {
 	res.render('index', { user: req.user });
 });
+
 router.get('/mypage', isLoggedIn, (req, res) => {
 	if (req.user) {
 		res.render('mypage', { user: req.user });
@@ -18,7 +19,9 @@ router.get('/mypage', isLoggedIn, (req, res) => {
 	}
 });
 
+
 const { addGallery } = require('../functions/index');
+
 
 const upload = multer({ storage });
 
