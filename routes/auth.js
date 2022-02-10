@@ -56,7 +56,6 @@ router.post('/register', async (req, res) => {
 			subject: 'Register your account here',
 			html: `<a href="http://localhost:8080/auth/register/verify/${accessToken}" >Click here to verify your account</a>`
 		};
-		console.log(accessToken);
 		transporter.sendMail(mailOptions, function (error, info) {
 			if (error) {
 				console.log(error);
@@ -70,9 +69,7 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/register/verify/:token', async (req, res) => {
-	console.log(req.params.token);
 	jwt.verify(req.params.token, process.env.JWT_SECRET, (err, decoded) => {
-		console.log(decoded.password);
 		if (err) {
 			console.log(err);
 			req.flash('error_msg', 'Some error occured');
@@ -106,15 +103,13 @@ router.get('/register/verify/:token', async (req, res) => {
 						const cookieOptions = {
 							expires: new Date(
 								Date.now() +
-								process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+									process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
 							),
 							httpOnly: true
 						};
-						res.cookie('user', results.id);
-						res.cookie('user_name', results.name);
 						res.cookie('jwt', token, cookieOptions);
 						req.flash('success_msg', 'Account verified successfully');
-						return res.redirect('/auth/login');
+						return res.redirect('/');
 					}
 				}
 			);
@@ -140,14 +135,11 @@ router.post('/login', async (req, res) => {
 			'SELECT * FROM users WHERE email=?',
 			[email],
 			async (err, results) => {
-				console.log(await bcrypt.compare(password, results[0].password))
-				console.log(results)
-				if (!results) {
+				if (err || results.length === 0) {
 					return res.status(400).render('auth/login', {
 						error_msg: 'Invalid credentials'
 					});
-				}
-				else {
+				} else {
 					if (await bcrypt.compare(password, results[0].password)) {
 						const token = jwt.sign(
 							{ user_name: results[0].name },
@@ -158,12 +150,12 @@ router.post('/login', async (req, res) => {
 						);
 						const cookieOptions = {
 							expires: new Date(
-								Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+								Date.now() +
+									process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
 							),
 							httpOnly: true
 						};
-						res.cookie('user', results[0].id);
-						res.cookie('user_name', results[0].name);
+					
 						res.cookie('jwt', token, cookieOptions);
 						res.status(200).redirect('/');
 					} else {
@@ -184,8 +176,6 @@ router.get('/logout', (req, res) => {
 		expires: new Date(Date.now() + 2 * 1000),
 		httpOnly: true
 	});
-	res.clearCookie('user');
-	res.clearCookie('user_name');
 	res.clearCookie('jwt');
 	res.status(200).redirect('/');
 });
@@ -267,7 +257,6 @@ router.get('/resetpassword/:token', async (req, res) => {
 });
 
 router.post('/resetpassword/:token', async (req, res) => {
-	console.log('post');
 	try {
 		const { token } = req.params;
 		const { email, password, confirm_password } = req.body;
