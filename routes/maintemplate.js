@@ -41,14 +41,23 @@ router.post("/", upload.fields([
     { name: "image8" },
     { name: "image9" }
 ]), (req, res) => {
+    console.log(req.files,'req.files');
+    const name = [];
+    const index = [];
+    for (const key in req.files) {
+        name.push(key);
+        index.push(key.slice(-1));
+      }
+      console.log(name,index);
+      const images = [];
+      name.forEach((element) => {
+        images.push(req.files[element][0].path);
+      });
+       
+        
+        const json = JSON.stringify(images);
     
 
-    for (const key in req.files) {
-        images.push(req.files[key][0].path);
-        
-    }
-
-    const json = JSON.stringify(images);
     db.query(`UPDATE users SET ? where id = ${req.cookies.user}`,{valentine: json},  (err, response) => {
         if (err) {
             console.log(err);

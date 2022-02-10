@@ -40,8 +40,7 @@ exports.addGallery = (req, res) => {
 					);
 				}, 1000);
 				
-				  oldimages[element] = updateimg[i];
-				  
+				oldimages[element] = updateimg[i];
 				console.log(oldimages,'after');
 				console.log(updateimg,'after');
 			  //   setTimeout(() => {
