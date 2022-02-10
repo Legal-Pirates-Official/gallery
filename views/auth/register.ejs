@@ -5,42 +5,54 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/login.css">
     <title>Register</title>
 </head>
 
 <body>
-    <form action="/auth/register" method="POST">
-        <div>
-            <% if (error_msg && error_msg.length) { %>
-                <p>
-                    <%= error_msg %>
-                </p>
-                <% } else { %>
-                    <p>
-                        <%= success_msg %>
-                    </p>
-                    <% } %>
+    <Section class="loginpage">
+        <div class="login">
+            <div class="image">
+                <img src="/images/album2.jpg" alt="">
+            </div>
+            <div class="form">
+                <form class="formlogin" action="/auth/register" method="post" id="form">
+                    <div class="loginheading">
+                        <h1>Register</h1>
+                    </div>
+                    <div>
+                        <% if (error_msg && error_msg.length) { %>
+                            <p>
+                                <%= error_msg %>
+                            </p>
+                            <% } else { %>
+                                <p>
+                                    <%= success_msg %>
+                                </p>
+                                <% } %>
+                    </div>
+                    <div class="email">
+                        <input type="text" placeholder="Enter Your Name" name="Name" id="Name" autofocus required>
+                    </div>
+                    <div class="email">
+                        <input type="email" placeholder="Enter Your Email" name="email" id="email" required>
+                    </div>
+                    <div class="email">
+                        <input type="tel" placeholder="Enter Your Phone Number" name="Phoneno" id="Phoneno" required>
+                    </div>
+                    <div class="email">
+                        <input type="password" placeholder="Enter Your password" name="password" id="password" required>
+                    </div>
+                    <div class="btn">
+                        <button type="submit" class="submit">Submit</button>
+                    </div>
+                    <div class="text1">
+                        <p>Already Registered? <a href="/login.html">Login</a></p>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div>
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" required>
-        </div>
-        <div>
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" required>
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" required>
-        </div>
-        <div>
-            <label for="password">Confirm Password</label>
-            <input type="password" name="confirm_password" id="confirm_password" required>
-        </div>
-        <div>
-            <button type="submit">Submit</button>
-        </div>
-    </form>
+    </Section>
 
     <script src="/javascript/auth.js"></script>
 </body>
