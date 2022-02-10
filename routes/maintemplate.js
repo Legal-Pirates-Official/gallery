@@ -12,14 +12,14 @@ const { isloggedin } = require('../middleware');
 
 
 
-router.get("/", (req, res, next) => {
+router.get("/", (req, res) => {
     db.query(`SELECT * FROM users where id = ${req.cookies.user}`, (err,result) => {
         if (err) {
             console.log(err);
             res.redirect('/auth/login');
         } else {
             
-            if(result[0].valentine){
+            if(result[0] && result[0].valentine){
                 res.send('not allowed');
             } else {
                 res.render('maintemplate');
