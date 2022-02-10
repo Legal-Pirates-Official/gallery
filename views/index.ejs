@@ -6,8 +6,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Gallery</title>
-	<link rel="stylesheet" href="/styles/index.css" />
 	<link rel="stylesheet" href="/styles/navbar.css" />
+	<link rel="stylesheet" href="/styles/index.css" />
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/assets/owl.carousel.min.css" />
 	<link rel="stylesheet"
@@ -22,11 +23,11 @@
 		<section class="section-1">
 			<h1 class="sec1h1">GALLERY</h1>
 			<div class="sec1left">
-				<img class="section1vector1" src="/images/Vector 1.png" alt="vector-1" />
+				<img class="section1vector1" src="./images/Vector 1.png" alt="vector-1" />
 			</div>
 			<div class="sec1right">
 				<div class="mainimgsec1">
-					<img class="mainsec1img" src="/images/image-1.png" alt="">
+					<img class="mainsec1img" src="./images/image-1.png" alt="" />
 				</div>
 				<svg width="569" height="482" viewBox="0 0 569 482" fill="none" xmlns="http://www.w3.org/2000/svg"
 					class="sec1svg-1">
@@ -102,6 +103,27 @@
 			<img class="bg" src="/images/bg.png" alt="" />
 			<img class="long" src="/images/img.png" alt="" />
 		</section>
+		<section class="sectionswiper">
+			<div class="swiper mySwiper">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">Slide 1</div>
+					<div class="swiper-slide">Slide 2</div>
+					<div class="swiper-slide">Slide 3</div>
+					<div class="swiper-slide">Slide 4</div>
+					<div class="swiper-slide">Slide 5</div>
+					<div class="swiper-slide">Slide 6</div>
+					<div class="swiper-slide">Slide 7</div>
+					<div class="swiper-slide">Slide 8</div>
+					<div class="swiper-slide">Slide 9</div>
+				</div>
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-pagination"></div>
+			</div>
+		</section>
+
+
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2//2.0.0-beta.2.4/owl.carousel.min.js"></script>
 		<script src="/javascript/index.js"></script>
