@@ -58,17 +58,12 @@ app.use((req, res, next) => {
     next();
 })
 
-
-
 app.use("/", router)
 app.use("/en/templates", templates)
 app.use("/en/valentine", valentine)
 app.use("/en/", contact)
 app.use("/en/watermark", watermark)
 app.use("/auth", auth)
-
-
-
 
 app.listen(process.env.port, () => {
     console.log(`Server is running in ${process.env.port}`);
