@@ -4,6 +4,70 @@
   box-sizing: border-box;
 }
 
+/* abi code */
+
+.section1 {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  background: rgb(255, 0, 92);
+}
+.sec1left,
+.sec1right {
+  position: relative;
+  height: 100%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heartleft {
+  position: absolute;
+  height: 150%;
+  width: 150%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 20% 20% 30% 40% rgba(0, 0, 0, 0.69) inset;
+  background: #ff9900;
+  mask-image: url("../images/Layer\ 0.png");
+  mask-position: center;
+  mask-size: 50%;
+  mask-repeat: no-repeat;
+  z-index: 5;
+  transform: rotate(-36deg);
+}
+
+.heartright {
+  position: absolute;
+  height: 150%;
+  width: 150%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #ff9900;
+  mask-image: url("../images/Layer\ 0.png");
+  mask-position: center;
+  mask-size: 50%;
+  mask-repeat: no-repeat;
+  z-index: 5;
+  transform: rotate(36deg);
+}
+
+.heartright p {
+  position: relative;
+  width: 20%;
+  /* transform: rotate(-36deg); */
+}
+
+/* my code */
+
 form {
   width: 100%;
   height: 100vh;
