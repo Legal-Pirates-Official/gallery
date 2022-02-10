@@ -12,28 +12,49 @@ const { isloggedin } = require('../middleware');
 
 
 
-router.get("/", (req, res, next) => {
-    db.query('SELECT * FROM maintemplate', (err, rows, fields) => {
-        if (!err) {
-            res.render('maintemplate', { data: rows });
-        } else {
+router.get("/", (req, res) => {
+    db.query(`SELECT * FROM users where id = ${req.cookies.user}`, (err,result) => {
+        if (err) {
             console.log(err);
+            res.redirect('/auth/login');
+        } else {
+            
+            if(result[0] && result[0].valentine){
+                res.send('not allowed');
+            } else {
+                res.render('maintemplate');
+
+            }
         }
     });
 });
 
 router.post("/", upload.fields([
+    { name: "image0" },
     { name: "image1" },
     { name: "image2" },
     { name: "image3" },
     { name: "image4" },
+    { name: "image5" },
+    { name: "image6" },
+    { name: "image7" },
+    { name: "image8" },
+    { name: "image9" }
 ]), (req, res) => {
 
-    db.query("INSERT INTO maintemplate (answer1,answer2, answer3, answer4, image1, image2, image3, image4) values(?,?,?,?,?,?,?,?)", [req.body.answer1, req.body.answer2, req.body.answer3, req.body.answer4, req.files["image1"][0].path, req.files["image2"][0].path, req.files["image3"][0].path, req.files["image4"][0].path], (err, rows, response) => {
-        if (!err) {
-            res.render("maintemplate")
-        } else {
+
+    for (const key in req.files) {
+        images.push(req.files[key][0].path);
+        
+    }
+
+    const json = JSON.stringify(images);
+    db.query(`UPDATE users SET ? where id = ${req.cookies.user}`,{valentine: json},  (err, response) => {
+        if (err) {
             console.log(err);
+            res.redirect('/auth/login');
+        } else {
+            console.log(response);
         }
     })
 });
