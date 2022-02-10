@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport({
 router.post('/register', async (req, res) => {
 	const { name, email, password, confirm_password } = req.body;
 	const namenew = name.charAt(0).toUpperCase() + name.toLowerCase().slice(1);
-	db.query('SELECT * FROM users', (err, results) => {
+	db.query('SELECT * FROM users', async (err, results) => {
 		if (err) {
 			console.log(err);
 		} else {
@@ -46,7 +46,7 @@ router.post('/register', async (req, res) => {
 		return res.redirect('/auth/register');
 	} else {
 		const accessToken = jwt.sign(
-			{ user_name: name, email, password: bcrypt.hash(password, 10) },
+			{ user_name: name, email, password: await bcrypt.hash(password, 10) },
 			process.env.JWT_SECRET,
 			{ expiresIn: '1h' }
 		);
@@ -72,6 +72,7 @@ router.post('/register', async (req, res) => {
 router.get('/register/verify/:token', async (req, res) => {
 	console.log(req.params.token);
 	jwt.verify(req.params.token, process.env.JWT_SECRET, (err, decoded) => {
+		console.log(decoded.password);
 		if (err) {
 			console.log(err);
 			req.flash('error_msg', 'Some error occured');
@@ -80,7 +81,7 @@ router.get('/register/verify/:token', async (req, res) => {
 			db.query(
 				`INSERT INTO users SET ?`,
 				{
-					name: decoded.name,
+					name: decoded.user_name,
 					email: decoded.email,
 					password: decoded.password
 				},
@@ -139,31 +140,37 @@ router.post('/login', async (req, res) => {
 			'SELECT * FROM users WHERE email=?',
 			[email],
 			async (err, results) => {
-				if (
-					!results ||
-					(await !bcrypt.compare(password, results[0].password))
-				) {
+				console.log(await bcrypt.compare(password, results[0].password))
+				console.log(results)
+				if (!results) {
 					return res.status(400).render('auth/login', {
 						error_msg: 'Invalid credentials'
 					});
-				} else {
-					const token = jwt.sign(
-						{ user_name: results[0].name },
-						process.env.JWT_SECRET,
-						{
-							expiresIn: process.env.JWT_EXPIRES_IN
-						}
-					);
-					const cookieOptions = {
-						expires: new Date(
-							Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-						),
-						httpOnly: true
-					};
-					res.cookie('user', results[0].id);
-					res.cookie('user_name', results[0].name);
-					res.cookie('jwt', token, cookieOptions);
-					res.status(200).redirect('/');
+				}
+				else {
+					if (await bcrypt.compare(password, results[0].password)) {
+						const token = jwt.sign(
+							{ user_name: results[0].name },
+							process.env.JWT_SECRET,
+							{
+								expiresIn: process.env.JWT_EXPIRES_IN
+							}
+						);
+						const cookieOptions = {
+							expires: new Date(
+								Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+							),
+							httpOnly: true
+						};
+						res.cookie('user', results[0].id);
+						res.cookie('user_name', results[0].name);
+						res.cookie('jwt', token, cookieOptions);
+						res.status(200).redirect('/');
+					} else {
+						return res.status(400).render('auth/login', {
+							error_msg: 'Invalid credentials'
+						});
+					}
 				}
 			}
 		);
