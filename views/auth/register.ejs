@@ -1,48 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Register</title>
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-</head>
+	<body>
+		<form action="/auth/register" method="POST">
+			<div>
+				<% if (error_msg && error_msg.length) { %>
+				<p><%= error_msg %></p>
+				<% } else { %>
+				<p><%= success_msg %></p>
+				<% } %>
+			</div>
+			<div>
+				<label for="name">Name</label>
+				<input type="text" name="name" id="name" value="lohith" required />
+			</div>
+			<div>
+				<label for="email">Email</label>
+				<input
+					type="email"
+					name="email"
+					id="email"
+					value="srklohith05@gmail.com"
+					required
+				/>
+			</div>
+			<div>
+				<label for="password">Password</label>
+				<input
+					type="password"
+					name="password"
+					id="password"
+					value="loki12345"
+					required
+				/>
+			</div>
+			<div>
+				<label for="password">Confirm Password</label>
+				<input
+					type="password"
+					name="confirm_password"
+					id="confirm_password"
+					value="loki12345"
+					required
+				/>
+			</div>
+			<div>
+				<button type="submit">Submit</button>
+			</div>
+		</form>
 
-<body>
-    <form action="/auth/register" method="POST">
-        <div>
-            <% if (error_msg && error_msg.length) { %>
-                <p>
-                    <%= error_msg %>
-                </p>
-                <% } else { %>
-                    <p>
-                        <%= success_msg %>
-                    </p>
-                    <% } %>
-        </div>
-        <div>
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" required>
-        </div>
-        <div>
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" required>
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" required>
-        </div>
-        <div>
-            <label for="password">Confirm Password</label>
-            <input type="password" name="confirm_password" id="confirm_password" required>
-        </div>
-        <div>
-            <button type="submit">Submit</button>
-        </div>
-    </form>
-
-    <script src="/javascript/auth.js"></script>
-</body>
-
+		<script src="/javascript/auth.js"></script>
+	</body>
 </html>

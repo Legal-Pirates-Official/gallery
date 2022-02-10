@@ -41,28 +41,6 @@ router.get('/admintemplate', (req, res) => {
 		res.redirect('/auth/login');
 	}
 });
-router.get('/:username', (req, res) => {
-	const username = req.params.username;
-	
-	if (req.cookies.user_name.toLowerCase() == username.toLowerCase()) {
-		const id = req.cookies.user;
-		db.query(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
-			if (err) {
-				console.log(err);
-				res.redirect('/auth/login');
-			} else {
-				if (results[0].gallery && results[0].gallery.length > 0) {
-					const images = JSON.parse(results[0].gallery);
-					res.render('dummy', { arr: images });
-				} else {
-					res.redirect('/admintemplate');
-				}
-			}
-		});
-	} else {
-		res.redirect('/auth/login');
-	}
-});
 
 router.post(
 	'/submit',
@@ -83,4 +61,26 @@ router.post(
 	addGallery
 );
 
+router.get('/:username', (req, res) => {
+	const username = req.params.username;
+
+	if (req.cookies.user_name.toLowerCase() == username.toLowerCase()) {
+		const id = req.cookies.user;
+		db.query(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
+			if (err) {
+				console.log(err);
+				res.redirect('/auth/login');
+			} else {
+				if (results[0].gallery && results[0].gallery.length > 0) {
+					const images = JSON.parse(results[0].gallery);
+					res.render('dummy', { arr: images });
+				} else {
+					res.redirect('/admintemplate');
+				}
+			}
+		});
+	} else {
+		res.redirect('/auth/login');
+	}
+});
 module.exports = router;
