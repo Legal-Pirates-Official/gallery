@@ -10,26 +10,23 @@ const upload = multer({ storage });
 const db = require('../database');
 const { isloggedin } = require('../middleware');
 
-
-
-router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users where id = ${req.cookies.user}`, (err,result) => {
+router.get("/maintemplate", (req, res) => {
+    db.query(`SELECT * FROM users where id = ${req.cookies.user}`, (err, result) => {
         if (err) {
             console.log(err);
             res.redirect('/auth/login');
         } else {
-            
-            if(result[0] && result[0].valentine){
+
+            if (result[0] && result[0].valentine) {
                 res.send('not allowed');
             } else {
-                res.render('maintemplate');
-
+                res.render('./valentine/maintemplate');
             }
         }
     });
 });
 
-router.post("/", upload.fields([
+router.post("/maintemplate", upload.fields([
     { name: "image0" },
     { name: "image1" },
     { name: "image2" },
@@ -41,15 +38,12 @@ router.post("/", upload.fields([
     { name: "image8" },
     { name: "image9" }
 ]), (req, res) => {
-
-
     for (const key in req.files) {
         images.push(req.files[key][0].path);
-        
     }
 
     const json = JSON.stringify(images);
-    db.query(`UPDATE users SET ? where id = ${req.cookies.user}`,{valentine: json},  (err, response) => {
+    db.query(`UPDATE users SET ? where id = ${req.cookies.user}`, { valentine: json }, (err, response) => {
         if (err) {
             console.log(err);
             res.redirect('/auth/login');
@@ -58,7 +52,7 @@ router.post("/", upload.fields([
     })
 });
 
-router.post("/update", upload.fields([
+router.post("/maintemplate/update", upload.fields([
     { name: "image1" },
     { name: "image2" },
     { name: "image3" },
@@ -77,15 +71,62 @@ router.post("/update", upload.fields([
                 if (err) {
                     req.flash('error', 'Error occurred while Updating');
                     console.log(err);
-                    res.redirect('/maintemplate');
+                    res.redirect('/en/valentine/maintemplate');
                     return;
                 }
             }
         );
         req.flash('success', 'Images successfully updated');
-        res.redirect('/maintemplate');
+        res.redirect('/en/valentine/maintemplate');
     }
 ]));
 
+router.get("/category", (req, res) => {
+    db.query(`SELECT * FROM users where id = ${req.cookies.user}`, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.redirect('/auth/login');
+        } else {
+
+            if (result[0] && result[0].valentine) {
+                res.send('not allowed');
+            } else {
+                res.render('./valentine/category');
+            }
+        }
+    });
+});
+
+router.get("/templates", (req, res) => {
+    db.query(`SELECT * FROM users where id = ${req.cookies.user}`, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.redirect('/auth/login');
+        } else {
+
+            if (result[0] && result[0].valentine) {
+                res.send('not allowed');
+            } else {
+                res.render('./valentine/templates');
+            }
+        }
+    });
+});
+
+router.get("/templates/template1", (req, res) => {
+    db.query(`SELECT * FROM users where id = ${req.cookies.user}`, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.redirect('/auth/login');
+        } else {
+
+            if (result[0] && result[0].valentine) {
+                res.send('not allowed');
+            } else {
+                res.render('./valentine/templates/template1');
+            }
+        }
+    });
+});
 
 module.exports = router;

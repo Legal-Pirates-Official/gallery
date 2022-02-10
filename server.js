@@ -22,7 +22,7 @@ const upload = multer({ storage });
 
 const router = require('./routes/home');
 const auth = require('./routes/auth');
-const maintemplate = require('./routes/maintemplate');
+const valentine = require('./routes/valentine');
 const templates = require('./routes/template');
 const contact = require('./routes/contact');
 const watermark = require('./routes/watermark');
@@ -62,7 +62,7 @@ app.use((req, res, next) => {
 
 app.use("/", router)
 app.use("/en/templates", templates)
-app.use("/en/maintemplate", maintemplate)
+app.use("/en/valentine", valentine)
 app.use("/en/", contact)
 app.use("/en/watermark", watermark)
 app.use("/auth", auth)
