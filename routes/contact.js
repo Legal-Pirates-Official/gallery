@@ -16,7 +16,8 @@ router.get('/contact', (req, res) => {
 });
 
 router.post('/contact', (req, res) => {
-	const output = `
+	try {
+		const output = `
         <p>You have a new contact request</p>
         <h3>Contact Details</h3>
         <ul>  
@@ -27,27 +28,32 @@ router.post('/contact', (req, res) => {
         <h3>Message</h3>
         <p>${req.body.message}</p>
     `;
-	let transporter = nodemailer.createTransport({
-		service: 'gmail',
-		auth: {
-			user: process.env.EMAIL_ID,
-			pass: process.env.EMAIL_PASSWORD
-		}
-	});
+		let transporter = nodemailer.createTransport({
+			service: 'gmail',
+			auth: {
+				user: process.env.EMAIL_ID,
+				pass: process.env.EMAIL_PASSWORD
+			}
+		});
 
-	let mailOptions = {
-		from: process.env.EMAIL_ID,
-		to: process.env.EMAIL_ID,
-		subject: 'Gallery Contact Form',
-		html: output
-	};
+		let mailOptions = {
+			from: process.env.EMAIL_ID,
+			to: process.env.EMAIL_ID,
+			subject: 'Gallery Contact Form',
+			html: output
+		};
 
-	transporter.sendMail(mailOptions, (error, info) => {
-		if (error) {
-			return console.log(error);
-		}
-		res.render('./contact', { msg: 'Email has been sent' });
-	});
+		transporter.sendMail(mailOptions, (error, info) => {
+			if (error) {
+				return console.log(error);
+			}
+			console.log("dfgdsf");
+			return res.redirect('./contact');
+		});
+	} catch (error) {
+		console.log(error);
+		res.redirect('/');
+	}
 });
 
 module.exports = router;

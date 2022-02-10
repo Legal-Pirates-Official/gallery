@@ -10,27 +10,51 @@
 </head>
 
 <body>
-    <!-- navbar -->
-	<%- include("./partials/navbar.ejs") %>
-    <!-- Contact us page -->
-    <Section class="loginpage">
-        <div class="login">
-            <div class="image">
-                <img src="/images/album2.jpg" alt="">
-            </div>
-            <div class="form">
-                <form class="formlogin" action="" method="post" id="form">
-                    <div class="loginheading">
-                        <h1>Contact Us</h1>
-                    </div>
-                    <div class="email">
-                        <input type="text" placeholder="Enter Your Name" name="Name" id="Name" autofocus required>
-                    </div>
-                    <div class="email">
-                        <input type="email" placeholder="Enter Your Email" name="email" id="email" autofocus required>
-                    </div>
-                    <div class="textArea">
-                        <input type="text" placeholder="Enter Your Message" name="Message" id="Message" required>
+    <%- include('./partials/navbar.ejs') %>
+
+
+        <Section class="loginpage">
+            <div class="login">
+                <div class="image">
+                    <img src="/images/album2.jpg" alt="">
+                </div>
+                <div class="form">
+                    <form class="formlogin" action="/en/contact" method="POST" id="form">
+                        <div class="loginheading">
+                            <h1>Contact Us</h1>
+                        </div>
+                        <div class="email">
+                            <input type="text" placeholder="Enter Your Name" name="name" id="name" autofocus required>
+                        </div>
+                        <div class="email">
+                            <input type="email" placeholder="Enter Your Email" name="email" id="email"
+                                required>
+                        </div>
+                        <div class="email">
+                            <input type="text" placeholder="Enter Your Number" name="number" id="number" minlength="10" maxlength="10"
+                                required>
+                        </div>
+                        <div class="textArea">
+                            <input type="text" placeholder="Enter Your Message" name="Message" id="Message" required>
+                        </div>
+                        <div class="btn">
+                            <button type="submit" class="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="details">
+                    <div class="callus">
+                        <div class="call">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path
+                                    d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                            </svg>
+                            <h1>Call Us</h1>
+                        </div>
+                        <div class="phn">
+                            <p>+91-9888888888</p>
+                        </div>
                     </div>
                     <div class="btn">
                         <button type="submit" class="submit">Submit</button>

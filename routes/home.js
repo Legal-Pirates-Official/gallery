@@ -10,6 +10,7 @@ const multer = require('multer');
 router.get('/', isLoggedIn, (req, res) => {
 	res.render('index', { user: req.user });
 });
+
 router.get('/mypage', isLoggedIn, (req, res) => {
 	if (req.user) {
 		res.render('mypage', { user: req.user });
@@ -18,7 +19,9 @@ router.get('/mypage', isLoggedIn, (req, res) => {
 	}
 });
 
+
 const { addGallery } = require('../functions/index');
+
 
 const upload = multer({ storage });
 
@@ -41,10 +44,11 @@ router.get('/admintemplate', (req, res) => {
 		res.redirect('/auth/login');
 	}
 });
+
 router.get('/:username', (req, res) => {
 	const username = req.params.username;
 	
-	if (req.cookies.user_name.toLowerCase() == username.toLowerCase()) {
+	if (req.cookies.user_name && req.cookies.user_name.toLowerCase() == username.toLowerCase()) {
 		const id = req.cookies.user;
 		db.query(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
 			if (err) {
