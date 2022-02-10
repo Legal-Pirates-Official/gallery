@@ -42,17 +42,17 @@ router.post("/", upload.fields([
     { name: "image9" }
 ]), (req, res) => {
     console.log(req.files,'req.files');
-    const name = [];
-    const index = [];
-    for (const key in req.files) {
-        name.push(key);
-        index.push(key.slice(-1));
-      }
-      console.log(name,index);
+    // const name = [];
+    // const index = [];
+    // for (const key in req.files) {
+    //     name.push(key);
+    //     index.push(key.slice(-1));
+    //   }
+    //   console.log(name,index);
       const images = [];
-      name.forEach((element) => {
-        images.push(req.files[element][0].path);
-      });
+      for (i = 0; i < 10; i++) {
+        images.push(req.files[`image${i}`][0].path);
+      }
        
         
         const json = JSON.stringify(images);
