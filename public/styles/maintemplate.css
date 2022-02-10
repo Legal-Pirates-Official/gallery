@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap");
 * {
   padding: 0;
   margin: 0;
@@ -12,6 +13,7 @@ section {
   justify-content: center;
   align-items: center;
   position: relative;
+  font-family: "Oswald", sans-serif;
 }
 
 .cupid {
@@ -21,8 +23,7 @@ section {
   /* background: #000; */
 }
 
-.cupid-image
-{
+.cupid-image {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -31,8 +32,12 @@ section {
   left: 0;
   object-fit: contain;
   z-index: 3;
+  transition: all 0.1s ease-in-out;
 }
 
+.cupid-image:hover {
+  transform: scale(1.1);
+}
 
 .form-main-div {
   position: relative;
@@ -43,6 +48,7 @@ section {
   justify-content: center;
   align-items: center;
 }
+
 .form-main-div form {
   position: relative;
   width: 100%;
@@ -73,8 +79,28 @@ section {
 }
 
 .main-divs {
-  border: 1px solid #000;
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  transition: all 0.2s ease-in-out;
+  padding: 1%;
+  border-radius: 10px;
+  background: rgba(230, 230, 230, 0.3);
+}
+
+.main-divs:hover {
+  transform: scale(1.2);
+}
+
+.main-divs_text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .main-divs:nth-child(1) {
@@ -98,7 +124,7 @@ section {
 }
 
 .main-divs:nth-child(5) {
-  top: 50%;
+  top: 40%;
   left: 5%;
 }
 
@@ -175,4 +201,32 @@ section {
     font-size: 24px;
     min-width: 196px;
   }
+}
+
+.file-input__input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.file-input__label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  font-size: 14px;
+  padding: 10px 12px;
+  background-color: #4245a8;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+}
+
+.file-input__label svg {
+  height: 16px;
+  margin-right: 4px;
 }
