@@ -14,15 +14,12 @@
 // imageflow(image4, imagesrc4);
 
 
-const file = document.querySelector('.file');
-file.addEventListener('change', (e) => {
-    // Get the selected file
-    const [file] = e.target.files;
-    // Get the file name and size
-    const { name: fileName, size } = file;
-    // Convert size in bytes to kilo bytes
-    const fileSize = (size / 1000).toFixed(2);
-    // Set the text content
-    const fileNameAndSize = `${fileName} - ${fileSize}KB`;
-    document.querySelector('.file-name').textContent = fileNameAndSize;
-});
+const cupid = document.querySelector('.cupid');
+const maindivs = document.querySelectorAll('.main-divs');
+let index = 0;
+
+cupid.addEventListener('click', (e) => {
+    maindivs[index].classList.add('main-divs-active');
+    index++;
+    console.log(index);
+})
