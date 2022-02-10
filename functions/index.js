@@ -25,19 +25,22 @@ exports.addGallery = (req, res) => {
         });
 
         const oldimages = JSON.parse(results[0].gallery);
-		setTimeout(() => {
+		
 			index.forEach(async(element, i) => {
 				
 				const cloud = oldimages[element].split("/gallery/")[1].slice(0, -4)
 				console.log(cloud,'cloud');
 				console.log(oldimages,'before');
 				console.log(updateimg,'before');
-				await cloudinary.uploader.destroy(
-				  `gallery/${cloud}`,
-				  async (error, result) => {console.log(error, result)
-					  oldimages[element] = updateimg[i];
-				  }
-				  );
+				setTimeout(async() => {
+					await cloudinary.uploader.destroy(
+						`gallery/${cloud}`,
+						async (error, result) => {console.log(error, result)
+						}
+					);
+				}, 1000);
+				
+				  oldimages[element] = updateimg[i];
 				  
 				console.log(oldimages,'after');
 				console.log(updateimg,'after');
@@ -51,7 +54,7 @@ exports.addGallery = (req, res) => {
 			  //   }, 500);
 		  
 			  });
-		}, 500);
+		
         
 		console.log(oldimages,'oldimages after index');
         const newimages = JSON.stringify(oldimages);
