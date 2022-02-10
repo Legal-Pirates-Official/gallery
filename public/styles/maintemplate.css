@@ -89,6 +89,13 @@ section {
   padding: 1%;
   border-radius: 10px;
   background: rgba(230, 230, 230, 0.3);
+  display: none;
+}
+
+
+.main-divs-active
+{
+  display: flex;
 }
 
 .main-divs:hover {
