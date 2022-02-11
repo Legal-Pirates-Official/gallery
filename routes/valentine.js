@@ -53,9 +53,7 @@ router.post("/maintemplate", upload.fields([
             if(result[0] && result[0].valentine){
                 res.send('not allowed');
             } else {
-                db.query(SELECT  from questions)
                 res.render('maintemplate');
-
             }
         }
     })
