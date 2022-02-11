@@ -9,20 +9,15 @@ const { storage, cloudinary } = require('../cloudinary');
 const upload = multer({ storage });
 const db = require('../database');
 const { isloggedin } = require('../middleware');
-const jwt = require('jsonwebtoken');
 
 
-router.get("/", (req, res) => {
-    jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
-        res.render("templates", { user_name: decoded ? decoded.user_name : null });
-    });
-});
 
 router.get("/template1", (req, res, next) => {
-    jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
-        res.render("./templates/template1", { user_name: decoded ? decoded.user_name : null }
-        );
-    });
+    res.render("./watermark/template1", {
+        title: "Template 1",
+        user: req.user,
+    }
+    );
 });
 
 

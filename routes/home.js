@@ -6,17 +6,13 @@ const db = require('../database');
 const { isLoggedIn } = require('../middleware');
 const router = express.Router();
 const multer = require('multer');
+const jwt = require('jsonwebtoken');
 
-router.get('/', isLoggedIn, (req, res) => {
-	res.render('index', { user: req.user });
-});
 
-router.get('/mypage', isLoggedIn, (req, res) => {
-	if (req.user) {
-		res.render('mypage', { user: req.user });
-	} else {
-		res.redirect('/auth/login');
-	}
+router.get('/', (req, res) => {
+	jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
+		res.render('index', { user_name: decoded ? decoded.user_name : null });
+	});
 });
 
 
@@ -47,7 +43,7 @@ router.get('/admintemplate', (req, res) => {
 
 router.get('/:username', (req, res) => {
 	const username = req.params.username;
-	
+
 	if (req.cookies.user_name && req.cookies.user_name.toLowerCase() == username.toLowerCase()) {
 		const id = req.cookies.user;
 		db.query(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
@@ -86,5 +82,28 @@ router.post(
 	]),
 	addGallery
 );
+
+router.get('/:username', (req, res) => {
+	const username = req.params.username;
+
+	if (req.cookies.user_name.toLowerCase() == username.toLowerCase()) {
+		const id = req.cookies.user;
+		db.query(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
+			if (err) {
+				console.log(err);
+				res.redirect('/auth/login');
+			} else {
+				if (results[0].gallery && results[0].gallery.length > 0) {
+					const images = JSON.parse(results[0].gallery);
+					res.render('dummy', { arr: images });
+				} else {
+					res.redirect('/admintemplate');
+				}
+			}
+		});
+	} else {
+		res.redirect('/auth/login');
+	}
+});
 
 module.exports = router;

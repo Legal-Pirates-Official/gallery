@@ -8,10 +8,11 @@ const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const nodemailer = require("nodemailer");
+const jwt = require('jsonwebtoken');
 
 router.get('/contact', (req, res) => {
-	res.render('./contact', {
-		user: req.user
+	jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
+		res.render('./contact', { user_name: decoded ? decoded.user_name : null });
 	});
 });
 
@@ -47,7 +48,6 @@ router.post('/contact', (req, res) => {
 			if (error) {
 				return console.log(error);
 			}
-			console.log("dfgdsf");
 			return res.redirect('./contact');
 		});
 	} catch (error) {
