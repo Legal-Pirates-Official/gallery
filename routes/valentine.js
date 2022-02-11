@@ -159,6 +159,7 @@ router.post('/category/:mode', (err, result) => {
 		}
 	);
 });
+
 router.get('/templates', (req, res) => {
 	const jwtconst = jwt.verify(
 		req.cookies.jwt,
