@@ -25,23 +25,24 @@ exports.addGallery = (req, res) => {
         });
 
         const oldimages = JSON.parse(results[0].gallery);
-		
-			index.forEach(async(element, i) => {
-				
-				const cloud = oldimages[element].split("/gallery/")[1].slice(0, -4)
-				setTimeout(async() => {
-					await cloudinary.uploader.destroy(
-						`gallery/${cloud}`,
-						async (error, result) => {console.log(error, result)
-						}
-					);
-				}, 1000);
-				
-				  oldimages[element] = updateimg[i];
-		  
-			  });
-		
-        
+
+        index.forEach(async (element, i) => {
+
+          const cloud = oldimages[element].split("/gallery/")[1].slice(0, -4)
+          setTimeout(async () => {
+            await cloudinary.uploader.destroy(
+              `gallery/${cloud}`,
+              async (error, result) => {
+                console.log(error, result)
+              }
+            );
+          }, 1000);
+
+          oldimages[element] = updateimg[i];
+
+        });
+
+
         const newimages = JSON.stringify(oldimages);
         // cloudinaryName.push(updateimg.split('/gallery/')[1].slice(0, -4));
 
@@ -82,4 +83,4 @@ exports.addGallery = (req, res) => {
   });
 };
 
-exports.getGallery = (req, res) => {};
+exports.getGallery = (req, res) => { };
