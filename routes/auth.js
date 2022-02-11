@@ -90,10 +90,9 @@ router.get('/register/verify/:token', async (req, res) => {
 					} else {
 						const token = jwt.sign(
 							{
-								USER: results.id,
 								user_name: results.name,
 								email: results.email,
-								password: results.password
+								id: results.id,
 							},
 							process.env.JWT_SECRET,
 							{
@@ -103,7 +102,7 @@ router.get('/register/verify/:token', async (req, res) => {
 						const cookieOptions = {
 							expires: new Date(
 								Date.now() +
-									process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+								process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
 							),
 							httpOnly: true
 						};
@@ -142,7 +141,11 @@ router.post('/login', async (req, res) => {
 				} else {
 					if (await bcrypt.compare(password, results[0].password)) {
 						const token = jwt.sign(
-							{ user_name: results[0].name },
+							{
+								user_name: results[0].name,
+								email: results[0].email,
+								id: results[0].id,
+							},
 							process.env.JWT_SECRET,
 							{
 								expiresIn: process.env.JWT_EXPIRES_IN
@@ -151,11 +154,11 @@ router.post('/login', async (req, res) => {
 						const cookieOptions = {
 							expires: new Date(
 								Date.now() +
-									process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+								process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
 							),
 							httpOnly: true
 						};
-					
+
 						res.cookie('jwt', token, cookieOptions);
 						res.status(200).redirect('/');
 					} else {
