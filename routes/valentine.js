@@ -1,15 +1,15 @@
-if (process.env.NODE_ENV !== 'production') require('dotenv').config();
-const mysql = require('mysql');
-const express = require('express');
-const path = require('path');
+if (process.env.NODE_ENV !== "production") require("dotenv").config();
+const mysql = require("mysql");
+const express = require("express");
+const path = require("path");
 const router = express.Router({ mergeParams: true });
-const methodOverride = require('method-override');
-const multer = require('multer');
-const { storage, cloudinary } = require('../cloudinary');
+const methodOverride = require("method-override");
+const multer = require("multer");
+const { storage, cloudinary } = require("../cloudinary");
 const upload = multer({ storage });
-const db = require('../database');
-const { isloggedin } = require('../middleware');
-const jwt = require('jsonwebtoken');
+const db = require("../database");
+const { isloggedin } = require("../middleware");
+const jwt = require("jsonwebtoken");
 
 router.get('/maintemplate', (req, res) => {
 	const jwtconst = jwt.verify(
@@ -26,7 +26,15 @@ router.get('/maintemplate', (req, res) => {
 						if (result[0] && result[0].valentine) {
 							res.send('not allowed');
 						} else {
-							res.render('./valentine/maintemplate');
+              console.log(result[0].mode,'moders');
+              const ques = [];
+              db.query(`SELECT ${result[0].mode} from questions`, (err, result2) => {
+                result2.forEach((element) => {
+                  ques.push(element[result[0].mode]);
+                });
+                console.log(ques,'s');
+                res.render('./valentine/maintemplate',{text:ques});
+              });
 						}
 					}
 				}
@@ -50,6 +58,7 @@ router.post(
 		{ name: 'image9' }
 	]),
 	(req, res) => {
+    console.log(req.files);
 		const images = [];
 		for (const key in req.files) {
 			images.push(req.files[key][0].path);
@@ -128,31 +137,32 @@ router.get('/category', (req, res) => {
 						console.log(err);
 						res.redirect('/auth/login');
 					} else {
-						if (result[0] && result[0].valentine) {
-							res.send('not allowed');
-						} else {
+						
 							res.render('./valentine/category');
-						}
+						
 					}
 				}
 			);
 		}
 	);
 });
-router.post('/category/:mode', (err, result) => {
+router.get('/category/:mode', (req, res) => {
 	const jwtconst = jwt.verify(
 		req.cookies.jwt,
 		process.env.JWT_SECRET,
 		(err, decoded) => {
 			db.query(
-				`UPDATE users where id = ${decoded.id} SET ?`,
+				`UPDATE users  SET ? where id = ${decoded.id}`,
 				{ mode: req.params.mode },
+
+
+
 				(err, result) => {
 					if (err) {
 						console.log(err);
 						res.redirect('/auth/login');
 					} else {
-						res.redirect('/en/valentine/maintemplate');
+					  return 	res.redirect('/en/valentine/maintemplate');
 					}
 				}
 			);

@@ -182,7 +182,10 @@
     "gridar1 gridar3"
     "gridar2 gridar3";
 }
-
+.imgtemp {
+  width: 100%;
+  height: 100%;
+}
 .sec-5div1 {
   grid-area: gridar1;
   background: #000;
