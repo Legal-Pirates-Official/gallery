@@ -50,6 +50,13 @@ router.post("/maintemplate", upload.fields([
             console.log(err);
             res.redirect('/auth/login');
         } else {
+            if(result[0] && result[0].valentine){
+                res.send('not allowed');
+            } else {
+                db.query(SELECT  from questions)
+                res.render('maintemplate');
+
+            }
         }
     })
 });
