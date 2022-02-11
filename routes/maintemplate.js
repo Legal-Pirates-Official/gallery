@@ -12,16 +12,17 @@ const { isloggedin } = require('../middleware');
 
 
 
-router.get("/", (req, res) => {
+router.get("/:valentine", (req, res) => {
     db.query(`SELECT * FROM users where id = ${req.cookies.user}`, (err,result) => {
         if (err) {
             console.log(err);
             res.redirect('/auth/login');
         } else {
-            
+
             if(result[0] && result[0].valentine){
                 res.send('not allowed');
             } else {
+                db.query(`SELECT  from questions`)
                 res.render('maintemplate');
 
             }
@@ -42,13 +43,7 @@ router.post("/", upload.fields([
     { name: "image9" }
 ]), (req, res) => {
     console.log(req.files,'req.files');
-    // const name = [];
-    // const index = [];
-    // for (const key in req.files) {
-    //     name.push(key);
-    //     index.push(key.slice(-1));
-    //   }
-    //   console.log(name,index);
+
       const images = [];
       for (i = 0; i < 10; i++) {
         images.push(req.files[`image${i}`][0].path);
