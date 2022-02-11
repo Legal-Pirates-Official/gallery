@@ -123,19 +123,30 @@ router.get("/templates", (req, res) => {
     });
 });
 
-router.get("/templates/template1", (req, res) => {
+router.get("/templates/template1/:mode", (req, res) => {
+    const mode = req.params.mode
     const jwtconst = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
-        db.query(`SELECT * FROM users where id = ${decoded.id}`, (err, result) => {
+        db.query(`SELECT valentine FROM users where id = ${decoded.id}`, (err, result1) => {
             if (err) {
                 console.log(err);
                 res.redirect('/auth/login');
             } else {
-
-                if (result[0] && result[0].valentine) {
-                    res.send('not allowed');
-                } else {
-                    res.render('./valentine/templates/template1');
-                }
+                
+                const ques = []
+                db.query(`SELECT ${mode} from questions`,(err,result)=> {
+                    if(err){
+                        console.log(err);
+                    } else {
+                        result.forEach(element => {
+                           
+                            ques.push(element[mode]);
+                        });
+                        console.log(ques);
+                    }
+                })
+                console.log(result1);
+                const json = JSON.parse(result1)
+                res.render('./valentine/templates/template1',{text:ques,image:json})
             }
         });
     });
