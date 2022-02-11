@@ -3,6 +3,7 @@
   margin: 0;
   box-sizing: border-box;
 }
+
 /* section-1 */
 .section1 {
   position: relative;
@@ -33,6 +34,7 @@
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
 }
+
 /* section-2 */
 .section2 {
   position: relative;

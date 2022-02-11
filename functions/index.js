@@ -25,43 +25,26 @@ exports.addGallery = (req, res) => {
         });
 
         const oldimages = JSON.parse(results[0].gallery);
-		
-			index.forEach(async(element, i) => {
-				
-				const cloud = oldimages[element].split("/gallery/")[1].slice(0, -4)
-				console.log(cloud,'cloud');
-				console.log(oldimages,'before');
-				console.log(updateimg,'before');
-				setTimeout(async() => {
-					await cloudinary.uploader.destroy(
-						`gallery/${cloud}`,
-						async (error, result) => {console.log(error, result)
-						}
-					);
-				}, 1000);
-				
-				  oldimages[element] = updateimg[i];
-				  
-				console.log(oldimages,'after');
-				console.log(updateimg,'after');
-			  //   setTimeout(() => {
-			  //     cloudinaryName.push(
-			  //       // req.files[key][0].path.split('/gallery/')[1].slice(0, -4)
-			  //       oldimages[element].split("/gallery/")[1].slice(0, -4)
-					
-			  //     );
-				  
-			  //   }, 500);
-		  
-			  });
-		
-        
-		console.log(oldimages,'oldimages after index');
+
+        index.forEach(async (element, i) => {
+
+          const cloud = oldimages[element].split("/gallery/")[1].slice(0, -4)
+          setTimeout(async () => {
+            await cloudinary.uploader.destroy(
+              `gallery/${cloud}`,
+              async (error, result) => {
+                console.log(error, result)
+              }
+            );
+          }, 1000);
+
+          oldimages[element] = updateimg[i];
+
+        });
+
+
         const newimages = JSON.stringify(oldimages);
         // cloudinaryName.push(updateimg.split('/gallery/')[1].slice(0, -4));
-        console.log(updateimg,'updateimg');
-        // console.log(updateimg.split('/gallery/')[1].slice(0, -4));
-        
 
         db.query(
           `UPDATE users SET ? WHERE id = ${id}`,
@@ -71,7 +54,6 @@ exports.addGallery = (req, res) => {
               console.log(err);
               res.redirect("/admintemplate");
             } else {
-              console.log(res.cookie.user_name);
               res.redirect("/" + req.cookies.user_name);
             }
           }
@@ -101,4 +83,4 @@ exports.addGallery = (req, res) => {
   });
 };
 
-exports.getGallery = (req, res) => {};
+exports.getGallery = (req, res) => { };

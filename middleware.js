@@ -7,7 +7,6 @@ module.exports.isLoggedIn = async (req, res, next) => {
 	if (req.cookies.jwt) {
 		try {
 			jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
-				console.log(decoded);
 				db.query(
 					'SELECT * FROM users WHERE id=?',
 					[decoded.user],

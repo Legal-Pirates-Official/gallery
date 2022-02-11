@@ -11,7 +11,6 @@ const jwt = require('jsonwebtoken');
 
 router.get('/', (req, res) => {
 	jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
-		console.log(decoded);
 		res.render('index', { user_name: decoded ? decoded.user_name : null });
 	});
 });
@@ -106,4 +105,5 @@ router.get('/:username', (req, res) => {
 		res.redirect('/auth/login');
 	}
 });
+
 module.exports = router;
