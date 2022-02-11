@@ -1,0 +1,14 @@
+* {
+
+
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+
+.hero {
+   height: 100vh;
+   background: linear-gradient(#FDFAF5, #FDFAF5);
+}

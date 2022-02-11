@@ -132,7 +132,7 @@ router.get("/templates", (req, res) => {
     });
 });
 
-router.get("/templates/template1/:mode", (req, res) => {
+router.get("/templates/template1", (req, res) => {
     const mode = req.params.mode
     const jwtconst = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
         db.query(`SELECT * FROM users where id = ${decoded.id}`, (err, result1) => {
