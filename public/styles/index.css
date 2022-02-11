@@ -269,7 +269,7 @@
 }
 .para1 {
   width: 70%;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: #111;
   line-height: 2.4rem;
 }
@@ -312,7 +312,7 @@
   height: 55vh;
   border: #fff solid 8px;
   position: absolute;
-  top: 3%;
+  top: -9%;
 }
 /* media query for images */
 @media screen and (max-width: 1000px) {
@@ -331,7 +331,13 @@
   .img1 {
     width: 32vw;
     height: 55vh;
-    top: 3%;
+    top: -9%;
+  }
+  .para1 {
+    width: 70%;
+    font-size: 1.6rem;
+    color: #111;
+    line-height: 2.2rem;
   }
 }
 @media (max-width: 700px) {
@@ -348,47 +354,53 @@
     height: 51vh;
   }
   .bg1 {
-    width: 47vw;
-    height: 54vh;
+    width: 50vw;
+    height: 50vh;
   }
   .bg2 {
-    width: 47vw;
-    height: 54vh;
+    width: 50vw;
+    height: 50vh;
   }
   .bg3 {
-    width: 47vw;
-    height: 54vh;
+    width: 50vw;
+    height: 50vh;
   }
   .img1 {
     width: 40vw;
-    height: 55vh;
-    top: -8%;
+    height: 52vh;
+    top: -12%;
+  }
+  .para1 {
+    width: 70%;
+    font-size: 1.4rem;
+    color: #111;
+    line-height: 2.2rem;
   }
 }
 @media (max-width: 600px) {
   .para1 {
-    font-size: 1.6rem;
-    line-height: 2.4rem;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
   }
   .photo1 {
     width: 60%;
   }
   .bg1 {
     width: 55vw;
-    height: 54vh;
+    height: 50vh;
   }
   .bg2 {
     width: 55vw;
-    height: 54vh;
+    height: 52vh;
   }
   .bg3 {
     width: 55vw;
-    height: 54vh;
+    height: 52vh;
   }
   .img1 {
     width: 48vw;
     height: 55vh;
-    top: 42%;
+    top: -12%;
   }
 }
 @media (max-width: 600px) {
@@ -414,7 +426,7 @@
   .img1 {
     width: 48vw;
     height: 50vh;
-    top: 46%;
+    top: -10%;
   }
 }
 @media (max-width: 400px) {
@@ -436,7 +448,7 @@
   .img1 {
     width: 52vw;
     height: 47vh;
-    top: 48%;
+    top: -8%;
   }
 }
 /* Long Img */
