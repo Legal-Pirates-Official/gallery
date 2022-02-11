@@ -21,5 +21,4 @@ let index = 0;
 cupid.addEventListener('click', (e) => {
     maindivs[index].classList.add('main-divs-active');
     index++;
-    console.log(index);
 })
