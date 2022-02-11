@@ -3,11 +3,13 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   background-image: url(/images/bgcon.png);
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .loginpage {
   width: 100%;
   height: 100%;
@@ -31,18 +33,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: translateX(20%);
+  transform: translateX(15%);
   z-index: 4;
-  margin-top: 24%;
+  margin-top: 20%;
 }
-.form {
-  width: 50%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-img {
+
+.image img {
   width: 65%;
   height: 78vh;
   position: relative;
@@ -50,6 +46,15 @@ img {
   justify-content: center;
   align-items: center;
 }
+
+.form {
+  width: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .formlogin {
   width: 70%;
   height: 80vh;
@@ -87,6 +92,16 @@ img {
   align-items: center;
   justify-content: center;
 }
+.textArea {
+  width: 100%;
+  height: 30%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
 
 .email input {
   width: 70%;
@@ -94,6 +109,15 @@ img {
   position: relative;
   border: 1.5px solid #000;
   text-align: center;
+  font-size: 1.2rem;
+}
+.textArea textarea {
+  width: 70%;
+  height: 100%;
+  position: relative;
+  border: 1.5px solid #000;
+  text-align: center;
+  font-size: 1.2rem;
 }
 /* Submit */
 .btn {
@@ -151,22 +175,93 @@ img {
 /* Footer */
 .media {
   width: 100%;
-  height: 50vh;
+  height: 30vh;
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background: #000;
+  z-index: 5;
+}
+
+.details {
+  width: 60%;
+  height: 80%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.media-details {
+  width: 50%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.call {
+  color: #fff;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 1%;
+}
+
+.call svg {
+  width: 48px;
+  color: white;
+}
+.phn {
+  color: white;
+}
+
+.socialM1 {
+  width: 50%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.socialmedia-div {
+  width: 70%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.all-sm-divs {
+  width: 100%;
+  height: 6rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  color: white;
+}
+.all-sm-divs a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.3rem;
 }
 
 /* Media Query */
 @media (max-width: 1250px) {
   .form {
     width: 60%;
-  }
-  img {
-    width: 75%;
   }
   .formlogin {
     width: 75%;
@@ -185,6 +280,21 @@ img {
     width: 100%;
     transform: translateX(0%);
   }
+  .media {
+    transform: translateY(-20%);
+  }
+  .socialmedia-div {
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+  .details {
+    flex-direction: column;
+    height: 100%;
+  }
+  .socialM1 {
+    width: 90%;
+  }
 }
 @media (max-width: 500px) {
   .submit {
@@ -197,6 +307,17 @@ img {
     font-size: 1.2rem;
   }
 }
+
+@media (max-width: 600px) {
+  .socialmedia-div {
+    flex-direction: column;
+  }
+  .media {
+    height: 60vh;
+    transform: translateY(-10%);
+  }
+}
+
 @media (max-width: 400px) {
   .text p {
     font-size: 1rem;
@@ -211,5 +332,17 @@ img {
   .formlogin {
     width: 100%;
     height: 70vh;
+  }
+  .loginheading h1
+  {
+    font-size: 2rem;
+  }
+  .form
+  {
+    width: 90%;
+  }
+  .details
+  {
+    width: 90%;
   }
 }
