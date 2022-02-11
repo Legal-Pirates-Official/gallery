@@ -40,12 +40,13 @@ router.post("/maintemplate", upload.fields([
     { name: "image8" },
     { name: "image9" }
 ]), (req, res) => {
+    const images = [];
     for (const key in req.files) {
         images.push(req.files[key][0].path);
     }
     const json = JSON.stringify(images);
     const jwtconst = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
-        db.query(`UPDATE users SET ? where id = ${decoded.id}`, { valentine: json }, (err, response) => {
+        db.query(`UPDATE users SET ? where id = ${decoded.id}`, { valentine: json }, (err, result) => {
             if (err) {
                 console.log(err);
                 res.redirect('/auth/login');
