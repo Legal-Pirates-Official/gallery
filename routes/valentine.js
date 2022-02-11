@@ -43,20 +43,21 @@ router.post("/maintemplate", upload.fields([
     for (const key in req.files) {
         images.push(req.files[key][0].path);
     }
-
     const json = JSON.stringify(images);
-    db.query(`UPDATE users SET ? where id = ${req.cookies.user}`, { valentine: json }, (err, response) => {
-        if (err) {
-            console.log(err);
-            res.redirect('/auth/login');
-        } else {
-            if(result[0] && result[0].valentine){
-                res.send('not allowed');
+    const jwtconst = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
+        db.query(`UPDATE users SET ? where id = ${decoded.id}`, { valentine: json }, (err, response) => {
+            if (err) {
+                console.log(err);
+                res.redirect('/auth/login');
             } else {
-                res.render('maintemplate');
+                if (result[0] && result[0].valentine) {
+                    res.send('not allowed');
+                } else {
+                    res.redirect('/en/valentine/templates');
+                }
             }
-        }
-    })
+        })
+    });
 });
 
 router.post("/maintemplate/update", upload.fields([
@@ -69,7 +70,7 @@ router.post("/maintemplate/update", upload.fields([
             .split('gallery/')[1]
             .slice(0, -4);
         await cloudinary.uploader.destroy(`gallery/${oldImageName}`);
-        await mysqlConnection.query(
+        await db.query(
             'UPDATE maintemplate SET answer1=?, answer2=?, answer3=?, answer4=?, image1=?, image2=?, image3=?, image4=? WHERE id = ?',
             [
                 req.body.answer1, req.body.answer2, req.body.answer3, req.body.answer4,
@@ -89,50 +90,54 @@ router.post("/maintemplate/update", upload.fields([
 ]));
 
 router.get("/category", (req, res) => {
-    db.query(`SELECT * FROM users where id = ${req.cookies.user}`, (err, result) => {
-        if (err) {
-            console.log(err);
-            res.redirect('/auth/login');
-        } else {
-
-            if (result[0] && result[0].valentine) {
-                res.send('not allowed');
+    const jwtconst = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
+        db.query(`SELECT * FROM users where id = ${decoded.id}`, (err, result) => {
+            if (err) {
+                console.log(err);
+                res.redirect('/auth/login');
             } else {
-                res.render('./valentine/category');
+                if (result[0] && result[0].valentine) {
+                    res.send('not allowed');
+                } else {
+                    res.render('./valentine/category');
+                }
             }
-        }
+        });
     });
 });
 
 router.get("/templates", (req, res) => {
-    db.query(`SELECT * FROM users where id = ${req.cookies.user}`, (err, result) => {
-        if (err) {
-            console.log(err);
-            res.redirect('/auth/login');
-        } else {
-
-            if (result[0] && result[0].valentine) {
-                res.send('not allowed');
+    const jwtconst = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
+        db.query(`SELECT * FROM users where id = ${decoded.id}`, (err, result) => {
+            if (err) {
+                console.log(err);
+                res.redirect('/auth/login');
             } else {
-                res.render('./valentine/templates');
+                if (result[0] && result[0].valentine) {
+                    res.send('not allowed');
+                } else {
+                    res.render('./valentine/templates');
+                }
             }
-        }
+        });
     });
 });
 
 router.get("/templates/template1", (req, res) => {
-    db.query(`SELECT * FROM users where id = ${req.cookies.user}`, (err, result) => {
-        if (err) {
-            console.log(err);
-            res.redirect('/auth/login');
-        } else {
-
-            if (result[0] && result[0].valentine) {
-                res.send('not allowed');
+    const jwtconst = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
+        db.query(`SELECT * FROM users where id = ${decoded.id}`, (err, result) => {
+            if (err) {
+                console.log(err);
+                res.redirect('/auth/login');
             } else {
-                res.render('./valentine/templates/template1');
+
+                if (result[0] && result[0].valentine) {
+                    res.send('not allowed');
+                } else {
+                    res.render('./valentine/templates/template1');
+                }
             }
-        }
+        });
     });
 });
 
