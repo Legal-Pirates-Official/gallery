@@ -8,73 +8,6 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 const cookieParser = require('cookie-parser');
 
-// router.get("/verify", (req, res) => {
-//     res.render("auth/verify");
-// });
-
-// verify new mail
-// router.post('/verify', (req, res) => {
-//     const { email } = req.body;
-//     db.query(`SELECT * FROM users WHERE email = '${email}'`, (err, results) => {
-//         if (err) {
-//             console.log(err);
-//             res.status(500).send('Internal Server Error');
-//         } else {
-//             if (results.length > 0) {
-//                 res.status(404).send('Email not found');
-//             } else {
-//                 const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-//                 const transporter = nodemailer.createTransport({
-//                     service: 'gmail',
-//                     auth: {
-//                         user: process.env.EMAIL_ID,
-//                         pass: process.env.EMAIL_PASSWORD
-//                     }
-//                 });
-//                 const mailOptions = {
-//                     from: '"Coding Blocks"',
-//                     to: email,
-
-//                     subject: 'Verify Email',
-//                     html: `<h1>Verify Email</h1>
-//                     <p>Click on the link below to verify your email</p>
-//                     // <a href="http://localhost:3000/auth/verify${token}">Verify Email</a>`
-//                 };
-//                 transporter.sendMail(mailOptions, (err, info) => {
-//                     if (err) {
-//                         console.log(err);
-//                         res.status(500).send('Internal Server Error');
-//                     } else {
-//                         console.log(info);
-//                         res.status(200).send('Email sent');
-//                     }
-//                 });
-//             }
-//         }
-//     });
-// });
-
-// verify new mail link with token
-// router.get('/verify/:token', (req, res) => {
-//     const { token } = req.params;
-//     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-//         if (err) {
-//             console.log(err);
-//             res.status(500).send('Internal Server Error');
-//         } else {
-//             const { email } = decoded;
-//             db.query(`UPDATE users SET verified = 1 WHERE email = '${email}'`, (err, results) => {
-//                 if (err) {
-//                     console.log(err);
-//                     res.status(500).send('Internal Server Error');
-//                 } else {
-//                     res.redirect('/auth/login');
-//                 }
-//             });
-//         }
-//     });
-// });
-
 // register
 router.get('/register', (req, res) => {
 	res.render('auth/register');
@@ -91,14 +24,14 @@ const transporter = nodemailer.createTransport({
 router.post('/register', async (req, res) => {
 	const { name, email, password, confirm_password } = req.body;
 	const namenew = name.charAt(0).toUpperCase() + name.toLowerCase().slice(1);
-	db.query('SELECT * FROM users', (err, results) => {
+	db.query('SELECT * FROM users', async (err, results) => {
 		if (err) {
 			console.log(err);
 		} else {
 			if (results) {
 				results.forEach((result) => {
-					if (result.name === namenew || result.email === email) {
-						req.flash('error_msg', 'Username already exists');
+					if (result.name === namenew && result.email === email) {
+						req.flash('error_msg', 'User already exists');
 						return res.redirect('/auth/login');
 					}
 				});
@@ -113,7 +46,7 @@ router.post('/register', async (req, res) => {
 		return res.redirect('/auth/register');
 	} else {
 		const accessToken = jwt.sign(
-			{ name, email, password },
+			{ user_name: name, email, password: await bcrypt.hash(password, 10) },
 			process.env.JWT_SECRET,
 			{ expiresIn: '1h' }
 		);
@@ -123,7 +56,6 @@ router.post('/register', async (req, res) => {
 			subject: 'Register your account here',
 			html: `<a href="http://localhost:8080/auth/register/verify/${accessToken}" >Click here to verify your account</a>`
 		};
-		console.log(accessToken);
 		transporter.sendMail(mailOptions, function (error, info) {
 			if (error) {
 				console.log(error);
@@ -137,7 +69,6 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/register/verify/:token', async (req, res) => {
-	console.log(req.params.token);
 	jwt.verify(req.params.token, process.env.JWT_SECRET, (err, decoded) => {
 		if (err) {
 			console.log(err);
@@ -147,7 +78,7 @@ router.get('/register/verify/:token', async (req, res) => {
 			db.query(
 				`INSERT INTO users SET ?`,
 				{
-					name: decoded.name,
+					name: decoded.user_name,
 					email: decoded.email,
 					password: decoded.password
 				},
@@ -157,21 +88,28 @@ router.get('/register/verify/:token', async (req, res) => {
 						req.flash('error_msg', 'Some error occured');
 						return res.redirect('/auth/register');
 					} else {
-						const token = jwt.sign({ id: results.id }, process.env.JWT_SECRET, {
-							expiresIn: process.env.JWT_EXPIRES_IN
-						});
+						const token = jwt.sign(
+							{
+								USER: results.id,
+								user_name: results.name,
+								email: results.email,
+								password: results.password
+							},
+							process.env.JWT_SECRET,
+							{
+								expiresIn: process.env.JWT_EXPIRES_IN
+							}
+						);
 						const cookieOptions = {
 							expires: new Date(
 								Date.now() +
-								process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+									process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
 							),
 							httpOnly: true
 						};
-						res.cookie('user', results.id);
-						res.cookie('user_name', results.name);
 						res.cookie('jwt', token, cookieOptions);
 						req.flash('success_msg', 'Account verified successfully');
-						return res.redirect('/auth/login');
+						return res.redirect('/');
 					}
 				}
 			);
@@ -197,28 +135,34 @@ router.post('/login', async (req, res) => {
 			'SELECT * FROM users WHERE email=?',
 			[email],
 			async (err, results) => {
-				if (
-					!results ||
-					(await !bcrypt.compare(password, results[0].password))
-				) {
+				if (err || results.length === 0) {
 					return res.status(400).render('auth/login', {
 						error_msg: 'Invalid credentials'
 					});
 				} else {
-					const id = results[0].id;
-					const token = jwt.sign({ id }, process.env.JWT_SECRET, {
-						expiresIn: process.env.JWT_EXPIRES_IN
-					});
-					const cookieOptions = {
-						expires: new Date(
-							Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-						),
-						httpOnly: true
-					};
-					res.cookie('user', results[0].id);
-					res.cookie('user_name', results[0].name);
-					res.cookie('jwt', token, cookieOptions);
-					res.status(200).redirect('/');
+					if (await bcrypt.compare(password, results[0].password)) {
+						const token = jwt.sign(
+							{ user_name: results[0].name },
+							process.env.JWT_SECRET,
+							{
+								expiresIn: process.env.JWT_EXPIRES_IN
+							}
+						);
+						const cookieOptions = {
+							expires: new Date(
+								Date.now() +
+									process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+							),
+							httpOnly: true
+						};
+					
+						res.cookie('jwt', token, cookieOptions);
+						res.status(200).redirect('/');
+					} else {
+						return res.status(400).render('auth/login', {
+							error_msg: 'Invalid credentials'
+						});
+					}
 				}
 			}
 		);
@@ -232,8 +176,6 @@ router.get('/logout', (req, res) => {
 		expires: new Date(Date.now() + 2 * 1000),
 		httpOnly: true
 	});
-	res.clearCookie('user');
-	res.clearCookie('user_name');
 	res.clearCookie('jwt');
 	res.status(200).redirect('/');
 });
@@ -285,6 +227,7 @@ router.post('/forgotpassword', async (req, res) => {
 					if (err) {
 						console.log(err);
 					} else {
+						console.log(info);
 					}
 				});
 
@@ -314,7 +257,6 @@ router.get('/resetpassword/:token', async (req, res) => {
 });
 
 router.post('/resetpassword/:token', async (req, res) => {
-	console.log('post');
 	try {
 		const { token } = req.params;
 		const { email, password, confirm_password } = req.body;
