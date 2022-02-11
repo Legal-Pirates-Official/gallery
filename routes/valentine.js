@@ -125,7 +125,7 @@ router.get("/templates", (req, res) => {
                 res.redirect('/auth/login');
             } else {
                 
-                    res.render('./valentine/templates');
+                res.render('./valentine/templates');
                 
             }
         });
