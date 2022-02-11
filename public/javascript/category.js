@@ -1,0 +1,1 @@
+const fetch = fetch('http://localhost:8080/category/tomyvalentine').then(response => console.log(response)).catch(error => console.error(error));
