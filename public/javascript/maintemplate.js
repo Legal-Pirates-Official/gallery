@@ -23,3 +23,8 @@ cupid.addEventListener('click', (e) => {
     index++;
     console.log(index);
 })
+
+$('#sm-ip-1').on('change', function (event) {
+    var name = event.target.files[0].name;
+    $('#file-name').text(name);
+})
