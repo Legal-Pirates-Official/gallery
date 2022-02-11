@@ -104,7 +104,6 @@
   position: relative;
 }
 .img {
-<<<<<<< HEAD
     width: 80%;
     height: 100vh;
     position: absolute;
@@ -129,39 +128,6 @@
     position: absolute;
     left: 14%;
     top: 30%;
-=======
-  width: 80%;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  right: 0%;
-}
-.head2 {
-  font-size: 5.6rem;
-  font-weight: bold;
-  color: #f2f2f2;
-  position: absolute;
-  left: 68%;
-  top: 15%;
-}
-.para {
-  width: 30%;
-  height: 50%;
-  font-size: 1.7rem;
-  font-weight: 200;
-  color: #111;
-  position: absolute;
-  left: 14%;
-  top: 32%;
-  line-height: 2.6rem;
-}
-/* Media Query for About Us */
-@media screen and (max-width: 1250px) {
-  .para {
-    font-size: 1.6rem;
-    left: 14%;
-    top: 28%;
->>>>>>> 9672053741abc8f6a5c8c2c6101fcfc57c07f255
     line-height: 2.6rem;
 }
 /* Media Query for About Us */
@@ -185,7 +151,6 @@
     } 
 }
 @media (max-width: 1100px) {
-<<<<<<< HEAD
     .para{
         font-size: 2rem;
         top: 23%;
@@ -251,90 +216,6 @@
         line-height: 1.6rem;
     }
     
-=======
-  .para {
-    font-size: 1.6rem;
-    top: 25%;
-    line-height: 2.4rem;
-  }
-}
-@media (max-width: 900px) {
-  .para {
-    font-size: 1.6rem;
-    left: 11%;
-    top: 19%;
-    line-height: 2.4rem;
-  }
-  .head2 {
-    font-size: 5.3rem;
-    left: 65%;
-    top: 11%;
-  }
-}
-@media (max-width: 750px) {
-  .para {
-    width: 36%;
-    height: 50%;
-    font-size: 1.3rem;
-    left: 11%;
-    top: 25%;
-    line-height: 2.4rem;
-  }
-  .head2 {
-    font-size: 5.3rem;
-    font-weight: bold;
-    color: #f2f2f2;
-    position: absolute;
-    left: 65%;
-    top: 15%;
-  }
-}
-@media (max-width: 650px) {
-  .head2 {
-    font-size: 5rem;
-    font-weight: bold;
-    color: #f2f2f2;
-    position: absolute;
-    left: 60%;
-    top: 15%;
-  }
-  .para {
-    width: 36%;
-    height: 50%;
-    font-size: 1.3rem;
-    left: 11%;
-    top: 22%;
-    line-height: 2.4rem;
-  }
-}
-@media (max-width: 550px) {
-  .head2 {
-    font-size: 3.7rem;
-    font-weight: bold;
-    color: #f2f2f2;
-    position: absolute;
-    left: 51%;
-    top: 13%;
-  }
-  .para {
-    font-size: 1.4rem;
-    width: 39%;
-    height: 50%;
-    left: 11%;
-    top: 21%;
-    line-height: 2rem;
-  }
-}
-@media (max-width: 450px) {
-  .para {
-    width: 39%;
-    height: 50%;
-    font-size: 1.3rem;
-    left: 11%;
-    top: 21%;
-    line-height: 1.8rem;
-  }
->>>>>>> 9672053741abc8f6a5c8c2c6101fcfc57c07f255
 }
 @media (max-width: 350px) {
     .para {
@@ -347,7 +228,6 @@
     }
   }
 /* Images */
-<<<<<<< HEAD
 .images{
     width: 100%;
     height: 210vh;
@@ -357,74 +237,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-=======
-.images {
-  width: 100%;
-  height: 210vh;
-  background-color: #f2f2f2;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.div1 {
-  width: 100%;
-  height: 70vh;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.div2 {
-  width: 100%;
-  height: 70vh;
-  position: relative;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: center;
-  align-items: center;
-}
-.content1 {
-  width: 50%;
-  height: 40vh;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.para1 {
-  width: 70%;
-  font-size: 1.6rem;
-  color: #111;
-  line-height: 2.4rem;
-}
-.photo1 {
-  width: 50%;
-  display: flex;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-}
-.bg1 {
-  width: 25vw;
-  height: 54vh;
-  background-color: #ff00c7;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.bg2 {
-  width: 25vw;
-  height: 54vh;
-  background-color: #000;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
->>>>>>> 9672053741abc8f6a5c8c2c6101fcfc57c07f255
 }
 .div1{
     width: 100%;
@@ -458,20 +270,12 @@
     color: #111;
     line-height: 2.4rem;
 }
-<<<<<<< HEAD
 .img1 {
   width: 22vw;
   height: 55vh;
   border: #fff solid 8px;
   position: absolute;
   top: -9%;
-=======
-.photo1{
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
->>>>>>> eed7f6d87582c3c9d7ae339edcd9a5e3b99f00de
 }
 .bg1{
     width: 25vw;
@@ -502,7 +306,6 @@
 .img1{
     width: 22vw;
     height: 55vh;
-<<<<<<< HEAD
     top: -9%;
   }
   .para1 {
@@ -510,16 +313,14 @@
     font-size: 1.6rem;
     color: #111;
     line-height: 2.2rem;
-=======
     border: #fff solid 8px;
     position: absolute;
     top: 3%;
-<<<<<<< HEAD
+
     
-=======
->>>>>>> eed7f6d87582c3c9d7ae339edcd9a5e3b99f00de
+
+
   }
-}
 @media (max-width: 700px) {
   .div1,
   .div2 {
@@ -556,9 +357,7 @@
     color: #111;
     line-height: 2.2rem;
   }
->>>>>>> 9672053741abc8f6a5c8c2c6101fcfc57c07f255
 }
-<<<<<<< HEAD
 @media (max-width: 600px) {
   .para1 {
     font-size: 1.4rem;
@@ -632,86 +431,6 @@
     height: 47vh;
     top: -8%;
   }
-=======
-/* media query for images */
-@media screen and (max-width :1000px){
-    .bg1{
-        width: 35vw;
-        height: 54vh;
-    }
-    .bg2{
-        width: 35vw;
-        height: 54vh;
-    } 
-    .bg3{
-        width: 35vw;
-        height: 54vh;
-    }
-    .img1{
-        width: 32vw;
-        height: 55vh;
-        top: 3%;
-        
-    }
-}
-@media (max-width :700px){
-    .div1,.div2{
-        height: 100vh;
-        flex-direction: column;
-    }
-    .images{
-        height: 300vh;
-    }
-    .content1{
-        width: 100%;
-        height: 51vh;
-    }
-    .bg1{
-        width: 47vw;
-        height: 54vh;
-    }
-    .bg2{
-        width: 47vw;
-        height: 54vh;
-    } 
-    .bg3{
-        width: 47vw;
-        height: 54vh;
-    }
-    .img1{
-        width: 40vw;
-        height: 55vh;
-        top: 42%;    
-    }
-    
-}
-@media (max-width :600px){
-    .para1{
-        font-size: 1.6rem;
-        line-height: 2.4rem;
-    }
-    .photo1{
-        width: 60%;
-    }
-    .bg1{
-        width: 55vw;
-        height: 54vh;
-    }
-    .bg2{
-        width: 55vw;
-        height: 54vh;
-    } 
-    .bg3{
-        width: 55vw;
-        height: 54vh;
-    }
-    .img1{
-        width: 48vw;
-        height: 55vh;
-        top: 42%;    
-    }
-    
->>>>>>> eed7f6d87582c3c9d7ae339edcd9a5e3b99f00de
 }
 @media (max-width :600px){
     .para1{
