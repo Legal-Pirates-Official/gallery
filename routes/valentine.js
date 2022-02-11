@@ -40,12 +40,13 @@ router.post("/maintemplate", upload.fields([
     { name: "image8" },
     { name: "image9" }
 ]), (req, res) => {
+    const images = [];
     for (const key in req.files) {
         images.push(req.files[key][0].path);
     }
     const json = JSON.stringify(images);
     const jwtconst = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
-        db.query(`UPDATE users SET ? where id = ${decoded.id}`, { valentine: json }, (err, response) => {
+        db.query(`UPDATE users SET ? where id = ${decoded.id}`, { valentine: json }, (err, result) => {
             if (err) {
                 console.log(err);
                 res.redirect('/auth/login');
@@ -123,19 +124,30 @@ router.get("/templates", (req, res) => {
     });
 });
 
-router.get("/templates/template1", (req, res) => {
+router.get("/templates/template1/:mode", (req, res) => {
+    const mode = req.params.mode
     const jwtconst = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
-        db.query(`SELECT * FROM users where id = ${decoded.id}`, (err, result) => {
+        db.query(`SELECT valentine FROM users where id = ${decoded.id}`, (err, result1) => {
             if (err) {
                 console.log(err);
                 res.redirect('/auth/login');
             } else {
-
-                if (result[0] && result[0].valentine) {
-                    res.send('not allowed');
-                } else {
-                    res.render('./valentine/templates/template1');
-                }
+                
+                const ques = []
+                db.query(`SELECT ${mode} from questions`,(err,result)=> {
+                    if(err){
+                        console.log(err);
+                    } else {
+                        result.forEach(element => {
+                           
+                            ques.push(element[mode]);
+                        });
+                        console.log(ques);
+                    }
+                })
+                console.log(result1);
+                const json = JSON.parse(result1)
+                res.render('./valentine/templates/template1',{text:ques,image:json})
             }
         });
     });
