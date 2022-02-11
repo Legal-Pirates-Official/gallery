@@ -105,4 +105,5 @@ router.get('/:username', (req, res) => {
 		res.redirect('/auth/login');
 	}
 });
+
 module.exports = router;

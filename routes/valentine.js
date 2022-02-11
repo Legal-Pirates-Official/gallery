@@ -9,20 +9,22 @@ const { storage, cloudinary } = require('../cloudinary');
 const upload = multer({ storage });
 const db = require('../database');
 const { isloggedin } = require('../middleware');
+const jwt = require('jsonwebtoken');
 
 router.get("/maintemplate", (req, res) => {
-    db.query(`SELECT * FROM users where id = ${req.cookies.user}`, (err, result) => {
-        if (err) {
-            console.log(err);
-            res.redirect('/auth/login');
-        } else {
-
-            if (result[0] && result[0].valentine) {
-                res.send('not allowed');
+    const jwtconst = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
+        db.query(`SELECT * FROM users where id = ${decoded.id}`, (err, result) => {
+            if (err) {
+                console.log(err);
+                res.redirect('/auth/login');
             } else {
-                res.render('./valentine/maintemplate');
+                if (result[0] && result[0].valentine) {
+                    res.send('not allowed');
+                } else {
+                    res.render('./valentine/maintemplate');
+                }
             }
-        }
+        });
     });
 });
 
