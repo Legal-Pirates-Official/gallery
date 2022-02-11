@@ -37,7 +37,21 @@ exports.addGallery = (req, res) => {
 					);
 				}, 1000);
 				
+<<<<<<< HEAD
+				oldimages[element] = updateimg[i];
+				console.log(oldimages,'after');
+				console.log(updateimg,'after');
+			  //   setTimeout(() => {
+			  //     cloudinaryName.push(
+			  //       // req.files[key][0].path.split('/gallery/')[1].slice(0, -4)
+			  //       oldimages[element].split("/gallery/")[1].slice(0, -4)
+					
+			  //     );
+				  
+			  //   }, 500);
+=======
 				  oldimages[element] = updateimg[i];
+>>>>>>> 3fc7d7e3d1ee0f636ec95059b9fd60db43703b6a
 		  
 			  });
 		
