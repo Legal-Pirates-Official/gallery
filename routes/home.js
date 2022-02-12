@@ -62,8 +62,12 @@ router.get('/user/:username', (req, res) => {
 								});
 								const page = result3[0].currentTemplate;
 								const json = JSON.parse(result3[0].valentine);
-								res.render(`./valentine/templates/${page}`, { text: ques, image: json, type: "final" });
-
+								res.render(`./valentine/templates/${page}`, {
+									text: ques,
+									image: json,
+									type: "final",
+									title: req.params.username
+								});
 							}
 						})
 					}

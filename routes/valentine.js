@@ -267,7 +267,8 @@ router.get("/templates/template2", (req, res) => {
 						res.render("./valentine/templates/template2", {
 							text: ques,
 							image: json,
-							type: "preview"
+							type: "preview",
+							title: req.params.username
 						});
 					}
 				}
@@ -291,8 +292,6 @@ router.post("/templatemode/:currentTemplate", (req, res) => {
 					} else {
 						console.log(result);
 					}
-
-
 				}
 			);
 		}

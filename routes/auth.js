@@ -27,7 +27,8 @@ router.post('/register', async (req, res) => {
 	db.query('SELECT * FROM users', async (err, results, id) => {
 		if (err) {
 			console.log(err);
-		} else {
+		}
+		else if (results.length > 0) {
 			if (results) {
 				results.forEach((result) => {
 					if (result.name === namenew && result.email === email) {
@@ -39,7 +40,7 @@ router.post('/register', async (req, res) => {
 				return res.redirect('/auth/register');
 			}
 		}
-		if (password !== confirm_password) {
+		else if (password !== confirm_password) {
 			req.flash('error_msg', 'Passwords do not match');
 			return res.redirect('/auth/register');
 		}
@@ -59,19 +60,19 @@ router.post('/register', async (req, res) => {
 		// 	req.flash('error_msg', 'Password must contain at least one lowercase letter');
 		// 	return res.redirect('/auth/register');
 		// }
-		else if (email === '' || password === '' || name === '') {
-			return res.status(400).render('auth/register', {
-				error_msg: 'Email already exists'
-			});
-		}
-		else if (results.length > 0) {
-			results.forEach((result) => {
-				if (result.email === email) {
-					req.flash('error_msg', 'Email already exists');
-					return res.redirect('/auth/register');
-				}
-			});
-		}
+		// else if (email === '' || password === '' || name === '') {
+		// 	return res.status(400).render('auth/register', {
+		// 		error_msg: 'Email already exists'
+		// 	});
+		// }
+		// else if (results.length > 0) {
+		// 	results.forEach((result) => {
+		// 		if (result.email === email) {
+		// 			req.flash('error_msg', 'Email already exists');
+		// 			return res.redirect('/auth/register');
+		// 		}
+		// 	});
+		// }
 		else {
 			const accessToken = jwt.sign(
 				{ user_name: name, email, password: await bcrypt.hash(password, 10) },
