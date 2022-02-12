@@ -53,12 +53,14 @@ router.post('/register', async (req, res) => {
 			process.env.JWT_SECRET,
 			{ expiresIn: '1h' }
 		);
+
 		var mailOptions = {
 			from: process.env.EMAIL_ID,
 			to: req.body.email,
 			subject: 'Register your account here',
-			html: `<a href="http://localhost:8080/auth/register/verify/${accessToken}" >Click here to verify your account</a>`
+			html: `<a href="${process.env.DOMAIN}/auth/register/verify/${accessToken}" >Click here to verify your account</a>`
 		};
+
 		transporter.sendMail(mailOptions, function (error, info) {
 			if (error) {
 				console.log(error);
@@ -91,15 +93,11 @@ router.get('/register/verify/:token', async (req, res) => {
 						req.flash('error_msg', 'Some error occured');
 						return res.redirect('/auth/register');
 					} else {
-						console.log(
-							'🚀 ~ file: auth.js ~ line 89 ~ jwt.verify ~ results',
-							results
-						);
 						const token = jwt.sign(
 							{
-								user_name: results.name,
-								email: results.email,
-								id: results.id
+								user_name: decoded.user_name,
+								email: decoded.email,
+								id: results.insertId
 							},
 							process.env.JWT_SECRET,
 							{
@@ -115,7 +113,7 @@ router.get('/register/verify/:token', async (req, res) => {
 						};
 						res.cookie('jwt', token, cookieOptions);
 						req.flash('success_msg', 'Account verified successfully');
-						return res.redirect(`/user/${results.name}`);
+						return res.redirect(`/user/${decoded.user_name}`);
 					}
 				}
 			);
@@ -212,7 +210,7 @@ router.post('/forgotpassword', async (req, res) => {
 					signed: false
 				});
 
-				const url = `http://localhost:8080/auth/resetpassword/${token}`;
+				const url = `${process.env.DOMAIN}/auth/resetpassword/${token}`;
 
 				let transporter = nodemailer.createTransport({
 					service: 'gmail',

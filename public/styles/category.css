@@ -155,6 +155,7 @@
   height: 70%;
   top: 50%;
   left: 5%;
+  z-index: 4;
   transform: translateY(-50%);
 }
 
@@ -165,6 +166,7 @@
   top: 50%;
   right: 5%;
   transform: scaleX(-1) translateY(-50%);
+  z-index: 4;
 }
 
 .section1right {
@@ -177,12 +179,41 @@
   position: absolute;
   top: 50%;
   right: 15%;
-  z-index: 3;
+  z-index: 5;
   width: 42%;
   font-size: 2rem;
   font-weight: bolder;
   transform: translate(0, -50%);
   text-align: center;
+}
+
+.sectionbtn
+{
+  position: relative;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.section1left:hover:after
+{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #00000041;
+  opacity: 1;
+  transition: all 0.5s ease;
+  z-index: 3;
+}
+.section1right:hover:after
+{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #00000041;
+  opacity: 1;
+  transition: all 0.5s ease;
+  z-index: 3;
 }
 
 .normalimg {
@@ -197,7 +228,7 @@
   position: absolute;
   top: 50%;
   left: 15%;
-  z-index: 3;
+  z-index: 5;
   width: 40%;
   font-size: 2rem;
   font-weight: bolder;
