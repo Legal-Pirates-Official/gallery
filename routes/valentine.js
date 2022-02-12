@@ -24,7 +24,8 @@ router.get('/maintemplate', (req, res) => {
 						res.redirect('/auth/login');
 					} else {
 						if (result[0] && result[0].valentine) {
-							res.send('not allowed');
+							// res.send('not allowed');
+							res.redirect('/en/valentine/notallowed');
 						} else {
 							const ques = [];
 							db.query(
@@ -315,7 +316,7 @@ router.post('/templatemode/:currentTemplate', (req, res) => {
 								} else {
 									res.json(result);
 									const name = result[0].name.toLowerCase();
-									// res.redirect(`http://localhost:8080/${name}`);
+									res.redirect(`${process.env.DOMAIN}/user/${name}`);
 								}
 							}
 						);
@@ -325,7 +326,9 @@ router.post('/templatemode/:currentTemplate', (req, res) => {
 		}
 	);
 });
+
 router.get('/notallowed', (err, res) => {
 	res.render('./valentine/notallowed');
 });
+
 module.exports = router;
