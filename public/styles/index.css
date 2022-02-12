@@ -178,7 +178,7 @@
 .bg1 {
   width: 25vw;
   height: 54vh;
-  background-color: #ff00c7;
+  background-color: #8f00ff;
   position: relative;
   display: flex;
   justify-content: center;
@@ -196,7 +196,7 @@
 .bg3 {
   width: 25vw;
   height: 54vh;
-  background-color: #8f00ff;
+  background-color: #ff00c7;
   position: relative;
   display: flex;
   justify-content: center;
