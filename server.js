@@ -60,6 +60,6 @@ app.use("/en/", contact)
 app.use("/en/watermark", watermark)
 app.use("/auth", auth)
 
-app.listen(process.env.port, () => {
-	console.log(`Server is running in ${process.env.port}`);
+app.listen(process.env.PORT, () => {
+	console.log(`Server is running in ${process.env.PORT}`);
 });
