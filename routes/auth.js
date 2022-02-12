@@ -163,7 +163,6 @@ router.post('/login', async (req, res) => {
 			'SELECT * FROM users WHERE email=?',
 			[email],
 			async (err, results) => {
-				console.log(results);
 				if (err || results.length === 0) {
 					return res.status(400).render('auth/login', {
 						error_msg: 'Invalid credentials'
@@ -262,6 +261,9 @@ router.post('/forgotpassword', async (req, res) => {
 						console.log(err);
 					} else {
 						console.log(info);
+						res.render('auth/forgotpassword', {
+							success_msg: 'Check your email for reset password link'
+						})
 					}
 				});
 
