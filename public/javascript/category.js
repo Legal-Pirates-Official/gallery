@@ -1,4 +1,4 @@
-//
+
 const btn = document.querySelectorAll(".sectionbtn");
 btn.forEach((b) =>
   b.addEventListener("click", async function  check(e)  {
@@ -20,3 +20,19 @@ btn.forEach((b) =>
     // console.log(this.getAttribute('data-name'));
   })
 );
+const clickme = document.querySelector(".clickme");
+clickme.addEventListener("click", async (e) => {
+  console.log(window.location.href.split("/")[6]);
+  const currentTemplate = window.location.href.split("/")[6];
+  const fetch1 = await fetch(`http://localhost:8080/en/valentine/templatemode/${currentTemplate}`,{
+
+        method: "POST",
+        redirect: 'follow',
+        headers: {
+            'Content-Type': 'application/json',
+          }
+
+    })
+      .then((response) => console.log(response))
+      .catch((error) => console.error(error));
+});
