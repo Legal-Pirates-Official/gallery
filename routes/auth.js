@@ -16,8 +16,8 @@ router.get('/register', (req, res) => {
 const transporter = nodemailer.createTransport({
 	service: 'gmail',
 	auth: {
-		user: 'legalpiratesofficial@gmail.com',
-		pass: 'TeamOfSix6'
+		user: process.env.EMAIL_ID,
+		pass: process.env.EMAIL_PASSWORD,
 	}
 });
 
@@ -79,7 +79,7 @@ router.post('/register', async (req, res) => {
 				{ expiresIn: '1h' }
 			);
 			var mailOptions = {
-				from: 'legalpiratesofficial@gmail.com',
+				from: process.env.EMAIL_ID,
 				to: req.body.email,
 				subject: 'Register your account here',
 				html: `<a href="http://localhost:8080/auth/register/verify/${accessToken}" >Click here to verify your account</a>`
@@ -191,11 +191,6 @@ router.post('/login', async (req, res) => {
 
 						res.cookie('jwt', token, cookieOptions);
 						res.status(200).redirect('/');
-					}
-					else if (email === results[0].email) {
-						return res.status(400).render('auth/login', {
-							error_msg: 'Email already exists'
-						});
 					}
 					else {
 						return res.status(400).render('auth/login', {
