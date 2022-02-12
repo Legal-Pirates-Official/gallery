@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
 	service: 'gmail',
 	auth: {
 		user: process.env.EMAIL_ID,
-		pass: process.env.EMAIL_PASSWORD,
+		pass: process.env.EMAIL_PASSWORD
 	}
 });
 
@@ -33,8 +33,7 @@ router.post('/register', async (req, res) => {
 					if (result.name === namenew && result.email === email) {
 						req.flash('error_msg', 'User already exists');
 						return res.redirect('/auth/login');
-					}
-					else if (result.email === email) {
+					} else if (result.email === email) {
 						req.flash('error_msg', 'Email already exists');
 						return res.redirect('/auth/register');
 					}
@@ -96,7 +95,7 @@ router.get('/register/verify/:token', async (req, res) => {
 							{
 								user_name: results.name,
 								email: results.email,
-								id: results.id,
+								id: results.id
 							},
 							process.env.JWT_SECRET,
 							{
@@ -106,13 +105,13 @@ router.get('/register/verify/:token', async (req, res) => {
 						const cookieOptions = {
 							expires: new Date(
 								Date.now() +
-								process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+									process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
 							),
 							httpOnly: true
 						};
 						res.cookie('jwt', token, cookieOptions);
 						req.flash('success_msg', 'Account verified successfully');
-						return res.redirect('/');
+						return res.redirect(`/user/${results.name}`);
 					}
 				}
 			);
@@ -147,7 +146,7 @@ router.post('/login', async (req, res) => {
 							{
 								user_name: results[0].name,
 								email: results[0].email,
-								id: results[0].id,
+								id: results[0].id
 							},
 							process.env.JWT_SECRET,
 							{
@@ -157,7 +156,7 @@ router.post('/login', async (req, res) => {
 						const cookieOptions = {
 							expires: new Date(
 								Date.now() +
-								process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+									process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
 							),
 							httpOnly: true
 						};
@@ -235,7 +234,7 @@ router.post('/forgotpassword', async (req, res) => {
 						console.log(info);
 						res.render('auth/forgotpassword', {
 							success_msg: 'Check your email for reset password link'
-						})
+						});
 					}
 				});
 
