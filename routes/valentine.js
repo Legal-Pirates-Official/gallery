@@ -130,11 +130,16 @@ router.get('/category', (req, res) => {
 		req.cookies.jwt,
 		process.env.JWT_SECRET,
 		(err, decoded) => {
+			
+			if(!decoded) {
+				console.log(err,"err");
+				res.redirect('/auth/login');
+			} else {
 			db.query(
 				`SELECT * FROM users where id = ${decoded.id}`,
 				(err, result) => {
 					if (err) {
-						console.log(err);
+						console.log(err,'decode err');
 						res.redirect('/auth/login');
 					} else {
 						
@@ -143,7 +148,7 @@ router.get('/category', (req, res) => {
 					}
 				}
 			);
-		}
+		}}
 	);
 });
 router.get('/category/:mode', (req, res) => {
