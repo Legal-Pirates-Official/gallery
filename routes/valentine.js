@@ -282,6 +282,9 @@ router.post("/templatemode/:currentTemplate", (req, res) => {
     req.cookies.jwt,
     process.env.JWT_SECRET,
     (err, decoded) => {
+		console.log('====================================');
+		console.log(decoded,'ded=coded');
+		console.log('====================================');
       db.query(
         `UPDATE users SET ? where id = ${decoded.id}`,{currentTemplate:currentTemplate},
         (err, result) => {
@@ -298,4 +301,7 @@ router.post("/templatemode/:currentTemplate", (req, res) => {
     }
   );
 });
+router.get('/notallowed',(err,res)=>{
+	res.render('./valentine/notallowed');
+})
 module.exports = router;

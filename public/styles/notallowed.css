@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.oops {
+    text-align: center;
+    font-size: 5rem;
+    color: rgb(68, 68, 68);
+    margin:3rem;
+}
+p {
+    text-align: center;
+    font-size: 1.5rem;
+    color: rgb(68, 68, 68);
+}
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: flex-start;
+    align-items: center;
+    background: linear-gradient(107.48deg, #e962ff 0%, #ff2299 100%);
+}
+img {
+    margin: 3rem;
+}
