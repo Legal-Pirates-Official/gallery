@@ -11,69 +11,78 @@ const db = require("../database");
 const { isloggedin } = require("../middleware");
 const jwt = require("jsonwebtoken");
 
-router.get("/maintemplate", (req, res) => {
-  const jwtconst = jwt.verify(
-    req.cookies.jwt,
-    process.env.JWT_SECRET,
-    (err, decoded) => {
-      db.query(
-        `SELECT * FROM users where id = ${decoded.id}`,
-        (err, result) => {
-          if (err) {
-            console.log(err);
-            res.redirect("/auth/login");
-          } else {
-            if (result[0] && result[0].valentine) {
-              res.send("not allowed");
-            } else {
-              res.render("./valentine/maintemplate");
-            }
-          }
-        }
-      );
-    }
-  );
+router.get('/maintemplate', (req, res) => {
+	const jwtconst = jwt.verify(
+		req.cookies.jwt,
+		process.env.JWT_SECRET,
+		(err, decoded) => {
+			db.query(
+				`SELECT * FROM users where id = ${decoded.id}`,
+				(err, result) => {
+					if (err) {
+						console.log(err);
+						res.redirect('/auth/login');
+					} else {
+						if (result[0] && result[0].valentine) {
+							res.send('not allowed');
+						} else {
+              console.log(result[0].mode,'moders');
+              const ques = [];
+              db.query(`SELECT ${result[0].mode} from questions`, (err, result2) => {
+                result2.forEach((element) => {
+                  ques.push(element[result[0].mode]);
+                });
+                console.log(ques,'s');
+                res.render('./valentine/maintemplate',{text:ques});
+              });
+						}
+					}
+				}
+			);
+		}
+	);
 });
 
 router.post(
-  "/maintemplate",
-  upload.fields([
-    { name: "image0" },
-    { name: "image1" },
-    { name: "image2" },
-    { name: "image3" },
-    { name: "image4" },
-    { name: "image5" },
-    { name: "image6" },
-    { name: "image7" },
-    { name: "image8" },
-    { name: "image9" },
-  ]),
-  (req, res) => {
-    const images = [];
-    for (const key in req.files) {
-      images.push(req.files[key][0].path);
-    }
-    const json = JSON.stringify(images);
-    const jwtconst = jwt.verify(
-      req.cookies.jwt,
-      process.env.JWT_SECRET,
-      (err, decoded) => {
-        db.query(
-          `UPDATE users SET ? where id = ${decoded.id}`,
-          { valentine: json },
-          (err, result) => {
-            if (err) {
-              console.log(err);
-              res.redirect("/auth/login");
-            } else {
-              res.redirect("/en/valentine/templates");
-            }
-          }
-        );
-      }
-    );
-  }
+	'/maintemplate',
+	upload.fields([
+		{ name: 'image0' },
+		{ name: 'image1' },
+		{ name: 'image2' },
+		{ name: 'image3' },
+		{ name: 'image4' },
+		{ name: 'image5' },
+		{ name: 'image6' },
+		{ name: 'image7' },
+		{ name: 'image8' },
+		{ name: 'image9' }
+	]),
+	(req, res) => {
+    console.log(req.files);
+		const images = [];
+		for (const key in req.files) {
+			images.push(req.files[key][0].path);
+		}
+		const json = JSON.stringify(images);
+		const jwtconst = jwt.verify(
+			req.cookies.jwt,
+			process.env.JWT_SECRET,
+			(err, decoded) => {
+				db.query(
+					`UPDATE users SET ? where id = ${decoded.id}`,
+					{ valentine: json },
+					(err, result) => {
+						if (err) {
+							console.log(err);
+							res.redirect('/auth/login');
+						} else {
+							res.redirect('/en/valentine/templates');
+						}
+					}
+				);
+			}
+		);
+	}
 );
 
 router.post(
@@ -116,6 +125,7 @@ router.post(
   ])
 );
 
+<<<<<<< HEAD
 router.get("/category", (req, res) => {
   const jwtconst = jwt.verify(
     req.cookies.jwt,
@@ -177,6 +187,71 @@ router.get("/templates", (req, res) => {
       );
     }
   );
+=======
+router.get('/category', (req, res) => {
+	const jwtconst = jwt.verify(
+		req.cookies.jwt,
+		process.env.JWT_SECRET,
+		(err, decoded) => {
+			db.query(
+				`SELECT * FROM users where id = ${decoded.id}`,
+				(err, result) => {
+					if (err) {
+						console.log(err);
+						res.redirect('/auth/login');
+					} else {
+						
+							res.render('./valentine/category');
+						
+					}
+				}
+			);
+		}
+	);
+});
+router.get('/category/:mode', (req, res) => {
+	const jwtconst = jwt.verify(
+		req.cookies.jwt,
+		process.env.JWT_SECRET,
+		(err, decoded) => {
+			db.query(
+				`UPDATE users  SET ? where id = ${decoded.id}`,
+				{ mode: req.params.mode },
+
+
+
+				(err, result) => {
+					if (err) {
+						console.log(err);
+						res.redirect('/auth/login');
+					} else {
+					  return 	res.redirect('/en/valentine/maintemplate');
+					}
+				}
+			);
+		}
+	);
+});
+
+router.get('/templates', (req, res) => {
+	const jwtconst = jwt.verify(
+		req.cookies.jwt,
+		process.env.JWT_SECRET,
+		(err, decoded) => {
+			db.query(
+				`SELECT * FROM users where id = ${decoded.id}`,
+				(err, result) => {
+					if (err) {
+						console.log(err);
+						res.redirect('/auth/login');
+					} else {
+						res.render('./valentine/templates');
+					}
+				}
+			);
+		}
+	);
+>>>>>>> 687cb584edab805c5f00c401915b7aee0f31c64e
 });
 
 router.get("/templates/template1", (req, res) => {
@@ -220,5 +295,46 @@ router.get("/templates/template1", (req, res) => {
 router.get("/templates/template3", (req, res) => {
   res.render("./valentine/templates/template3");
 });
+router.get('/templates/template2', (req, res) => {
+	const mode = req.params.mode;
+	const jwtconst = jwt.verify(
+		req.cookies.jwt,
+		process.env.JWT_SECRET,
+		(err, decoded) => {
+			db.query(
+				`SELECT * FROM users where id = ${decoded.id}`,
+				(err, result1) => {
+					if (err) {
+						console.log(err);
+						res.redirect('/auth/login');
+					} else {
+						const ques = [];
+						db.query(
+							`SELECT ${result1[0].mode} from questions`,
+							(err, result) => {
+								if (err) {
+									console.log(err);
+								} else {
+									result.forEach((element) => {
+										ques.push(element[mode]);
+									});
+									console.log(ques);
+								}
+							}
+						);
+						const json = JSON.parse(result1[0].valentine);
+						res.render('./valentine/templates/template2', {
+							text: ques,
+							image: json
+						});
+					}
+				}
+			);
+		}
+	);
+});
+
+
+
 
 module.exports = router;
