@@ -77,7 +77,8 @@ body::-webkit-scrollbar-thumb:hover {
   top: 0;
   z-index: 13;
   font-size: 0rem;
-  background: #8A5F76;
+  /* background: #8A5F76; */
+  background: #fff;
   transform: rotate(-45deg) translate(100%, -100%);
   transition: all 0.7s;
 }
@@ -92,7 +93,9 @@ body::-webkit-scrollbar-thumb:hover {
 
 .navright {
   position: relative;
-  background: rgba(255, 255, 255, 0.4);
+  /* background: rgba(255, 255, 255, 0.4); */
+  /* background: rgba(0, 0, 0, 0.4); */
+  background: #ff22989c;
   height: 0%;
   width: 0%;
   clip-path: polygon(0 0, 100% 0, 34% 100%, 0% 100%);
@@ -140,12 +143,12 @@ body::-webkit-scrollbar-thumb:hover {
   font-weight: 200;
 }
 
-.navright ul li:hover a {
-  background: linear-gradient(to right, #8f00ff, #af7dff);
+/* .navright ul li:hover a {
+  background: #FF2299;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-}
+} */
 
 .closebtn {
   position: absolute;
