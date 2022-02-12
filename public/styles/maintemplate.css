@@ -21,6 +21,7 @@ section {
   height: 40%;
   position: absolute;
   /* background: #000; */
+  cursor: pointer;
 }
 
 .cupid-image {
@@ -92,7 +93,7 @@ section {
   display: none;
 }
 
-.main-divs-active {
+.main-divs.main-divs-active {
   display: flex;
 }
 
@@ -101,11 +102,16 @@ section {
 }
 
 .main-divs_text {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.main-divs_text input {
+  width: 100%;
 }
 
 .main-divs:nth-child(1) {
@@ -156,6 +162,83 @@ section {
 .main-divs:nth-child(10) {
   top: 5%;
   right: 52%;
+}
+
+@media (max-width: 768px) {
+  section {
+    height: fit-content;
+  }
+  .main-divs {
+    width: 50%;
+    margin: 2%;
+  }
+  .cupid {
+    display: none;
+  }
+  .main-divs {
+    position: relative;
+  }
+  .main-divs:nth-child(1) {
+    top: auto;
+    left: auto;
+  }
+
+  .main-divs:nth-child(2) {
+    top: auto;
+    right: auto;
+  }
+
+  .main-divs:nth-child(3) {
+    bottom: auto;
+    left: auto;
+  }
+
+  .main-divs:nth-child(4) {
+    bottom: auto;
+    right: auto;
+  }
+
+  .main-divs:nth-child(5) {
+    top: auto;
+    left: auto;
+  }
+
+  .main-divs:nth-child(6) {
+    top: auto;
+    right: auto;
+  }
+
+  .main-divs:nth-child(7) {
+    bottom: auto;
+    left: auto;
+  }
+
+  .main-divs:nth-child(8) {
+    bottom: auto;
+    right: auto;
+  }
+
+  .main-divs:nth-child(9) {
+    top: auto;
+    left: auto;
+  }
+
+  .main-divs:nth-child(10) {
+    top: auto;
+    right: auto;
+  }
+  .main-divs {
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .main-divs {
+    width: 80%;
+  }
 }
 
 /* CSS */
