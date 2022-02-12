@@ -1,0 +1,263 @@
+/* * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.heartclasswraper{
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heartleft {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(45deg);
+}
+
+.heartleft {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.heartleft:before,
+.heartleft:after {
+  position: absolute;
+  content: "";
+  left: 181px;
+  width: 181px;
+  height: 302px;
+  background-color: #e22e2e;
+  border-radius: 120px 120px 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.heartleft:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+.heartlefttext {
+  position: absolute;
+  text-align: center;
+  z-index: 1;
+}
+ */
+
+/* .section1 {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  background: rgb(255, 0, 92);
+}
+.sec1left,
+.sec1right {
+  position: relative;
+  height: 55%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heartleft {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 20% 20% 30% 40% rgba(0, 0, 0, 0.69) inset;
+  -webkit-box-shadow: 0px 0px 0px 437px rgb(255 255 255) inset;
+  -moz-box-shadow: 14px 10px 5px 115px rgba(0, 0, 0, 0.69) inset;
+  background: #ff9900;
+  -webkit-mask-image: url("../images/Layer\ 0.png");
+  mask-image: url("../images/Layer\ 0.png");
+  -webkit-mask-position: right;
+  mask-position: center;
+  -webkit-mask-size: 65%;
+  mask-size: 65%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  z-index: 5;
+  transform: rotate(-36deg);
+}
+
+
+.heartright {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: #ff9900;
+  -webkit-mask-image: url("../images/Layer\ 0.png");
+  mask-image: url("../images/Layer\ 0.png");
+  -webkit-mask-position: left;
+  mask-position: center;
+  -webkit-mask-size: 65%;
+  mask-size: 65%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  z-index: 5;
+  transform: rotate(36deg);
+}
+
+.heartright p {
+  position: relative;
+  width: 20%;
+  left: 25%;
+  font-size: 1.5rem;
+  transform: rotate(-36deg);
+} */
+* {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+}
+
+.section1 {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  background: rgb(255, 0, 92);
+}
+
+.section1left {
+  position: relative;
+  width: 50%;
+  height: 100%;
+}
+
+.section1right img {
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  top: 50%;
+  left: 5%;
+  transform: translateY(-50%);
+}
+
+.section1left img {
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  top: 50%;
+  right: 5%;
+  transform: scaleX(-1) translateY(-50%);
+}
+
+.section1right {
+  position: relative;
+  width: 50%;
+  height: 100%;
+}
+
+.section1left p {
+  position: absolute;
+  top: 50%;
+  right: 15%;
+  z-index: 3;
+  width: 42%;
+  font-size: 2rem;
+  font-weight: bolder;
+  transform: translate(0, -50%);
+  text-align: center;
+}
+
+.section1right p {
+  position: absolute;
+  top: 50%;
+  left: 15%;
+  z-index: 3;
+  width: 40%;
+  font-size: 2rem;
+  font-weight: bolder;
+  transform: translate(0, -50%);
+  text-align: center;
+}
+
+@media (max-width: 1200px) {
+  .section1left img {
+    width: 75%;
+  }
+  .section1right img {
+    width: 75%;
+  }
+}
+@media (max-width: 1050px) {
+  .section1left img {
+    width: 80%;
+  }
+  .section1right img {
+    width: 80%;
+  }
+}
+@media (max-width: 950px) {
+  .section1left img {
+    width: 90%;
+  }
+  .section1right img {
+    width: 90%;
+  }
+  .section1right p {
+    width: 58%;
+    font-size: 1.6rem;
+  }
+  .section1left p {
+    width: 58%;
+    font-size: 1.6rem;
+  }
+}
+@media (max-width: 850px) {
+  .section1left img {
+    width: 93%;
+    height: 65%;
+  }
+  .section1right img {
+    width: 93%;
+    height: 65%;
+  }
+}
+@media (max-width: 770px) {
+  .section1 {
+    height: 150vh;
+    flex-direction: column;
+  }
+  .section1left{
+    width: 100%;
+    height: 100%;
+  }
+  .section1left img {
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    top: unset;
+    left: unset;
+    transform: rotate(-30deg);
+  }
+  .section1right img {
+    width: 93%;
+    height: 65%;
+  }
+}
