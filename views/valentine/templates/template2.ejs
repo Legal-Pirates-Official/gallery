@@ -13,7 +13,9 @@
 <body>
     <% if( type && type=="preview" ) {%>
         <%- include('../../partials/clickme.ejs') %>
-            <% } %>
+        <% } else {%>
+        <%- include('../../partials/copyToClipboard.ejs') %>
+        <% } %> 
 
                 <section class="hero">
                     <div class="mainpic">

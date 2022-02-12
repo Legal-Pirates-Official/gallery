@@ -200,6 +200,11 @@ router.get("/templates/template1", (req, res) => {
 		req.cookies.jwt,
 		process.env.JWT_SECRET,
 		(err, decoded) => {
+			if (!decoded) {
+				console.log(err, "err");
+				res.redirect("/auth/login");
+			} else {
+
 			db.query(
 				`SELECT * FROM users where id = ${decoded.id}`,
 				(err, result1) => {
@@ -207,6 +212,11 @@ router.get("/templates/template1", (req, res) => {
 						console.log(err);
 						res.redirect("/auth/login");
 					} else {
+						if(result1[0].currentTemplate){
+
+							console.log(result1[0].currentTemplate,'template');
+							return res.redirect(`/user/${result1[0].name}`);
+						}
 						const ques = [];
 						db.query(
 							`SELECT ${result1[0].mode} from questions`,
@@ -229,7 +239,7 @@ router.get("/templates/template1", (req, res) => {
 						});
 					}
 				}
-			);
+			)}
 		}
 	);
 });
@@ -242,6 +252,11 @@ router.get("/templates/template2", (req, res) => {
 		req.cookies.jwt,
 		process.env.JWT_SECRET,
 		(err, decoded) => {
+			if (!decoded) {
+				console.log(err, "err");
+				res.redirect("/auth/login");
+			} else {
+				
 			db.query(
 				`SELECT * FROM users where id = ${decoded.id}`,
 				(err, result1) => {
@@ -249,6 +264,11 @@ router.get("/templates/template2", (req, res) => {
 						console.log(err);
 						res.redirect("/auth/login");
 					} else {
+						if(result1[0].currentTemplate){
+
+							console.log(result1[0].currentTemplate,'template');
+							return res.redirect(`/user/${result1[0].name}`);
+						}
 						const ques = [];
 						db.query(
 							`SELECT ${result1[0].mode} from questions`,
@@ -272,7 +292,7 @@ router.get("/templates/template2", (req, res) => {
 						});
 					}
 				}
-			);
+			)}
 		}
 	);
 });
@@ -282,18 +302,32 @@ router.post("/templatemode/:currentTemplate", (req, res) => {
 	const jwtconst = jwt.verify(
 		req.cookies.jwt,
 		process.env.JWT_SECRET,
-		(err, decoded) => {
+		(err,decoded) => {
+			const date = new Date();
+			date.setDate(date.getDate() + 7);
 			db.query(
-				`UPDATE users SET ? where id = ${decoded.id}`, { currentTemplate: currentTemplate },
+				`UPDATE users SET ? where id = ${decoded.id}`, { currentTemplate: currentTemplate ,date},
 				(err, result) => {
 					if (err) {
 						console.log(err);
 						res.redirect("/auth/login");
 					} else {
+						console.log('====================================');
 						console.log(result);
+						console.log('====================================');
+						db.query('SELECT * from users where id = ?', [decoded.id], (err, result) => {
+							if (err) {
+								console.log(err);
+							} else {
+								console.log(result);
+								res.json(result);
+								const name = result[0].name.toLowerCase();
+								// res.redirect(`http://localhost:8080/${name}`);
+							}
+						})
 					}
 				}
-			);
+			)
 		}
 	);
 });

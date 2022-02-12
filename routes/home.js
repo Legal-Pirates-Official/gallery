@@ -49,7 +49,24 @@ router.get('/user/:username', (req, res) => {
 					if (err) {
 						console.log(err)
 					} else {
-						console.log(result3);
+					if(!(result3[0].date < new Date().getDate())) {
+
+						db.query('UPDATE users where name = ? SET ?', [req.params.username],{currentTemplate:null,date:null,valentine:null}, (err, resultupdate) => {
+							if(err) {
+								console.log('====================================');
+								console.log(err);
+								console.log('====================================');
+							} else {
+								console.log('====================================');
+								console.log(resultupdate);
+								req.flash('Template has been expired');
+								console.log('====================================');
+								return res.redirect('/en/valentine/templates');
+							}
+						})
+					}
+
+						// console.log();
 						db.query(`SELECT ${result3[0].mode} from questions`, (err, result2) => {
 							if (err) {
 								console.log('====================================');
