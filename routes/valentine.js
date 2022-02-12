@@ -125,69 +125,6 @@ router.post(
   ])
 );
 
-<<<<<<< HEAD
-router.get("/category", (req, res) => {
-  const jwtconst = jwt.verify(
-    req.cookies.jwt,
-    process.env.JWT_SECRET,
-    (err, decoded) => {
-      db.query(
-        `SELECT * FROM users where id = ${decoded.id}`,
-        (err, result) => {
-          if (err) {
-            console.log(err);
-            res.redirect("/auth/login");
-          } else {
-            if (result[0] && result[0].valentine) {
-              res.send("not allowed");
-            } else {
-              res.render("./valentine/category");
-            }
-          }
-        }
-      );
-    }
-  );
-});
-router.post("/category/:mode", (err, result) => {
-  const jwtconst = jwt.verify(
-    req.cookies.jwt,
-    process.env.JWT_SECRET,
-    (err, decoded) => {
-      db.query(
-        `UPDATE users where id = ${decoded.id} SET ?`,
-        { mode: req.params.mode },
-        (err, result) => {
-          if (err) {
-            console.log(err);
-            res.redirect("/auth/login");
-          } else {
-            res.redirect("/en/valentine/maintemplate");
-          }
-        }
-      );
-    }
-  );
-});
-router.get("/templates", (req, res) => {
-  const jwtconst = jwt.verify(
-    req.cookies.jwt,
-    process.env.JWT_SECRET,
-    (err, decoded) => {
-      db.query(
-        `SELECT * FROM users where id = ${decoded.id}`,
-        (err, result) => {
-          if (err) {
-            console.log(err);
-            res.redirect("/auth/login");
-          } else {
-            res.render("./valentine/templates");
-          }
-        }
-      );
-    }
-  );
-=======
 router.get('/category', (req, res) => {
 	const jwtconst = jwt.verify(
 		req.cookies.jwt,
@@ -251,7 +188,6 @@ router.get('/templates', (req, res) => {
 			);
 		}
 	);
->>>>>>> 687cb584edab805c5f00c401915b7aee0f31c64e
 });
 
 router.get("/templates/template1", (req, res) => {
