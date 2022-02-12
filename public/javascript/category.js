@@ -6,7 +6,7 @@ btn.forEach((b) =>
     const value = this;
     const mode = value.getAttribute("data-name");
     console.log(mode);
-    const fetch1 = await fetch(`http://localhost:8080/en/valentine/category/${mode}`,{
+    const fetch1 = await fetch(`/en/valentine/category/${mode}`,{
 
         method: "GET",
         redirect: 'follow',
@@ -21,18 +21,23 @@ btn.forEach((b) =>
   })
 );
 const clickme = document.querySelector(".clickme");
+if(clickme)   {
 clickme.addEventListener("click", async (e) => {
   console.log(window.location.href.split("/")[6]);
   const currentTemplate = window.location.href.split("/")[6];
-  const fetch1 = await fetch(`http://localhost:8080/en/valentine/templatemode/${currentTemplate}`,{
+  const fetch1 = await fetch(`/en/valentine/templatemode/${currentTemplate}`,{
 
         method: "POST",
         redirect: 'follow',
         headers: {
             'Content-Type': 'application/json',
           }
+        
 
     })
-      .then((response) => console.log(response))
-      .catch((error) => console.error(error));
-});
+      const data = await fetch1.json();
+      console.log(data[0].name);
+      window.location = `http://localhost:8080/user/${data[0].name}`;
+
+      
+})}

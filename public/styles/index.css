@@ -215,6 +215,11 @@
   position: absolute;
   top: 3%;
 }
+.Love{
+  color: #ff0d81;
+  font-size: 2rem;
+  text-decoration: none;
+}
 
 /* Long Img */
 .longimg {
@@ -300,6 +305,21 @@
 }
 
 /* Media Query */
+@media(max-width: 800px){
+  .para {
+    width:40%; 
+    left: auto;
+    top: 20%;
+    padding: 5%;  
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+  }
+  .head2 {
+    font-size: 5.6rem;
+    left: 60%;
+    top: 15%;
+  }
+}
 
 @media (max-width: 750px) {
   /* .mainsec1img
@@ -359,10 +379,10 @@
   .bg1,
   .bg2,
   .bg3 {
-    width: 70%;
+    width: 60%;
   }
   .img1 {
-    width: fit-content;
+    width: 505;
   }
 
   .mainimgsec1 {

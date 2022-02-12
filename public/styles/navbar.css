@@ -13,13 +13,13 @@ body::-webkit-scrollbar-track {
 
 /* Handle */
 body::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #E962FF 0%, #FF2299 100%);
+  background: linear-gradient(to bottom, #e962ff 0%, #ff2299 100%);
   border-radius: 10px;
 }
 
 /* Handle on hover */
 body::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to top, #E962FF 0%, #FF2299 100%);
+  background: linear-gradient(to top, #e962ff 0%, #ff2299 100%);
 }
 
 .header {
@@ -325,19 +325,38 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
-
-
-.click-button
-{
+.click-button {
   position: fixed;
-  bottom: 0;
-  right: 0;
-  height: 5rem;
-  background: #fff;
+  bottom: 3%;
+  right: 2%;
+  height: 8rem;
+  background: rgba(0, 0, 0, 0.7);
   width: 20%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 500;
+  border-radius: 10px;
 }
 
+.click-button h3 {
+  width: 100%;
+  text-align: center;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: #fff;
+}
+
+.click-button button {
+  width: 50%;
+  height: 2.5rem;
+  margin: 2%;
+  background: #ff88c8;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1.2rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: bolder;
+  cursor: pointer;
+}

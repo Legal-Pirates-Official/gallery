@@ -118,7 +118,7 @@ img {
 /* Text */
 .text {
   width: 100%;
-  height: 10%;
+  height: 6%;
   position: relative;
   display: flex;
   align-items: center;
@@ -131,14 +131,14 @@ img {
   color: #000;
 }
 .text p a {
-  color: #000;
+  color: rgb(255, 0, 0);
   text-decoration: none;
   font-size: 1.3rem;
   position: relative;
 }
 
 .text p a:hover {
-  color: rgb(255, 0, 0);
+  text-decoration: underline;
 }
 
 .text1 {
@@ -153,6 +153,16 @@ img {
   font-size: 1.3rem;
   position: relative;
   color: #000;
+}
+.text1 p a {
+  color: rgb(255, 0, 0);
+  text-decoration: none;
+  font-size: 1.3rem;
+  position: relative;
+}
+
+.text1 p a:hover {
+  text-decoration: underline;
 }
 ::placeholder {
   text-align: center;
