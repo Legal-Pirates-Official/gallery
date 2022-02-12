@@ -65,33 +65,52 @@
 .gridimg2 {
   position: relative;
   grid-area: grid2;
-  background: #000;
+  background: #fa00ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 .gridimg1 {
   position: relative;
   grid-area: grid1;
-  background: rgb(255, 0, 0);
+  background: #fa00ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 .gridimg3 {
   position: relative;
   grid-area: grid3;
-  background: rgb(217, 255, 0);
+  background: #fa00ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 .gridimg5 {
   position: relative;
   grid-area: grid6;
-  background: rgb(71, 243, 19);
+  background: #fa00ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 .gridimg4 {
   position: relative;
   grid-area: grid4;
-  background: rgb(10, 14, 230);
+  background: #fa00ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.container img{
+.container img {
   position: absolute;
   height: 100%;
-  width: 100%;
 }
 
 /* section-3 */
@@ -141,6 +160,11 @@
   z-index: 5;
   transform: rotate(-36deg) translate(-19%, -38%);
 }
+.floatingheart img{
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
 /* section-4 */
 .section4 {
   position: relative;
@@ -154,7 +178,7 @@
   height: 100%;
   width: 60%;
   clip-path: polygon(0 0, 57% 0, 100% 100%, 0 100%);
-  background: url("../images/imagesl.png") no-repeat center/cover;
+  background: url("../images/template1/image4.jpeg") no-repeat center/cover;
 }
 .section4 img {
   position: absolute;
@@ -166,7 +190,7 @@
   height: 100%;
   width: 65%;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 40% 100%);
-  background: url("../images/image-2.png") no-repeat center/cover;
+  background: url("../images/template1/image2.jpeg") no-repeat center/cover;
   right: 0;
 }
 /* section-5 */
@@ -218,7 +242,6 @@
   height: 100%;
   width: 100%;
 }
-
 
 @media (max-width: 1300px) {
   .heart {
@@ -300,4 +323,3 @@
     height: 40vh;
   }
 }
-
