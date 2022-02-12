@@ -91,6 +91,10 @@ router.get('/register/verify/:token', async (req, res) => {
 						req.flash('error_msg', 'Some error occured');
 						return res.redirect('/auth/register');
 					} else {
+						console.log(
+							'🚀 ~ file: auth.js ~ line 89 ~ jwt.verify ~ results',
+							results
+						);
 						const token = jwt.sign(
 							{
 								user_name: results.name,
