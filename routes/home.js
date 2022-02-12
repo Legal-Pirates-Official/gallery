@@ -75,14 +75,11 @@ router.get('/user/:username', (req, res) => {
 							return res.redirect('/en/valentine/templates');
 						}
 
-						// console.log();
 						db.query(
 							`SELECT ${result3[0].mode} from questions`,
 							(err, result2) => {
 								if (err) {
-									console.log('====================================');
 									console.log(err);
-									console.log('====================================');
 								} else {
 									const ques = [];
 									result2.forEach((element) => {
