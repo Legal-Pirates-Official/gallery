@@ -63,24 +63,35 @@
     "grid4 grid4 grid6 grid6";
 }
 .gridimg2 {
+  position: relative;
   grid-area: grid2;
   background: #000;
 }
 .gridimg1 {
+  position: relative;
   grid-area: grid1;
   background: rgb(255, 0, 0);
 }
 .gridimg3 {
+  position: relative;
   grid-area: grid3;
   background: rgb(217, 255, 0);
 }
 .gridimg5 {
+  position: relative;
   grid-area: grid6;
   background: rgb(71, 243, 19);
 }
 .gridimg4 {
+  position: relative;
   grid-area: grid4;
   background: rgb(10, 14, 230);
+}
+
+.container img{
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 /* section-3 */
@@ -184,16 +195,27 @@
 }
 
 .sec-5div1 {
+  position: relative;
   grid-area: gridar1;
   background: #000;
 }
 .sec-5div2 {
+  position: relative;
   grid-area: gridar2;
   background: red;
 }
 .sec-5div3 {
+  position: relative;
   grid-area: gridar3;
   background: blue;
+}
+
+.sec5cont img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
 }
 
 @media (max-width: 1300px) {
