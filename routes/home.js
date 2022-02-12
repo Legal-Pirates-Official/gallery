@@ -8,16 +8,13 @@ const router = express.Router();
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
 
-
 router.get('/', (req, res) => {
 	jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
 		res.render('index', { user_name: decoded ? decoded.user_name : null });
 	});
 });
 
-
 const { addGallery } = require('../functions/index');
-
 
 const upload = multer({ storage });
 
@@ -43,8 +40,10 @@ router.get('/admintemplate', (req, res) => {
 
 router.get('/:username', (req, res) => {
 	const username = req.params.username;
-
-	if (req.cookies.user_name && req.cookies.user_name.toLowerCase() == username.toLowerCase()) {
+	if (
+		req.cookies.user_name &&
+		req.cookies.user_name.toLowerCase() == username.toLowerCase()
+	) {
 		const id = req.cookies.user;
 		db.query(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
 			if (err) {
