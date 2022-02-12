@@ -273,8 +273,8 @@
 }
 
 .load {
-  height: 40%;
-  width: 40%;
+  height: 55%;
+  width: 35%;
   background-color: #111;
   position: relative;
 }
@@ -287,7 +287,7 @@
   align-items: center;
   top: 0;
   left: 0;
-  background: white;
+  background: rgba(17, 17, 17, 0.644);
   z-index: 100;
 }
 .close {
@@ -303,7 +303,10 @@
 /* Media Query */
 
 @media (max-width: 750px) {
-  
+  /* .mainsec1img
+  {
+    width: auto;
+  } */
 
   .sec1h1 {
     font-size: 4.3rem;
