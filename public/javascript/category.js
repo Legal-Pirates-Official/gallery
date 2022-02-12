@@ -28,8 +28,8 @@ if (clickme) {
 				}
 			}
 		);
-		const data = await fetch1.json();
-		window.location =
-			window.location.href.split('.com')[0] + `user/${data[0].name}`;
+		// const data = await fetch1.json();
+		// window.location =
+		// 	window.location.href.split('.com')[0] + `user/${data[0].name}`;
 	});
 }
