@@ -11,7 +11,7 @@ const db = require("../database");
 const { isloggedin } = require("../middleware");
 const jwt = require("jsonwebtoken");
 
-router.get('/maintemplate', (req, res) => {
+router.get("/maintemplate", (req, res) => {
 	const jwtconst = jwt.verify(
 		req.cookies.jwt,
 		process.env.JWT_SECRET,
@@ -21,20 +21,23 @@ router.get('/maintemplate', (req, res) => {
 				(err, result) => {
 					if (err) {
 						console.log(err);
-						res.redirect('/auth/login');
+						res.redirect("/auth/login");
 					} else {
 						if (result[0] && result[0].valentine) {
-							res.send('not allowed');
+							res.send("not allowed");
 						} else {
-							console.log(result[0].mode, 'moders');
+							console.log(result[0].mode, "moders");
 							const ques = [];
-							db.query(`SELECT ${result[0].mode} from questions`, (err, result2) => {
-								result2.forEach((element) => {
-									ques.push(element[result[0].mode]);
-								});
-								console.log(ques, 's');
-								res.render('./valentine/maintemplate', { text: ques });
-							});
+							db.query(
+								`SELECT ${result[0].mode} from questions`,
+								(err, result2) => {
+									result2.forEach((element) => {
+										ques.push(element[result[0].mode]);
+									});
+									console.log(ques, "s");
+									res.render("./valentine/maintemplate", { text: ques });
+								}
+							);
 						}
 					}
 				}
@@ -44,18 +47,18 @@ router.get('/maintemplate', (req, res) => {
 });
 
 router.post(
-	'/maintemplate',
+	"/maintemplate",
 	upload.fields([
-		{ name: 'image0' },
-		{ name: 'image1' },
-		{ name: 'image2' },
-		{ name: 'image3' },
-		{ name: 'image4' },
-		{ name: 'image5' },
-		{ name: 'image6' },
-		{ name: 'image7' },
-		{ name: 'image8' },
-		{ name: 'image9' }
+		{ name: "image0" },
+		{ name: "image1" },
+		{ name: "image2" },
+		{ name: "image3" },
+		{ name: "image4" },
+		{ name: "image5" },
+		{ name: "image6" },
+		{ name: "image7" },
+		{ name: "image8" },
+		{ name: "image9" },
 	]),
 	(req, res) => {
 		console.log(req.files);
@@ -74,9 +77,9 @@ router.post(
 					(err, result) => {
 						if (err) {
 							console.log(err);
-							res.redirect('/auth/login');
+							res.redirect("/auth/login");
 						} else {
-							res.redirect('/en/valentine/templates');
+							res.redirect("/en/valentine/templates");
 						}
 					}
 				);
@@ -125,28 +128,31 @@ router.post(
 	])
 );
 
-router.get('/category', (req, res) => {
+router.get("/category", (req, res) => {
 	const jwtconst = jwt.verify(
 		req.cookies.jwt,
 		process.env.JWT_SECRET,
 		(err, decoded) => {
-			db.query(
-				`SELECT * FROM users where id = ${decoded.id}`,
-				(err, result) => {
-					if (err) {
-						console.log(err);
-						res.redirect('/auth/login');
-					} else {
-
-						res.render('./valentine/category');
-
+			if (!decoded) {
+				console.log(err, "err");
+				res.redirect("/auth/login");
+			} else {
+				db.query(
+					`SELECT * FROM users where id = ${decoded.id}`,
+					(err, result) => {
+						if (err) {
+							console.log(err, "decode err");
+							res.redirect("/auth/login");
+						} else {
+							res.render("./valentine/category");
+						}
 					}
-				}
-			);
+				);
+			}
 		}
 	);
 });
-router.get('/category/:mode', (req, res) => {
+router.get("/category/:mode", (req, res) => {
 	const jwtconst = jwt.verify(
 		req.cookies.jwt,
 		process.env.JWT_SECRET,
@@ -155,14 +161,12 @@ router.get('/category/:mode', (req, res) => {
 				`UPDATE users  SET ? where id = ${decoded.id}`,
 				{ mode: req.params.mode },
 
-
-
 				(err, result) => {
 					if (err) {
 						console.log(err);
-						res.redirect('/auth/login');
+						res.redirect("/auth/login");
 					} else {
-						return res.redirect('/en/valentine/maintemplate');
+						return res.redirect("/en/valentine/maintemplate");
 					}
 				}
 			);
@@ -170,7 +174,7 @@ router.get('/category/:mode', (req, res) => {
 	);
 });
 
-router.get('/templates', (req, res) => {
+router.get("/templates", (req, res) => {
 	const jwtconst = jwt.verify(
 		req.cookies.jwt,
 		process.env.JWT_SECRET,
@@ -180,9 +184,9 @@ router.get('/templates', (req, res) => {
 				(err, result) => {
 					if (err) {
 						console.log(err);
-						res.redirect('/auth/login');
+						res.redirect("/auth/login");
 					} else {
-						res.render('./valentine/templates');
+						res.render("./valentine/templates");
 					}
 				}
 			);
@@ -221,6 +225,7 @@ router.get("/templates/template1", (req, res) => {
 						res.render("./valentine/templates/template1", {
 							text: ques,
 							image: json,
+							type: "preview"
 						});
 					}
 				}
@@ -231,7 +236,7 @@ router.get("/templates/template1", (req, res) => {
 router.get("/templates/template3", (req, res) => {
 	res.render("./valentine/templates/template3");
 });
-router.get('/templates/template2', (req, res) => {
+router.get("/templates/template2", (req, res) => {
 	const mode = req.params.mode;
 	const jwtconst = jwt.verify(
 		req.cookies.jwt,
@@ -242,7 +247,7 @@ router.get('/templates/template2', (req, res) => {
 				(err, result1) => {
 					if (err) {
 						console.log(err);
-						res.redirect('/auth/login');
+						res.redirect("/auth/login");
 					} else {
 						const ques = [];
 						db.query(
@@ -259,9 +264,10 @@ router.get('/templates/template2', (req, res) => {
 							}
 						);
 						const json = JSON.parse(result1[0].valentine);
-						res.render('./valentine/templates/template2', {
+						res.render("./valentine/templates/template2", {
 							text: ques,
-							image: json
+							image: json,
+							type: "preview"
 						});
 					}
 				}
@@ -270,7 +276,26 @@ router.get('/templates/template2', (req, res) => {
 	);
 });
 
+router.post("/templatemode/:currentTemplate", (req, res) => {
+	const currentTemplate = req.params.currentTemplate;
+	const jwtconst = jwt.verify(
+		req.cookies.jwt,
+		process.env.JWT_SECRET,
+		(err, decoded) => {
+			db.query(
+				`UPDATE users SET ? where id = ${decoded.id}`, { currentTemplate: currentTemplate },
+				(err, result) => {
+					if (err) {
+						console.log(err);
+						res.redirect("/auth/login");
+					} else {
+						console.log(result);
+					}
 
 
-
+				}
+			);
+		}
+	);
+});
 module.exports = router;
