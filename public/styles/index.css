@@ -168,6 +168,15 @@
   align-items: center;
 }
 
+.photo1 {
+  width: 50%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .img1 {
   width: 22vw;
   height: 55vh;
@@ -215,7 +224,7 @@
   position: absolute;
   top: 3%;
 }
-.Love{
+.Love {
   color: #ff0d81;
   font-size: 2rem;
   text-decoration: none;
@@ -295,6 +304,17 @@
   background: rgba(17, 17, 17, 0.644);
   z-index: 100;
 }
+
+@media (max-width: 400px) {
+  .load {
+    width: 90%;
+  }
+  .close {
+    top: 10%;
+    right: 0%;
+  }
+}
+
 .close {
   position: absolute;
   top: 5%;
@@ -303,14 +323,41 @@
   height: 70px !important;
   cursor: pointer;
 }
+@media (max-width: 1000px) {
+  .load {
+    width: 65%;
+  }
+  .close {
+    top: 4%;
+    right: 15%;
+  }
+}
+@media (max-width: 615px) {
+  .load {
+    width: 65%;
+  }
+  .close {
+    top: 11%;
+    right: -5%;
+  }
+}
+@media (max-width: 400px) {
+  .load {
+    width: 65%;
+  }
+  .close {
+    top: 20%;
+    right: -5%;
+  }
+}
 
 /* Media Query */
-@media(max-width: 800px){
+@media (max-width: 800px) {
   .para {
-    width:40%; 
+    width: 40%;
     left: auto;
     top: 20%;
-    padding: 5%;  
+    padding: 5%;
     font-size: 1.6rem;
     line-height: 2.2rem;
   }
@@ -341,7 +388,8 @@
     top: 8%;
   }
   .para {
-    width: fit-content;
+    /* width: fit-content; */
+    width: 60%;
     height: fit-content;
     left: auto;
     top: 20%;
@@ -352,7 +400,7 @@
 
   .div1,
   .div2 {
-    flex-direction: column-reverse;
+    flex-direction: column;
     height: fit-content;
   }
   .photo1 {
@@ -418,7 +466,7 @@
 
   .div1,
   .div2 {
-    flex-direction: column-reverse;
+    flex-direction: column;
     height: fit-content;
   }
   .photo1 {
@@ -452,5 +500,62 @@
     height: fit-content;
     width: 100%;
     right: 20%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .img1 {
+    width: 28vw;
+  }
+  .bg1 {
+    width: 30vw;
+  }
+}
+@media (max-width: 1000px) {
+  .img1 {
+    width: 33vw;
+  }
+  .bg1 {
+    width: 36vw;
+  }
+}
+@media (max-width: 800px) {
+  .img1 {
+    width: 36vw;
+  }
+  .bg1 {
+    width: 40vw;
+  }
+}
+@media (max-width: 650px) {
+  .img1 {
+    width: 40vw;
+  }
+  .bg1 {
+    width: 44vw;
+  }
+}
+@media (max-width: 550px) {
+  .img1 {
+    width: 46vw;
+  }
+  .bg1 {
+    width: 53vw;
+  }
+}
+@media (max-width: 450px) {
+  .img1 {
+    width: 56vw;
+  }
+  .bg1 {
+    width: 64vw;
+  }
+}
+@media (max-width: 400px) {
+  .img1 {
+    width: 60vw;
+  }
+  .bg1 {
+    width: 73vw;
   }
 }

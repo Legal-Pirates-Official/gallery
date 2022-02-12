@@ -242,9 +242,11 @@ router.get('/templates/template1', (req, res) => {
 		}
 	);
 });
+
 router.get('/templates/template3', (req, res) => {
 	res.render('./valentine/templates/template3');
 });
+
 router.get('/templates/template2', (req, res) => {
 	const mode = req.params.mode;
 	const jwtconst = jwt.verify(
