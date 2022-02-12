@@ -65,14 +65,14 @@ router.get('/user/:username', (req, res) => {
 											console.log(err);
 										} else {
 											req.flash('Template has been expired');
-											return res.redirect('/en/valentine/templates');
+											return res.redirect('/en/valentine/category');
 										}
 									}
 								);
 							}
 						} else {
 							req.flash('Choose your template');
-							return res.redirect('/en/valentine/templates');
+							return res.redirect('/en/valentine/category');
 						}
 
 						db.query(

@@ -58,7 +58,7 @@ router.post('/register', async (req, res) => {
 			from: process.env.EMAIL_ID,
 			to: req.body.email,
 			subject: 'Register your account here',
-			html: `<a href="http://localhost:8080/auth/register/verify/${accessToken}" >Click here to verify your account</a>`
+			html: `<a href="${process.env.DOMAIN}/auth/register/verify/${accessToken}" >Click here to verify your account</a>`
 		};
 
 		transporter.sendMail(mailOptions, function (error, info) {
@@ -210,7 +210,7 @@ router.post('/forgotpassword', async (req, res) => {
 					signed: false
 				});
 
-				const url = `http://localhost:8080/auth/resetpassword/${token}`;
+				const url = `${process.env.DOMAIN}/auth/resetpassword/${token}`;
 
 				let transporter = nodemailer.createTransport({
 					service: 'gmail',
