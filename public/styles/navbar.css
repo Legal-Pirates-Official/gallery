@@ -13,13 +13,13 @@ body::-webkit-scrollbar-track {
 
 /* Handle */
 body::-webkit-scrollbar-thumb {
-  background: linear-gradient(to top, #60efff, #2b72e4);
+  background: linear-gradient(to bottom, #E962FF 0%, #FF2299 100%);
   border-radius: 10px;
 }
 
 /* Handle on hover */
 body::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #60efff, #2b72e4);
+  background: linear-gradient(to top, #E962FF 0%, #FF2299 100%);
 }
 
 .header {

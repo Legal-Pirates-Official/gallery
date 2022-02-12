@@ -1,3 +1,4 @@
+gsap.registerPlugin(ScrollTrigger);
 const navbar = document.querySelector(".navbar");
 const navbarright = document.querySelector(".navright");
 
@@ -12,4 +13,14 @@ document.querySelector(".closebtn").addEventListener("click", function () {
   navbarright.classList.remove("active2");
   document.querySelector(".navright ul").style.display = "none";
   document.querySelector(".navright ul").style.transition = "display 2s";
+});
+
+
+gsap.to(".navbar", {
+  scrollTrigger: {
+    trigger: ".li",
+    start: "top bottom",
+    markers: true,
+  },
+  background
 });
