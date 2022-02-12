@@ -38,41 +38,60 @@ router.get('/admintemplate', (req, res) => {
 	}
 });
 
-router.get('/:username', (req, res) => {
-	const username = req.params.username;
+router.get('/user/:username', (req, res) => {
+	const jwtconst = jwt.verify(
+		req.cookies.jwt,
+		process.env.JWT_SECRET,
+		(err, decoded) => {
+			db.query(
+				'SELECT * FROM users where name = ?', [req.params.username],
+				(err, result3) => {
+					if (err) {
+						console.log(err)
+					} else {
+					if(!(result3[0].date < new Date().getDate())) {
 
-	if (
-		req.cookies.user_name &&
-		req.cookies.user_name.toLowerCase() == username.toLowerCase()
-	) {
-		const id = req.cookies.user;
-		db.query(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
-			if (err) {
-				console.log(err);
-				res.redirect('/auth/login');
-			} else {
-				if (results[0].currentTemplate) {
-					switch (results[0].currentTemplate) {
-						case 'template1':
-							return res.redirect('/en/valentine/templates/template1');
-							break;
+						db.query('UPDATE users where name = ? SET ?', [req.params.username],{currentTemplate:null,date:null,valentine:null}, (err, resultupdate) => {
+							if(err) {
+								console.log('====================================');
+								console.log(err);
+								console.log('====================================');
+							} else {
+								console.log('====================================');
+								console.log(resultupdate);
+								req.flash('Template has been expired');
+								console.log('====================================');
+								return res.redirect('/en/valentine/templates');
+							}
+						})
 					}
-					// if (results[0].gallery && results[0].gallery.length > 0) {
-					// 	const images = JSON.parse(results[0].gallery);
-					// 	res.render('dummy', { arr: images });
-					// } else {
-					// 	res.redirect('/admintemplate');
-					// }
-				} else {
-					res.redirect('/en/valentine/category');
-				}
-			}
-		});
-	} else {
-		res.redirect('/auth/login');
-	}
-});
 
+						// console.log();
+						db.query(`SELECT ${result3[0].mode} from questions`, (err, result2) => {
+							if (err) {
+								console.log('====================================');
+								console.log(err);
+								console.log('====================================');
+							} else {
+								const ques = [];
+								result2.forEach((element) => {
+									ques.push(element[result3[0].mode]);
+								});
+								const page = result3[0].currentTemplate;
+								const json = JSON.parse(result3[0].valentine);
+								res.render(`./valentine/templates/${page}`, {
+									text: ques,
+									image: json,
+									type: "final",
+									title: req.params.username
+								});
+							}
+						})
+					}
+				}
+			);
+		})
+});
 router.post(
 	'/submit',
 	upload.fields([

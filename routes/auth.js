@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport({
 router.post('/register', async (req, res) => {
 	const { name, email, password, confirm_password } = req.body;
 	const namenew = name.charAt(0).toUpperCase() + name.toLowerCase().slice(1);
-	db.query('SELECT * FROM users', async (err, results, id) => {
+	db.query('SELECT * FROM users', async (err, results) => {
 		if (err) {
 			console.log(err);
 		} else {
@@ -34,67 +34,42 @@ router.post('/register', async (req, res) => {
 						req.flash('error_msg', 'User already exists');
 						return res.redirect('/auth/login');
 					}
+					else if (result.email === email) {
+						req.flash('error_msg', 'Email already exists');
+						return res.redirect('/auth/register');
+					}
 				});
 			} else {
 				return res.redirect('/auth/register');
 			}
 		}
-		if (password !== confirm_password) {
-			req.flash('error_msg', 'Passwords do not match');
-			return res.redirect('/auth/register');
-		}
-		// else if (password.length < 8) {
-		// 	req.flash('error_msg', 'Password must be at least 8 characters long');
-		// 	return res.redirect('/auth/register');
-		// }
-		// else if (password.length > 20) {
-		// 	req.flash('error_msg', 'Password must be less than 20 characters long');
-		// 	return res.redirect('/auth/register');
-		// }
-		// else if (password.search(/\d/) == -1) {
-		// 	req.flash('error_msg', 'Password must contain at least one number');
-		// 	return res.redirect('/auth/register');
-		// }
-		// else if (password.search(/[a-z]/) == -1) {
-		// 	req.flash('error_msg', 'Password must contain at least one lowercase letter');
-		// 	return res.redirect('/auth/register');
-		// }
-		else if (email === '' || password === '' || name === '') {
-			return res.status(400).render('auth/register', {
-				error_msg: 'Email already exists'
-			});
-		}
-		else if (results.length > 0) {
-			results.forEach((result) => {
-				if (result.email === email) {
-					req.flash('error_msg', 'Email already exists');
-					return res.redirect('/auth/register');
-				}
-			});
-		}
-		else {
-			const accessToken = jwt.sign(
-				{ user_name: name, email, password: await bcrypt.hash(password, 10) },
-				process.env.JWT_SECRET,
-				{ expiresIn: '1h' }
-			);
-			var mailOptions = {
-				from: process.env.EMAIL_ID,
-				to: req.body.email,
-				subject: 'Register your account here',
-				html: `<a href="http://localhost:8080/auth/register/verify/${accessToken}" >Click here to verify your account</a>`
-			};
-			transporter.sendMail(mailOptions, function (error, info) {
-				if (error) {
-					console.log(error);
-					res.json('Some error occurred');
-				} else {
-					req.flash('success_msg', 'Check your email to register your account');
-					res.redirect('/auth/register');
-				}
-			});
-		}
 	});
+
+	if (password !== confirm_password) {
+		req.flash('error_msg', 'Passwords do not match');
+		return res.redirect('/auth/register');
+	} else {
+		const accessToken = jwt.sign(
+			{ user_name: name, email, password: await bcrypt.hash(password, 10) },
+			process.env.JWT_SECRET,
+			{ expiresIn: '1h' }
+		);
+		var mailOptions = {
+			from: process.env.EMAIL_ID,
+			to: req.body.email,
+			subject: 'Register your account here',
+			html: `<a href="http://localhost:8080/auth/register/verify/${accessToken}" >Click here to verify your account</a>`
+		};
+		transporter.sendMail(mailOptions, function (error, info) {
+			if (error) {
+				console.log(error);
+				res.json('Some error occurred');
+			} else {
+				req.flash('success_msg', 'Check your email to register your account');
+				res.redirect('/auth/register');
+			}
+		});
+	}
 });
 
 router.get('/register/verify/:token', async (req, res) => {
@@ -144,11 +119,10 @@ router.get('/register/verify/:token', async (req, res) => {
 		}
 	});
 });
-// login
 
+// login
 router.get('/login', (req, res) => {
 	res.render('auth/login', { error_msg: req.flash('error_msg') });
-	// res.json({"data": "data"});
 });
 
 router.post('/login', async (req, res) => {
@@ -171,7 +145,7 @@ router.post('/login', async (req, res) => {
 					if (await bcrypt.compare(password, results[0].password)) {
 						const token = jwt.sign(
 							{
-								// user_name: results[0].name,
+								user_name: results[0].name,
 								email: results[0].email,
 								id: results[0].id,
 							},
@@ -190,8 +164,7 @@ router.post('/login', async (req, res) => {
 
 						res.cookie('jwt', token, cookieOptions);
 						res.status(200).redirect('/');
-					}
-					else {
+					} else {
 						return res.status(400).render('auth/login', {
 							error_msg: 'Invalid credentials'
 						});
@@ -214,7 +187,6 @@ router.get('/logout', (req, res) => {
 });
 
 // forgot password
-
 router.get('/forgotpassword', (req, res) => {
 	res.render('auth/forgotpassword');
 });
@@ -276,7 +248,6 @@ router.post('/forgotpassword', async (req, res) => {
 });
 
 // reset password
-
 router.get('/resetpassword/:token', async (req, res) => {
 	try {
 		const { token } = req.params;
@@ -297,19 +268,16 @@ router.post('/resetpassword/:token', async (req, res) => {
 		const { token } = req.params;
 		const { email, password, confirm_password } = req.body;
 		// const { email } = jwt.verify(token, process.env.JWT_SECRET);
-
 		if (!password || !confirm_password) {
 			return res.status(400).render('auth/resetpassword', {
 				error_msg: 'Please enter all fields'
 			});
 		}
-
 		if (password != confirm_password) {
 			return res.status(400).render('auth/resetpassword', {
 				error_msg: 'Passwords do not match'
 			});
 		}
-
 		let hashedPassword = await bcrypt.hash(password, 10);
 		db.query(
 			'UPDATE users SET password=? WHERE email=?',
