@@ -13,8 +13,6 @@ router.get('/register', (req, res) => {
     res.render('auth/register');
 });
 
-
-
 router.post('/register', async (req, res) => {
     const { name, email, password, confirm_password } = req.body;
     const namenew = name.charAt(0).toUpperCase() + name.toLowerCase().slice(1);
@@ -146,7 +144,7 @@ router.post('/login', async (req, res) => {
                     if (await bcrypt.compare(password, results[0].password)) {
                         const token = jwt.sign(
                             {
-                                // user_name: results[0].name,
+                                user_name: results[0].name,
                                 email: results[0].email,
                                 id: results[0].id,
                             },
