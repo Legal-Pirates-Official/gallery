@@ -119,8 +119,8 @@ router.get('/register/verify/:token', async (req, res) => {
 		}
 	});
 });
-// login
 
+// login
 router.get('/login', (req, res) => {
 	res.render('auth/login', { error_msg: req.flash('error_msg') });
 	// res.json({"data": "data"});
@@ -162,7 +162,6 @@ router.post('/login', async (req, res) => {
 							),
 							httpOnly: true
 						};
-
 						res.cookie('jwt', token, cookieOptions);
 						res.status(200).redirect('/');
 					}
@@ -189,7 +188,6 @@ router.get('/logout', (req, res) => {
 });
 
 // forgot password
-
 router.get('/forgotpassword', (req, res) => {
 	res.render('auth/forgotpassword');
 });
@@ -251,7 +249,6 @@ router.post('/forgotpassword', async (req, res) => {
 });
 
 // reset password
-
 router.get('/resetpassword/:token', async (req, res) => {
 	try {
 		const { token } = req.params;
@@ -272,19 +269,16 @@ router.post('/resetpassword/:token', async (req, res) => {
 		const { token } = req.params;
 		const { email, password, confirm_password } = req.body;
 		// const { email } = jwt.verify(token, process.env.JWT_SECRET);
-
 		if (!password || !confirm_password) {
 			return res.status(400).render('auth/resetpassword', {
 				error_msg: 'Please enter all fields'
 			});
 		}
-
 		if (password != confirm_password) {
 			return res.status(400).render('auth/resetpassword', {
 				error_msg: 'Passwords do not match'
 			});
 		}
-
 		let hashedPassword = await bcrypt.hash(password, 10);
 		db.query(
 			'UPDATE users SET password=? WHERE email=?',
