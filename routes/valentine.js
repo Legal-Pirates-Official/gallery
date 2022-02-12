@@ -228,5 +228,46 @@ router.get('/templates/template1', (req, res) => {
 		}
 	);
 });
+router.get('/templates/template2', (req, res) => {
+	const mode = req.params.mode;
+	const jwtconst = jwt.verify(
+		req.cookies.jwt,
+		process.env.JWT_SECRET,
+		(err, decoded) => {
+			db.query(
+				`SELECT * FROM users where id = ${decoded.id}`,
+				(err, result1) => {
+					if (err) {
+						console.log(err);
+						res.redirect('/auth/login');
+					} else {
+						const ques = [];
+						db.query(
+							`SELECT ${result1[0].mode} from questions`,
+							(err, result) => {
+								if (err) {
+									console.log(err);
+								} else {
+									result.forEach((element) => {
+										ques.push(element[mode]);
+									});
+									console.log(ques);
+								}
+							}
+						);
+						const json = JSON.parse(result1[0].valentine);
+						res.render('./valentine/templates/template2', {
+							text: ques,
+							image: json
+						});
+					}
+				}
+			);
+		}
+	);
+});
+
+
+
 
 module.exports = router;
