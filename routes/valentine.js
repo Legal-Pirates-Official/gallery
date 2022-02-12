@@ -26,15 +26,15 @@ router.get('/maintemplate', (req, res) => {
 						if (result[0] && result[0].valentine) {
 							res.send('not allowed');
 						} else {
-              console.log(result[0].mode,'moders');
-              const ques = [];
-              db.query(`SELECT ${result[0].mode} from questions`, (err, result2) => {
-                result2.forEach((element) => {
-                  ques.push(element[result[0].mode]);
-                });
-                console.log(ques,'s');
-                res.render('./valentine/maintemplate',{text:ques});
-              });
+							console.log(result[0].mode, 'moders');
+							const ques = [];
+							db.query(`SELECT ${result[0].mode} from questions`, (err, result2) => {
+								result2.forEach((element) => {
+									ques.push(element[result[0].mode]);
+								});
+								console.log(ques, 's');
+								res.render('./valentine/maintemplate', { text: ques });
+							});
 						}
 					}
 				}
@@ -58,7 +58,7 @@ router.post(
 		{ name: 'image9' }
 	]),
 	(req, res) => {
-    console.log(req.files);
+		console.log(req.files);
 		const images = [];
 		for (const key in req.files) {
 			images.push(req.files[key][0].path);
@@ -86,43 +86,43 @@ router.post(
 );
 
 router.post(
-  "/maintemplate/update",
-  upload.fields([
-    { name: "image1" },
-    { name: "image2" },
-    { name: "image3" },
-    { name: "image4" },
-    async (req, res) => {
-      const oldImageName = req.body.oldImageURL
-        .split("gallery/")[1]
-        .slice(0, -4);
-      await cloudinary.uploader.destroy(`gallery/${oldImageName}`);
-      await db.query(
-        "UPDATE maintemplate SET answer1=?, answer2=?, answer3=?, answer4=?, image1=?, image2=?, image3=?, image4=? WHERE id = ?",
-        [
-          req.body.answer1,
-          req.body.answer2,
-          req.body.answer3,
-          req.body.answer4,
-          req.files["image1"][0].path,
-          req.files["image2"][0].path,
-          req.files["image3"][0].path,
-          req.files["image4"][0].path,
-          req.body.id,
-        ],
-        (err, response) => {
-          if (err) {
-            req.flash("error", "Error occurred while Updating");
-            console.log(err);
-            res.redirect("/en/valentine/maintemplate");
-            return;
-          }
-        }
-      );
-      req.flash("success", "Images successfully updated");
-      res.redirect("/en/valentine/maintemplate");
-    },
-  ])
+	"/maintemplate/update",
+	upload.fields([
+		{ name: "image1" },
+		{ name: "image2" },
+		{ name: "image3" },
+		{ name: "image4" },
+		async (req, res) => {
+			const oldImageName = req.body.oldImageURL
+				.split("gallery/")[1]
+				.slice(0, -4);
+			await cloudinary.uploader.destroy(`gallery/${oldImageName}`);
+			await db.query(
+				"UPDATE maintemplate SET answer1=?, answer2=?, answer3=?, answer4=?, image1=?, image2=?, image3=?, image4=? WHERE id = ?",
+				[
+					req.body.answer1,
+					req.body.answer2,
+					req.body.answer3,
+					req.body.answer4,
+					req.files["image1"][0].path,
+					req.files["image2"][0].path,
+					req.files["image3"][0].path,
+					req.files["image4"][0].path,
+					req.body.id,
+				],
+				(err, response) => {
+					if (err) {
+						req.flash("error", "Error occurred while Updating");
+						console.log(err);
+						res.redirect("/en/valentine/maintemplate");
+						return;
+					}
+				}
+			);
+			req.flash("success", "Images successfully updated");
+			res.redirect("/en/valentine/maintemplate");
+		},
+	])
 );
 
 router.get('/category', (req, res) => {
@@ -137,9 +137,9 @@ router.get('/category', (req, res) => {
 						console.log(err);
 						res.redirect('/auth/login');
 					} else {
-						
-							res.render('./valentine/category');
-						
+
+						res.render('./valentine/category');
+
 					}
 				}
 			);
@@ -162,7 +162,7 @@ router.get('/category/:mode', (req, res) => {
 						console.log(err);
 						res.redirect('/auth/login');
 					} else {
-					  return 	res.redirect('/en/valentine/maintemplate');
+						return res.redirect('/en/valentine/maintemplate');
 					}
 				}
 			);
@@ -191,45 +191,45 @@ router.get('/templates', (req, res) => {
 });
 
 router.get("/templates/template1", (req, res) => {
-  const mode = req.params.mode;
-  const jwtconst = jwt.verify(
-    req.cookies.jwt,
-    process.env.JWT_SECRET,
-    (err, decoded) => {
-      db.query(
-        `SELECT * FROM users where id = ${decoded.id}`,
-        (err, result1) => {
-          if (err) {
-            console.log(err);
-            res.redirect("/auth/login");
-          } else {
-            const ques = [];
-            db.query(
-              `SELECT ${result1[0].mode} from questions`,
-              (err, result) => {
-                if (err) {
-                  console.log(err);
-                } else {
-                  result.forEach((element) => {
-                    ques.push(element[mode]);
-                  });
-                  console.log(ques);
-                }
-              }
-            );
-            const json = JSON.parse(result1[0].valentine);
-            res.render("./valentine/templates/template1", {
-              text: ques,
-              image: json,
-            });
-          }
-        }
-      );
-    }
-  );
+	const mode = req.params.mode;
+	const jwtconst = jwt.verify(
+		req.cookies.jwt,
+		process.env.JWT_SECRET,
+		(err, decoded) => {
+			db.query(
+				`SELECT * FROM users where id = ${decoded.id}`,
+				(err, result1) => {
+					if (err) {
+						console.log(err);
+						res.redirect("/auth/login");
+					} else {
+						const ques = [];
+						db.query(
+							`SELECT ${result1[0].mode} from questions`,
+							(err, result) => {
+								if (err) {
+									console.log(err);
+								} else {
+									result.forEach((element) => {
+										ques.push(element[mode]);
+									});
+									console.log(ques);
+								}
+							}
+						);
+						const json = JSON.parse(result1[0].valentine);
+						res.render("./valentine/templates/template1", {
+							text: ques,
+							image: json,
+						});
+					}
+				}
+			);
+		}
+	);
 });
 router.get("/templates/template3", (req, res) => {
-  res.render("./valentine/templates/template3");
+	res.render("./valentine/templates/template3");
 });
 router.get('/templates/template2', (req, res) => {
 	const mode = req.params.mode;

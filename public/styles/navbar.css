@@ -321,3 +321,20 @@ body::-webkit-scrollbar-thumb:hover {
     justify-content: center;
   }
 }
+
+
+
+.click-button
+{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  height: 5rem;
+  background: #fff;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+

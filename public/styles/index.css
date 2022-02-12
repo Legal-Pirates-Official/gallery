@@ -303,10 +303,7 @@
 /* Media Query */
 
 @media (max-width: 750px) {
-  /* .mainsec1img
-  {
-    width: auto;
-  } */
+  
 
   .sec1h1 {
     font-size: 4.3rem;

@@ -8,16 +8,13 @@ const router = express.Router();
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
 
-
 router.get('/', (req, res) => {
 	jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
 		res.render('index', { user_name: decoded ? decoded.user_name : null });
 	});
 });
 
-
 const { addGallery } = require('../functions/index');
-
 
 const upload = multer({ storage });
 
@@ -41,28 +38,28 @@ router.get('/admintemplate', (req, res) => {
 	}
 });
 
-router.get('/:username', (req, res) => {
-	const username = req.params.username;
+// router.get('/:username', (req, res) => {
+// 	const username = req.params.username;
 
-	if (req.cookies.user_name && req.cookies.user_name.toLowerCase() == username.toLowerCase()) {
-		const id = req.cookies.user;
-		db.query(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
-			if (err) {
-				console.log(err);
-				res.redirect('/auth/login');
-			} else {
-				if (results[0].gallery && results[0].gallery.length > 0) {
-					const images = JSON.parse(results[0].gallery);
-					res.render('dummy', { arr: images });
-				} else {
-					res.redirect('/admintemplate');
-				}
-			}
-		});
-	} else {
-		res.redirect('/auth/login');
-	}
-});
+// 	if (req.cookies.user_name && req.cookies.user_name.toLowerCase() == username.toLowerCase()) {
+// 		const id = req.cookies.user;
+// 		db.query(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
+// 			if (err) {
+// 				console.log(err);
+// 				res.redirect('/auth/login');
+// 			} else {
+// 				if (results[0].gallery && results[0].gallery.length > 0) {
+// 					const images = JSON.parse(results[0].gallery);
+// 					res.render('dummy', { arr: images });
+// 				} else {
+// 					res.redirect('/admintemplate');
+// 				}
+// 			}
+// 		});
+// 	} else {
+// 		res.redirect('/auth/login');
+// 	}
+// });
 
 router.post(
 	'/submit',
@@ -83,27 +80,27 @@ router.post(
 	addGallery
 );
 
-router.get('/:username', (req, res) => {
-	const username = req.params.username;
+// router.get('/:username', (req, res) => {
+// 	const username = req.params.username;
 
-	if (req.cookies.user_name.toLowerCase() == username.toLowerCase()) {
-		const id = req.cookies.user;
-		db.query(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
-			if (err) {
-				console.log(err);
-				res.redirect('/auth/login');
-			} else {
-				if (results[0].gallery && results[0].gallery.length > 0) {
-					const images = JSON.parse(results[0].gallery);
-					res.render('dummy', { arr: images });
-				} else {
-					res.redirect('/admintemplate');
-				}
-			}
-		});
-	} else {
-		res.redirect('/auth/login');
-	}
-});
+// 	if (req.cookies.user_name.toLowerCase() == username.toLowerCase()) {
+// 		const id = req.cookies.user;
+// 		db.query(`SELECT * FROM users WHERE id = ${id}`, (err, results) => {
+// 			if (err) {
+// 				console.log(err);
+// 				res.redirect('/auth/login');
+// 			} else {
+// 				if (results[0].gallery && results[0].gallery.length > 0) {
+// 					const images = JSON.parse(results[0].gallery);
+// 					res.render('dummy', { arr: images });
+// 				} else {
+// 					res.redirect('/admintemplate');
+// 				}
+// 			}
+// 		});
+// 	} else {
+// 		res.redirect('/auth/login');
+// 	}
+// });
 
 module.exports = router;
