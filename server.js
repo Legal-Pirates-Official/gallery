@@ -53,12 +53,12 @@ app.use((req, res, next) => {
 	next();
 })
 
-app.use("/", router)
 app.use("/en/templates", templates)
 app.use("/en/valentine", valentine)
 app.use("/en/", contact)
 app.use("/en/watermark", watermark)
 app.use("/auth", auth)
+app.use("/", router)
 
 app.use("*", (req, res) => {
 	res.status(404).render('404')
