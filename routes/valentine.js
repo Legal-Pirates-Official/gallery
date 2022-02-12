@@ -225,6 +225,7 @@ router.get("/templates/template1", (req, res) => {
             res.render("./valentine/templates/template1", {
               text: ques,
               image: json,
+			  type:"preview"
             });
           }
         }
@@ -266,6 +267,7 @@ router.get("/templates/template2", (req, res) => {
             res.render("./valentine/templates/template2", {
               text: ques,
               image: json,
+			  type:"preview"
             });
           }
         }
