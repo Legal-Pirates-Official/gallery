@@ -47,10 +47,10 @@ app.use(
 
 app.use(flash());
 app.use((req, res, next) => {
-    res.locals.user = req.user;
-    res.locals.success_msg = req.flash('success_msg');
-    res.locals.error_msg = req.flash('error_msg');
-    next();
+	res.locals.user = req.user;
+	res.locals.success_msg = req.flash('success_msg');
+	res.locals.error_msg = req.flash('error_msg');
+	next();
 })
 
 app.use("/", router)
@@ -60,6 +60,10 @@ app.use("/en/", contact)
 app.use("/en/watermark", watermark)
 app.use("/auth", auth)
 
-app.listen(process.env.port, () => {
-	console.log(`Server is running in ${process.env.port}`);
+app.use("*", (req, res) => {
+	res.status(404).render('404')
+})
+
+app.listen(process.env.PORT, () => {
+	console.log(`Server is running in ${process.env.PORT}`);
 });
