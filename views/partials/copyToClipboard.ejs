@@ -18,7 +18,7 @@
 	"
 >
 	<p>Click to share your Gallery</p>
-	<input type="text" style="opacity: 0; height: 0" disabled readonly />
+	<input type="text" style="opacity: 0; height: 0"  />
 </div>
 
 <script>
@@ -30,5 +30,8 @@
 		textArea.select();
 		document.execCommand('copy');
 		buttonCopy.querySelector('p').innerHTML = 'Copied to clipboard';
+		setTimeout(function () {
+			buttonCopy.querySelector('p').innerHTML = 'Click to share your Gallery';
+		}, 5000);
 	});
 </script>
