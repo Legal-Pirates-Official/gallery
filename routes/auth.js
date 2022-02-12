@@ -55,7 +55,7 @@ router.post('/register', async (req, res) => {
 			{ expiresIn: '1h' }
 		);
 		var mailOptions = {
-			from: 'legalpiratesofficial@gmail.com',
+			from: process.env.EMAIL_ID,
 			to: req.body.email,
 			subject: 'Register your account here',
 			html: `<a href="http://localhost:8080/auth/register/verify/${accessToken}" >Click here to verify your account</a>`
