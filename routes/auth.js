@@ -93,10 +93,6 @@ router.get('/register/verify/:token', async (req, res) => {
 						req.flash('error_msg', 'Some error occured');
 						return res.redirect('/auth/register');
 					} else {
-						console.log(
-							'🚀 ~ file: auth.js ~ line 89 ~ jwt.verify ~ results',
-							results
-						);
 						const token = jwt.sign(
 							{
 								user_name: decoded.user_name,
@@ -117,7 +113,7 @@ router.get('/register/verify/:token', async (req, res) => {
 						};
 						res.cookie('jwt', token, cookieOptions);
 						req.flash('success_msg', 'Account verified successfully');
-						return res.redirect(`/user/${results.name}`);
+						return res.redirect(`/user/${decoded.user_name}`);
 					}
 				}
 			);

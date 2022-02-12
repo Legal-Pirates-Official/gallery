@@ -50,6 +50,10 @@ router.get('/user/:username', (req, res) => {
 					if (err) {
 						console.log(err);
 					} else {
+						console.log(
+							'🚀 ~ file: home.js ~ line 54 ~ router.get ~ result3',
+							result3[0]
+						);
 						if (!result3[0].date) {
 							if (!(result3[0].date < new Date().getDate())) {
 								db.query(
