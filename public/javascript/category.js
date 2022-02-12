@@ -6,7 +6,7 @@ btn.forEach((b) =>
     const value = this;
     const mode = value.getAttribute("data-name");
     console.log(mode);
-    const fetch1 = await fetch(`http://localhost:8080/en/valentine/category/${mode}`,{
+    const fetch1 = await fetch(`/en/valentine/category/${mode}`,{
 
         method: "GET",
         redirect: 'follow',
