@@ -65,24 +65,21 @@ router.get('/user/:username', (req, res) => {
 											console.log(err);
 										} else {
 											req.flash('Template has been expired');
-											return res.redirect('/en/valentine/templates');
+											return res.redirect('/en/valentine/category');
 										}
 									}
 								);
 							}
 						} else {
 							req.flash('Choose your template');
-							return res.redirect('/en/valentine/templates');
+							return res.redirect('/en/valentine/category');
 						}
 
-						// console.log();
 						db.query(
 							`SELECT ${result3[0].mode} from questions`,
 							(err, result2) => {
 								if (err) {
-									console.log('====================================');
 									console.log(err);
-									console.log('====================================');
 								} else {
 									const ques = [];
 									result2.forEach((element) => {
@@ -90,7 +87,7 @@ router.get('/user/:username', (req, res) => {
 									});
 									const page = result3[0].currentTemplate;
 									if (!page) {
-										return res.redirect('/en/valentine/templates');
+										return res.redirect('/en/valentine/category');
 									}
 									const json = JSON.parse(result3[0].valentine);
 									res.render(`./valentine/templates/${page}`, {

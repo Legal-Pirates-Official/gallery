@@ -26,7 +26,6 @@ router.get('/maintemplate', (req, res) => {
 						if (result[0] && result[0].valentine) {
 							res.send('not allowed');
 						} else {
-							console.log(result[0].mode, 'moders');
 							const ques = [];
 							db.query(
 								`SELECT ${result[0].mode} from questions`,
@@ -34,7 +33,6 @@ router.get('/maintemplate', (req, res) => {
 									result2.forEach((element) => {
 										ques.push(element[result[0].mode]);
 									});
-									console.log(ques, 's');
 									res.render('./valentine/maintemplate', { text: ques });
 								}
 							);
@@ -61,7 +59,6 @@ router.post(
 		{ name: 'image9' }
 	]),
 	(req, res) => {
-		console.log(req.files);
 		const images = [];
 		for (const key in req.files) {
 			images.push(req.files[key][0].path);
@@ -212,7 +209,6 @@ router.get('/templates/template1', (req, res) => {
 							res.redirect('/auth/login');
 						} else {
 							if (result1[0].currentTemplate) {
-								console.log(result1[0].currentTemplate, 'template');
 								return res.redirect(`/user/${result1[0].name}`);
 							}
 							const ques = [];
@@ -225,7 +221,6 @@ router.get('/templates/template1', (req, res) => {
 										result.forEach((element) => {
 											ques.push(element[mode]);
 										});
-										console.log(ques);
 									}
 								}
 							);
@@ -265,7 +260,6 @@ router.get('/templates/template2', (req, res) => {
 							res.redirect('/auth/login');
 						} else {
 							if (result1[0].currentTemplate) {
-								console.log(result1[0].currentTemplate, 'template');
 								return res.redirect(`/user/${result1[0].name}`);
 							}
 							const ques = [];
@@ -278,7 +272,6 @@ router.get('/templates/template2', (req, res) => {
 										result.forEach((element) => {
 											ques.push(element[mode]);
 										});
-										console.log(ques);
 									}
 								}
 							);
@@ -313,9 +306,6 @@ router.post('/templatemode/:currentTemplate', (req, res) => {
 						console.log(err);
 						res.redirect('/auth/login');
 					} else {
-						console.log('====================================');
-						console.log(result);
-						console.log('====================================');
 						db.query(
 							'SELECT * from users where id = ?',
 							[decoded.id],
@@ -323,7 +313,6 @@ router.post('/templatemode/:currentTemplate', (req, res) => {
 								if (err) {
 									console.log(err);
 								} else {
-									console.log(result);
 									res.json(result);
 									const name = result[0].name.toLowerCase();
 									// res.redirect(`http://localhost:8080/${name}`);
