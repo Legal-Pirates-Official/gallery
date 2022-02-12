@@ -1,4 +1,4 @@
-gsap.registerPlugin(ScrollTrigger);
+
 const navbar = document.querySelector(".navbar");
 const navbarright = document.querySelector(".navright");
 
@@ -16,11 +16,3 @@ document.querySelector(".closebtn").addEventListener("click", function () {
 });
 
 
-gsap.to(".navbar", {
-  scrollTrigger: {
-    trigger: ".li",
-    start: "top bottom",
-    markers: true,
-  },
-  background
-});
