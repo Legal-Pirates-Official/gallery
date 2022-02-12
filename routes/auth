@@ -145,7 +145,7 @@ router.post('/login', async (req, res) => {
 					if (await bcrypt.compare(password, results[0].password)) {
 						const token = jwt.sign(
 							{
-								user_name: results[0].name,
+								// user_name: results[0].name,
 								email: results[0].email,
 								id: results[0].id,
 							},
@@ -161,10 +161,10 @@ router.post('/login', async (req, res) => {
 							),
 							httpOnly: true
 						};
-
 						res.cookie('jwt', token, cookieOptions);
 						res.status(200).redirect('/');
-					} else {
+					}
+					else {
 						return res.status(400).render('auth/login', {
 							error_msg: 'Invalid credentials'
 						});
