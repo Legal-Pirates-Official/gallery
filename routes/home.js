@@ -87,7 +87,7 @@ router.get('/user/:username', (req, res) => {
 									});
 									const page = result3[0].currentTemplate;
 									if (!page) {
-										return res.redirect('/en/valentine/templates');
+										return res.redirect('/en/valentine/category');
 									}
 									const json = JSON.parse(result3[0].valentine);
 									res.render(`./valentine/templates/${page}`, {
