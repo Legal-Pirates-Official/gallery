@@ -23,7 +23,7 @@
 	<section>
 		<div class="cupid">
 			<div class="cupid-image">
-				<!-- <img src="/images/cupid.png" alt=""> -->
+				<!-- <img draggable="false"  src="/images/cupid.png" alt=""> -->
 			</div>
 		</div>
 		<div class="form-main-div">
@@ -46,7 +46,7 @@
 									<span>Upload file</span>
 								</label>
 							</div>
-							<img src="#" id="imagesrc2 imagesrc" alt="" />
+							<img draggable="false"  src="#" id="imagesrc2 imagesrc" alt="" />
 						</div>
 					</div>
 					<div class="main-divs" data-type="1">
@@ -66,7 +66,7 @@
 									<span>Upload file</span>
 								</label>
 							</div>
-							<img src="#" id="imagesrc2 imagesrc" alt="" />
+							<img draggable="false"  src="#" id="imagesrc2 imagesrc" alt="" />
 						</div>
 					</div>
 					<div class="main-divs" data-type="2">
@@ -86,7 +86,7 @@
 									<span>Upload file</span>
 								</label>
 							</div>
-							<img src="#" id="imagesrc2 imagesrc" alt="" />
+							<img draggable="false"  src="#" id="imagesrc2 imagesrc" alt="" />
 						</div>
 					</div>
 					<div class="main-divs" data-type="3">
@@ -106,7 +106,7 @@
 									<span>Upload file</span>
 								</label>
 							</div>
-							<img src="#" id="imagesrc2 imagesrc" alt="" />
+							<img draggable="false"  src="#" id="imagesrc2 imagesrc" alt="" />
 						</div>
 					</div>
 					<div class="main-divs" data-type="4">
@@ -126,7 +126,7 @@
 									<span>Upload file</span>
 								</label>
 							</div>
-							<img src="#" id="imagesrc2 imagesrc" alt="" />
+							<img draggable="false"  src="#" id="imagesrc2 imagesrc" alt="" />
 						</div>
 					</div>
 					<div class="main-divs" data-type="5">
@@ -146,7 +146,7 @@
 									<span>Upload file</span>
 								</label>
 							</div>
-							<img src="#" id="imagesrc2 imagesrc" alt="" />
+							<img draggable="false"  src="#" id="imagesrc2 imagesrc" alt="" />
 						</div>
 					</div>
 					<div class="main-divs" data-type="6">
@@ -166,7 +166,7 @@
 									<span>Upload file</span>
 								</label>
 							</div>
-							<img src="#" id="imagesrc2 imagesrc" alt="" />
+							<img draggable="false"  src="#" id="imagesrc2 imagesrc" alt="" />
 						</div>
 					</div>
 					<div class="main-divs" data-type="7">
@@ -186,7 +186,7 @@
 									<span>Upload file</span>
 								</label>
 							</div>
-							<img src="#" id="imagesrc2 imagesrc" alt="" />
+							<img draggable="false"  src="#" id="imagesrc2 imagesrc" alt="" />
 						</div>
 					</div>
 					<div class="main-divs" data-type="8">
@@ -206,7 +206,7 @@
 									<span>Upload file</span>
 								</label>
 							</div>
-							<img src="#" id="imagesrc2 imagesrc" alt="" />
+							<img draggable="false"  src="#" id="imagesrc2 imagesrc" alt="" />
 						</div>
 					</div>
 					<div class="main-divs" data-type="9">
@@ -226,7 +226,7 @@
 									<span>Upload file</span>
 								</label>
 							</div>
-							<img src="#" id="imagesrc2 imagesrc" alt="" />
+							<img draggable="false"  src="#" id="imagesrc2 imagesrc" alt="" />
 						</div>
 					</div>
 				</div>
