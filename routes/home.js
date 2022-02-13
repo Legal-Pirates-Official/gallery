@@ -50,33 +50,6 @@ router.get('/user/:username', (req, res) => {
 					if (err) {
 						console.log(err);
 					} else {
-<<<<<<< HEAD
-						console.log(
-							'🚀 ~ file: home.js ~ line 54 ~ router.get ~ result3',
-							result3[0]
-						);
-						if (!result3[0].date) {
-							if (!(result3[0].date < new Date().getDate())) {
-								db.query(
-									'UPDATE users where name = ? SET ?',
-									[req.params.username],
-									{ currentTemplate: null, date: null, valentine: null },
-									(err, resultupdate) => {
-										if (err) {
-											console.log(err);
-										} else {
-											req.flash('Template has been expired');
-											return res.redirect('/en/valentine/category');
-										}
-									}
-								);
-							}
-						} else {
-							req.flash('Choose your template');
-							return res.redirect('/en/valentine/category');
-						}
-
-=======
 						// if(result3[0].date && result3[0].currentTemplate){
 						// 	console.log('====================================');
 						// 	console.log(!(result3[0].date < new Date().getDate()));
@@ -102,7 +75,6 @@ router.get('/user/:username', (req, res) => {
 						// }}
 						// else {return res.redirect('/en/valentine/templates')}
 						// console.log();
->>>>>>> c7bc265a54a4d6beae9019b181b0732426dcd7cf
 						db.query(
 							`SELECT ${result3[0].mode} from questions`,
 							(err, result2) => {
