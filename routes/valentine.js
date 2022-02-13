@@ -316,7 +316,11 @@ router.post('/templatemode/:currentTemplate', (req, res) => {
 								} else {
 									// res.json(result);
 									const name = result[0].name.toLowerCase();
+<<<<<<< HEAD
 									res.redirect(`${process.env.DOMAIN}/user/${name}`);
+=======
+									// res.redirect(`${process.env.DOMAIN}/${name}`);
+>>>>>>> c7bc265a54a4d6beae9019b181b0732426dcd7cf
 								}
 							}
 						);

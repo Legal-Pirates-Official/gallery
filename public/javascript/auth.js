@@ -17,3 +17,11 @@ nameinput.addEventListener('input', (e) => {
 })
 
 
+var field = document.querySelector('[name="name"]');
+
+field.addEventListener('keypress', function (event) {
+    var key = event.keyCode;
+    if (key === 32) {
+        event.preventDefault();
+    }
+});

@@ -1,49 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Gallery</title>
+		<link rel="stylesheet" href="/styles/navbar.css" />
+		<link rel="stylesheet" href="/styles/index.css" />
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/swiper/swiper-bundle.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/assets/owl.carousel.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/assets/owl.theme.default.css"
+		/>
+	</head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Gallery</title>
-	<link rel="stylesheet" href="/styles/navbar.css" />
-	<link rel="stylesheet" href="/styles/index.css" />
-	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/assets/owl.carousel.min.css" />
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/assets/owl.theme.default.css" />
-</head>
-
-<body>
-	<!-- load screen-->
-	<div class="loadmain">
-		<div class="load">
-			<span class="close"><img draggable="false"
-					src="https://img.icons8.com/windows/46/000000/xbox-x.png" /></span>
+	<body>
+		<!-- load screen-->
+		<div class="loadmain">
+			<div class="load">
+				<span class="close"
+					><img
+						draggable="false"
+						src="https://img.icons8.com/windows/46/000000/xbox-x.png"
+				/></span>
+			</div>
 		</div>
-	</div>
 
-	<!-- navbar -->
-	<%- include("./partials/navbar.ejs") %>
+		<!-- navbar -->
+		<%- include("./partials/navbar.ejs") %>
 
 		<!-- section-1 -->
 		<section class="section-1">
 			<h1 class="sec1h1">GALLERY</h1>
 			<div class="sec1left">
-				<img draggable="false" class="section1vector1" src="./images/Vector 1.png" alt="vector-1" />
+				<img
+					draggable="false"
+					class="section1vector1"
+					src="./images/Vector 1.png"
+					alt="vector-1"
+				/>
 			</div>
 			<div class="sec1right">
 				<div class="mainimgsec1">
-					<img draggable="false" class="mainsec1img" src="./images/image-1.png" alt="" />
+					<img
+						draggable="false"
+						class="mainsec1img"
+						src="./images/image-1.png"
+						alt=""
+					/>
 				</div>
 				<svg fill="none" xmlns="http://www.w3.org/2000/svg" class="sec1svg-1">
 					<path
 						d="M48.3501 421.812C-60.4376 286.388 48.3501 0 48.3501 0H570V421.812C570 421.812 157.138 557.235 48.3501 421.812Z"
-						fill="url(#paint0_linear_2_13)" />
+						fill="url(#paint0_linear_2_13)"
+					/>
 					<defs>
-						<linearGradient id="paint0_linear_2_13" x1="-101.5" y1="-186" x2="493.5" y2="499"
-							gradientUnits="userSpaceOnUse">
+						<linearGradient
+							id="paint0_linear_2_13"
+							x1="-101.5"
+							y1="-186"
+							x2="493.5"
+							y2="499"
+							gradientUnits="userSpaceOnUse"
+						>
 							<stop stop-color="#FFEAEF" />
 							<stop offset="1" stop-color="#FF003D" stop-opacity="0.23" />
 						</linearGradient>
@@ -57,8 +83,9 @@
 
 			<h1 class="head2">About</h1>
 			<p class="para">
-				With our beautiful Templates, you can showcase your memories in a beautiful and simple way. You can
-				upload, get the link, and share it with your friends and families so they can see how amazing your life
+				With our beautiful Templates, you can showcase your memories in a
+				beautiful and simple way. You can upload, get the link, and share it
+				with your friends and families so they can see how amazing your life
 				really is. We're a breath of fresh air.
 			</p>
 		</section>
@@ -66,15 +93,20 @@
 			<div class="div1">
 				<div class="content1">
 					<p class="para1">
-						This Valentine's Day is the ideal time to share and upload your memories with your special
-						ones.So, what are you waiting for?Enjoy the enchantment of love. <a class="Love"
-							href="/en/valentine/maintemplate">Get started!!!</a>
-
+						This Valentine's Day is the ideal time to share and upload your
+						memories with your special ones.So, what exactly are you waiting
+						for?Enjoy the enchantment of love.
+						<a class="Love" href="/en/valentine/maintemplate">Get started!!!</a>
 					</p>
 				</div>
 				<div class="photo1">
 					<div class="bg1">
-						<img draggable="false" class="img1" src="/images/redgirl.jpg" alt="" />
+						<img
+							draggable="false"
+							class="img1"
+							src="/images/redgirl.jpg"
+							alt=""
+						/>
 					</div>
 				</div>
 			</div>
@@ -114,10 +146,15 @@
 		<section class="sectionswiper">
 			<div class="swiper mySwiper">
 				<div class="swiper-wrapper">
-					<div class="swiper-slide"><img draggable="false" src="/images/Group5.png" alt=""></div>
-					<div class="swiper-slide"><img draggable="false" src="/images/Group8.png" alt=""></div>
-					<div class="swiper-slide"><img draggable="false" src="/images/Group9.png" alt=""></div>
-					<div class="swiper-slide"><img draggable="false" src="/images/Group10.png" alt=""></div>
+					<div class="swiper-slide">
+						<img draggable="false" src="/images/Olivia.png" alt="" />
+					</div>
+					<div class="swiper-slide">
+						<img draggable="false" src="/images/Olivia.png" alt="" />
+					</div>
+					<div class="swiper-slide">
+						<img draggable="false" src="/images/Olivia.png" alt="" />
+					</div>
 				</div>
 				<div class="swiper-button-next"></div>
 				<div class="swiper-button-prev"></div>
@@ -125,13 +162,11 @@
 			</div>
 		</section>
 		<%- include("./partials/footer.ejs") %>
-			<script src="../javascript/loading.js"></script>
-			<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-			<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-			<script
-				src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2//2.0.0-beta.2.4/owl.carousel.min.js"></script>
-			<script src="/javascript/index.js"></script>
-			<script src="/javascript/navbar.js"></script>
-</body>
-
+		<script src="../javascript/loading.js"></script>
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2//2.0.0-beta.2.4/owl.carousel.min.js"></script>
+		<script src="/javascript/index.js"></script>
+		<script src="/javascript/navbar.js"></script>
+	</body>
 </html>
