@@ -25,7 +25,7 @@ if (clickme) {
 	clickme.addEventListener("click", async (e) => {
 		console.log(window.location.href.split("/")[6]);
 		const currentTemplate = window.location.href.split("/")[6];
-		const fetch1 = await fetch(`/en/valentine/templatemode/${currentTemplate}`, {
+		const fetch1 = await fetch(`https://momemt2moment.herokuapp.com/en/valentine/templatemode/${currentTemplate}`, {
 
 			method: "POST",
 			redirect: 'follow',

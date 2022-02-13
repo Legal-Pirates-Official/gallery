@@ -314,7 +314,7 @@ router.post('/templatemode/:currentTemplate', (req, res) => {
 								if (err) {
 									console.log(err);
 								} else {
-									// res.json(result);
+									res.json(result);
 									const name = result[0].name.toLowerCase();
 									// res.redirect(`${process.env.DOMAIN}/${name}`);
 								}
