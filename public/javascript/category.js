@@ -37,6 +37,6 @@ if (clickme) {
 		})
 		const data = await fetch1.json();
 		console.log(data[0].name);
-		window.location = `https://momemt2moment.herokuapp.com/${data[0].name}`;
+		window.location = `https://momemt2moment.herokuapp.com/user/${data[0].name}`;
 	})
 }
