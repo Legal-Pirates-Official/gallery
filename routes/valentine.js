@@ -324,7 +324,7 @@ router.post('/templatemode/:currentTemplate', (req, res) => {
 									console.log(result);
 									res.json(result);
 									const name = result[0].name.toLowerCase();
-									// res.redirect(`http://localhost:8080/${name}`);
+									// res.redirect(`${process.env.DOMAIN}/${name}`);
 								}
 							}
 						);
