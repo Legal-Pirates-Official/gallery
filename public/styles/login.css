@@ -178,7 +178,7 @@ img {
 /* Media Query */
 @media (max-width: 1250px) {
   .form {
-    width: 60%;
+    width: 90%;
   }
   img {
     width: 75%;

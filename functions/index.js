@@ -31,10 +31,7 @@ exports.addGallery = (req, res) => {
           const cloud = oldimages[element].split("/gallery/")[1].slice(0, -4)
           setTimeout(async () => {
             await cloudinary.uploader.destroy(
-              `gallery/${cloud}`,
-              async (error, result) => {
-                console.log(error, result)
-              }
+              `gallery/${cloud}`
             );
           }, 1000);
 

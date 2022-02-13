@@ -53,12 +53,14 @@ router.post('/register', async (req, res) => {
 			process.env.JWT_SECRET,
 			{ expiresIn: '1h' }
 		);
+
 		var mailOptions = {
 			from: process.env.EMAIL_ID,
 			to: req.body.email,
 			subject: 'Register your account here',
 			html: `<a href="${process.env.DOMAIN}/auth/register/verify/${accessToken}" >Click here to verify your account</a>`
 		};
+
 		transporter.sendMail(mailOptions, function (error, info) {
 			if (error) {
 				console.log(error);
@@ -93,9 +95,9 @@ router.get('/register/verify/:token', async (req, res) => {
 					} else {
 						const token = jwt.sign(
 							{
-								user_name: results.name,
-								email: results.email,
-								id: results.id
+								user_name: decoded.user_name,
+								email: decoded.email,
+								id: results.insertId
 							},
 							process.env.JWT_SECRET,
 							{
@@ -111,7 +113,7 @@ router.get('/register/verify/:token', async (req, res) => {
 						};
 						res.cookie('jwt', token, cookieOptions);
 						req.flash('success_msg', 'Account verified successfully');
-						return res.redirect(`/user/${results.name}`);
+						return res.redirect(`/user/${decoded.user_name}`);
 					}
 				}
 			);

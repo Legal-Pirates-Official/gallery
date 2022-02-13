@@ -21,7 +21,6 @@ if (window.screen.width <= 1000) {
       prevEl: ".swiper-button-prev",
     },
   }); 
-  console.log("hello");
 }
 else{
   var swiper = new Swiper(".mySwiper", {
@@ -45,8 +44,3 @@ else{
     },
   });  
 }
-// else if (window.screen.width<=) {
-  
-// }
-
-console.log(window.screen.width);

@@ -10,7 +10,6 @@ const jwt = require('jsonwebtoken');
 
 router.get('/', (req, res) => {
 	jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decoded) => {
-		console.log(decoded);
 		res.render('index', { email: decoded ? decoded.email : null });
 	});
 });
@@ -80,9 +79,7 @@ router.get('/user/:username', (req, res) => {
 							`SELECT ${result3[0].mode} from questions`,
 							(err, result2) => {
 								if (err) {
-									console.log('====================================');
 									console.log(err);
-									console.log('====================================');
 								} else {
 									const ques = [];
 									result2.forEach((element) => {
@@ -90,7 +87,7 @@ router.get('/user/:username', (req, res) => {
 									});
 									const page = result3[0].currentTemplate;
 									if (!page) {
-										return res.redirect('/en/valentine/templates');
+										return res.redirect('/en/valentine/category');
 									}
 									const json = JSON.parse(result3[0].valentine);
 									res.render(`./valentine/templates/${page}`, {

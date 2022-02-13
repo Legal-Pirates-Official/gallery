@@ -18,13 +18,15 @@ const cupid = document.querySelector('.cupid');
 const maindivs = document.querySelectorAll('.main-divs');
 let index = 0;
 
-cupid.addEventListener('click', (e) => {
-    maindivs[index].classList.add('main-divs-active');
-    index++;
-    console.log(index);
-})
 
-$('#sm-ip-1').on('change', function (event) {
-    var name = event.target.files[0].name;
-    $('#file-name').text(name);
-})
+if (window.innerWidth > 768) {
+    cupid.addEventListener('click', (e) => {
+        maindivs[index].classList.add('main-divs-active');
+        index++;
+    })
+}
+else {
+    maindivs.forEach(maindiv => {
+        maindiv.classList.add('main-divs-active');
+    })
+}
